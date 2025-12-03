@@ -6,24 +6,19 @@ inin na mga folders tas php files kay placeholder pala, puydi pa ini mag bago de
 
 - assets/ - for the styles.css, javascripts, and images/logos 
 
-- auth/ - for authentication page
+- auth/ - for authentication and authorization page
 
 - config/ - Database connection class
 
 - documentation/ - the folder to place our documentations
 
-- includes/ - bagan mga header files in C/C++ term tas functions na puydi nat ig include include nala
-```php
-    <?php
-        include("path/to/includes/~")
-    >
-```
+- includes/ - bagan mga header files in C/C++ term tas functions na puydi nat ig include nala
 
 - index.php - Main homepage nat, either ig HTML nat or PHP
 
 - pages/ - para tat mga iba na page, puydi either HTML or PHP
 
-- prototypes/ - for the Front-end(HTML and CSS), didi ig butang it mga nahimo ha figma para ma test nat without PHP programming pa
+- prototypes/ - for the Front-end (HTML and CSS), didi ig butang it mga nahimo ha figma para ma test nat without PHP programming pa
 
 - sql-queries/ - for the SQL query, like ("CREATE TABLE ..., INSERT INTO...")
 
