@@ -1,0 +1,1 @@
+<!--- functions na puydi nat ma reuse
