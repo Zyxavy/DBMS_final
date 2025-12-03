@@ -1,5 +1,7 @@
 # Manzanas: The next Apple
 
+### IMPORTANT: Read announcements/Mga Notice for more details.
+
 ## Contributors:
  - Henry V Singzon
  - Nico Timothy Babaylan
