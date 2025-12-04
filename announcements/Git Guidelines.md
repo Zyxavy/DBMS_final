@@ -38,4 +38,4 @@
 7.  Then create a Pull Request on GitHub from feature/name into main. Pick reviewers, write description, link issue if any.
 
 
-## you can read more GIT commands [here](https://education.github.com/git-cheat-sheet-education.pdf)
+## you can read more GIT commands [here](https://education.github.com/git-cheat-sheet-education.pdf) or [an interactive one here](https://philomatics.com/git-cheatsheet-release)

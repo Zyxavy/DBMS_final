@@ -34,3 +34,8 @@ inin na mga folders tas php files kay placeholder pala, puydi pa ini mag bago de
     - John Raymark Binghoy
     - Michael Pacheco
     - Ryan Tablate (Or Documentation, depends on where man-power is more needed)
+
+
+## How to get started:
+
+1. 
