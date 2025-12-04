@@ -8,6 +8,8 @@ inin na mga folders tas php files kay placeholder pala, puydi pa ini mag bago de
 
 - auth/ - for authentication and authorization page
 
+- Classes/ - for classes
+
 - config/ - Database connection class
 
 - documentation/ - the folder to place our documentations
@@ -34,3 +36,14 @@ inin na mga folders tas php files kay placeholder pala, puydi pa ini mag bago de
     - John Raymark Binghoy
     - Michael Pacheco
     - Ryan Tablate (Or Documentation, depends on where man-power is more needed)
+
+
+## How to get started:
+
+1. Follow ["Git Guidelines"](https://github.com/hevprog/DBMS_final/blob/main/announcements/Git%20Guidelines.md) to clone the repository in Xamp/htdocs
+2. Open XAMPP and start Apache and MySQL
+3. Open localhost/phpmyadmin and go to [sql-queries/queries.md](sql-queries/queries.md) to create the database and tables
+4. create a new branch and start working from there.
+
+#### NOTE:
+- The database and table may be updated or changed in the future, if that does happen, make sure to delete your current database and follow step 3 again.
