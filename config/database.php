@@ -5,7 +5,7 @@ class Database
 {
     //since local pamanla
     private $host = "localhost";
-    private $dbName = "ecommerce_db";
+    private $dbName = "proto_ecommerce_db";
     private $dbUsername = "root";
     private $dbPassword = "";
 
