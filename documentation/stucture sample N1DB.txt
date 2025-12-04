@@ -1,0 +1,34 @@
+Placeholder Normalized 1 (para N1, but not the technically N1)
+
+----table:products-----
+id:22, name: Manzanas 16, category: Mobile phones, class: Premium, price: 80,000, ROM: 512, RAM: 12
+id:25, name: Manzanas 16, category: Mobile phones, class: Premium, price: 50,000, ROM: 256, RAM: 8
+id:16, name: Manzanas ideal, category: Mobile phones, class: A series, price: 15,999, ROM: 256, RAM: 8
+id:15, name: Manzanas 13, category: Mobile phones, class: A series, price: 8,999, ROM: 256, RAM: 6
+id:13, name: Manzanas 13, category: Mobile phones, class: A series, price: 7,999, ROM: 64, RAM: 4
+id:05, name: Manzanas E, category: Mobile phones, class: E series, price: 4,555, ROM: 64, RAM: 6
+id:04, name: Manzanas E2, category: Mobile phones, class: E series, price: 3,999, ROM: 64, RAM: 2
+
+id:50, name: Manzanas above, category: Laptop, class: day series, price: 30,000, ROM: 512, RAM: 8
+id:55, name: Manzanas above gaming, category: Laptop, class: Performance, price: 99,999, ROM: 512, RAM: 16
+id:56, name: Manzanas above work, category: Laptop, class: workstation, price: 50,000, ROM: 512, RAM: 8
+id:39, name: Manzanas power, category: System-unit, class: workstation, price: 75,000, ROM: 256, RAM: 16
+id:40, name: Manzanas power, category: System-unit, class: workstation, price: 79,999, ROM: 512, RAM: 16
+
+---table:orders---
+id:1, name: Dave, product: 22, contact: 0933-124-4563, purchase: acquired, address: Sesame street
+id:2, name: Dave, product: 04, contact: 0933-124-4563, purchase: acquired, address: Sesame street
+id:3, name: john ali, product: 50, contact: 0934-173-8485, purchase: acquired, address: brgy 91 maupay
+id:4, name: jose Protacio rizal, product: 55, contact: 0911-111-2222, purchase: reserved, address: Bagumbayan field Luneta
+id:5, name: Trixie torta, product: 13, contact: 0983-911-911, purchase: acquired, address: cebu-Pacific ocean
+
+---tables:users---
+id: 1, password: ^$21-33j, status: user, name: Dave, email: Daveiswell@email.com
+id: 2, password: hj_395dD, status: user, name: john, email: Isaprank33@email.com
+id: 3, password: 48`*jdwW, status: user, name: john ali, email: MalariaBad@email.com,
+id: 4, password: kKN3-_83, status: user, name: Trixie torta, email: hello2349A@email.com
+id: 5, password: Bspa4u*(, status: user, name: jose Protacio rizal, email: Rizzal@email.com
+id: 6, password: N73_-231, status: Admin, name: prag, email: Manzanas@email.com
+id: 7, password: 74*4^^3h, status: Admin, name: master, email: MazanasGlobal@email.com
+id: 8, password: 4jjH)&4_, status: user, name: Kyle bragy, email: brag38@email.com
+id: 9, password: ^4ggGsh#, status: user, name: Alexander, email: theGreat@email.com
