@@ -1,19 +1,19 @@
 Placeholder Normalized 1 (para N1, but not the technically N1)
 
 ----table:products-----
-id:22, name: Manzanas 16, category: Mobile phones, class: Premium, price: 80,000, specs: 512 ROM- 12 RAM
-id:25, name: Manzanas 16, category: Mobile phones, class: Premium, price: 50,000, specs: 256 ROM- 8 RAM
-id:16, name: Manzanas ideal, category: Mobile phones, class: A series, price: 15,999, specs: 256 ROM- 8 RAM
-id:15, name: Manzanas 13, category: Mobile phones, class: A series, price: 8,999, specs: 256 ROM- 6 RAM
-id:13, name: Manzanas 13, category: Mobile phones, class: A series, price: 7,999, specs: 64 ROM- 4 RAM
-id:05, name: Manzanas E, category: Mobile phones, class: E series, price: 4,555, specs: 64 ROM- 6 RAM
-id:04, name: Manzanas E2, category: Mobile phones, class: E series, price: 3,999, specs: 64 ROM- 2 RAM
+id:22, name: Manzanas 16, category: Mobile phones, class: Premium, price: 80,000, ROM: 512, RAM: 12
+id:25, name: Manzanas 16, category: Mobile phones, class: Premium, price: 50,000, ROM: 256, RAM: 8
+id:16, name: Manzanas ideal, category: Mobile phones, class: A series, price: 15,999, ROM: 256, RAM: 8
+id:15, name: Manzanas 13, category: Mobile phones, class: A series, price: 8,999, ROM: 256, RAM: 6
+id:13, name: Manzanas 13, category: Mobile phones, class: A series, price: 7,999, ROM: 64, RAM: 4
+id:05, name: Manzanas E, category: Mobile phones, class: E series, price: 4,555, ROM: 64, RAM: 6
+id:04, name: Manzanas E2, category: Mobile phones, class: E series, price: 3,999, ROM: 64, RAM: 2
 
-id:50, name: Manzanas above, category: Laptop, class: day series, price: 30,000, specs: 512 ROM- 8 RAM
-id:55, name: Manzanas above gaming, category: Laptop, class: Performance, price: 99,999, specs: 512 ROM- 16 RAM
-id:56, name: Manzanas above work, category: Laptop, class: workstation, price: 50,000, specs: 512 ROM- 8 RAM
-id:39, name: Manzanas power, category: System-unit, class: workstation, price: 75,000, specs: 256 ROM- 16 RAM
-id:40, name: Manzanas power, category: System-unit, class: workstation, price: 79,999, specs: 512 ROM- 16 RAM
+id:50, name: Manzanas above, category: Laptop, class: day series, price: 30,000, ROM: 512, RAM: 8
+id:55, name: Manzanas above gaming, category: Laptop, class: Performance, price: 99,999, ROM: 512, RAM: 16
+id:56, name: Manzanas above work, category: Laptop, class: workstation, price: 50,000, ROM: 512, RAM: 8
+id:39, name: Manzanas power, category: System-unit, class: workstation, price: 75,000, ROM: 256, RAM: 16
+id:40, name: Manzanas power, category: System-unit, class: workstation, price: 79,999, ROM: 512, RAM: 16
 
 ---table:orders---
 id:1, name: Dave, product: 22, contact: 0933-124-4563, purchase: acquired, address: Sesame street
