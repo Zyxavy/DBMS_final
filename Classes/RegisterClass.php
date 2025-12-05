@@ -30,7 +30,7 @@ class Register extends Database
             $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
             #create a query and then bind the values
-            $sql = "INSERT INTO users (password, name, email) VALUES(:password, :name, :email);";
+            $sql = "INSERT INTO users (password_hash, username, email) VALUES(:password, :name, :email);";
             $stmt = parent::connect()->prepare($sql);
 
             $stmt->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
