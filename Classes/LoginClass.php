@@ -43,9 +43,31 @@ class Login extends Database
         }
         catch(PDOException $e)
         {
+            echo "ERROR " . $e->getMessage();
             return null;
         }
         
+    }
+
+    public function getUserStatus()
+    {
+        try
+        {
+            $sql = "SELECT * FROM users WHERE username = :username";
+            $stmt = parent::connect()->prepare($sql);
+
+            $stmt->bindParam(':username', $this->userName);
+            $stmt->execute();
+            
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user;
+
+        }
+        catch(PDOException $e)
+        {
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
     }
 
 
