@@ -17,7 +17,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     INDEX idx_user_id (user_id),
     INDEX idx_email (email),
-    INDEX idx_username (username),
+    INDEX idx_username (username)
 );
 
 ```
