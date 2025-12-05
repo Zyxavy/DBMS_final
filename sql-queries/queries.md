@@ -35,8 +35,8 @@ CREATE TABLE products (
     name VARCHAR(255) NOT NULL,
     category_id INT NOT NULL,
     class_id INT NOT NULL,
-    price FLOAT NOT NULL CHECK (price >= 0),
-    stock INT NOT NULL CHECK DEFAULT 0 (stock >= 0),
+    price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
+    stock INT NOT NULL DEFAULT 0 CHECK (stock >= 0),
     ROM INT,
     RAM int,
 
