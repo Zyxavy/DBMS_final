@@ -1,8 +1,6 @@
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
-    //like #include <>
     require_once __DIR__ . "/../config/database.php";
     require_once __DIR__ . "/../Classes/RegisterClass.php";
     require_once __DIR__ . "/../includes/functions.php";
@@ -16,10 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     if($reg->registerUser())
     {
         redirectToPage("../pages/products.php");
+	exit();
     }
     else
     {
         redirectToPage('../index.php');
+	exit();
     }
 
 }

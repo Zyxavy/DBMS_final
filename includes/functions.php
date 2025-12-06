@@ -1,5 +1,3 @@
-<!--- functions na puydi nat ma reuse-->
-
 <?php
 
 function redirectToPage($page) 
@@ -10,4 +8,3 @@ function redirectToPage($page)
 }
 
 
-?>

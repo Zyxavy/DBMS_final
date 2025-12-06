@@ -18,10 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         if($login->getUserStatus()['status'] == "customer")
         {
             redirectToPage("../pages/products.php");
+	    exit();
         }
         else
         {
             redirectToPage("../pages/admin.php");
+	    exit();
         }
 
     }

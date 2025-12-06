@@ -1,6 +1,5 @@
 <?php
 
-
 class Register extends Database
 {
     private $userName;
@@ -18,11 +17,9 @@ class Register extends Database
 
     public function registerUser()
     {
-        #perform a check
         if($this->isEmptyFields())
         {
             header("Location: /index.php");
-            echo "EMPTY FIELDS";
             die();
         }
 
@@ -39,12 +36,11 @@ class Register extends Database
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->execute();
 
-            echo "executed SQL";
             return true;
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
+            error_log("ERROR " . $e->getMessage());
             return null;
         }
         
