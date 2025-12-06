@@ -9,7 +9,7 @@ class Database
     
     public function __construct()
     {
-        if ($this->isDocker()) 
+        if (getenv('APP_ENV') === 'docker') 
         {
             $this->host = "db"; 
             $this->dbUsername = "admin";
@@ -21,13 +21,6 @@ class Database
             $this->dbUsername = "root";
             $this->dbPassword = "";
         }
-    }
-    
-    private function isDocker()
-    {
-        //Check if db hostname resolves to a valid IP
-        $ip = @gethostbyname('db');
-        return $ip !== 'db' && filter_var($ip, FILTER_VALIDATE_IP);
     }
     
     protected function connect()

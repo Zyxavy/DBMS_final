@@ -99,9 +99,6 @@
 </html>
 
 <?php
-
-
-
     if(isset($_POST['back']))
     {
         if (!headers_sent()) 
