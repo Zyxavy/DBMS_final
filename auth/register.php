@@ -15,13 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
     if($reg->registerUser())
     {
-        echo "REGISTRATION SUCCESS!!!";
         redirectToPage("../pages/products.php");
     }
     else
     {
         redirectToPage('../index.php');
-        echo "REGISTRATION Failed :(";
     }
 
 }

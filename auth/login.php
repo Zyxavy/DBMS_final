@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
     if($login->authenticateUser())
     {
-        echo "LOGIN SUCCESS!!!";
 
         if($login->getUserStatus()['status'] == "customer")
         {
@@ -28,7 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     }
     else
     {
-        echo "Login Failed :(";
+        header("Location: ../index.php");
+        exit();
     }
 
 }
