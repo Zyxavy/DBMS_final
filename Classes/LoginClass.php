@@ -8,6 +8,7 @@ class Login extends Database
     //this is a constructor
     public function __construct($userName, $password)
     {
+        parent::__construct();
         $this->userName = $userName;
         $this->password = $password;
     }
