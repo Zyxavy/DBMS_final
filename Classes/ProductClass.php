@@ -7,7 +7,7 @@ class Products extends Database //this is a product, which can be used by both a
     public function getProductsbyCategory($categoryID, $sort_by = null, $order = "ASC")
     {
         try
-        {
+        {               
             $sql = "SELECT * FROM products WHERE category_id = :categoryID"; //default sql query
 
             if($sort_by)

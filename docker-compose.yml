@@ -1,4 +1,36 @@
 services:
+  db:
+    image: mysql:8.0
+    container_name: dbms_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ecommerce_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 1010
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+      timeout: 5s
+
+  php-app:
+    build: .
+    container_name: dbms_php
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - APP_ENV=docker
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
@@ -10,33 +42,8 @@ services:
       PMA_USER: admin
       PMA_PASSWORD: 1010
     depends_on:
-      - db
-
-  php-app:
-    build: .
-    container_name: dbms_php
-    ports:
-      - "80:80"
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - db
-    environment:
-      - APP_ENV=docker
-
-  db:
-    image: mysql:8.0
-    container_name: dbms_mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 1010
-      MYSQL_DATABASE: ecommerce_db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 1010
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:

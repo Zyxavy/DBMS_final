@@ -1,17 +1,15 @@
-<?php // Mahimo kita hin database connetion class
+<?php
 
 class Database
 {
-    //since local pamanla
-    private $host = "localhost";
+    private $host;
     private $dbName = "ecommerce_db";
-    private $dbUsername = "root";
-    private $dbPassword = "";
-
+    private $dbUsername;
+    private $dbPassword;
+    
     public function __construct()
     {
-        //check if running on docker or locally
-        if (getenv('APP_ENV') === 'docker') 
+        if ($this->isDocker()) 
         {
             $this->host = "db"; 
             $this->dbUsername = "admin";
@@ -19,27 +17,30 @@ class Database
         } 
         else 
         {
-            $this->host = "localhost"; 
+            $this->host = "localhost";
             $this->dbUsername = "root";
             $this->dbPassword = "";
         }
     }
-
-    //this functions returns an object 
+    
+    private function isDocker()
+    {
+        //Check if db hostname resolves to a valid IP
+        $ip = @gethostbyname('db');
+        return $ip !== 'db' && filter_var($ip, FILTER_VALIDATE_IP);
+    }
+    
     protected function connect()
     {
-        try
+        try 
         {
-            $pdo = new PDO("mysql:host=". $this->host . ";dbname=" . $this->dbName, $this->dbUsername, $this->dbPassword);
+            $pdo = new PDO("mysql:host={$this->host};port=3306;dbname={$this->dbName};charset=utf8mb4",$this->dbUsername,$this->dbPassword);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
             return $pdo;
-        }
-        catch(PDOException $e)
+        } 
+        catch (PDOException $e) 
         {
-            die("Connection Failed!". $e->getMessage());
+            die("Connection Failed! " . $e->getMessage());
         }
     }
-
-
 }

@@ -20,7 +20,6 @@ CREATE TABLE users (
     INDEX idx_username (username)
 );
 
-- Creating the table products, class and category
 CREATE TABLE class (
     id INT AUTO_INCREMENT PRIMARY KEY,
     class_name varchar(255) NOT NULL

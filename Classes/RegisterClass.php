@@ -10,6 +10,7 @@ class Register extends Database
     //this is a constructor
     public function __construct($password, $userName, $email)
     {
+        parent::__construct();
         $this->password = $password;
         $this->userName = $userName;
         $this->email = $email;
