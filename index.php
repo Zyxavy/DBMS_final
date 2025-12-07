@@ -25,5 +25,9 @@
             <button>Register</button>
         </form>
     </div>
+
+    <div>
+        <h1>THIS IS A TEST IF DEPLOYMENT AUTOMATION WORKS!!!</h1>
+    </div>
 </body>
 </html>
