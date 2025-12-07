@@ -13,16 +13,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         exit();
     }
 
-    $_SESSION["password"] = htmlspecialchars($_POST["pass"]);
-    $_SESSION["username"] = htmlspecialchars($_POST["username"]);
+    $password = htmlspecialchars($_POST["pass"]);
+    $username = htmlspecialchars($_POST["username"]);
     $email = htmlspecialchars($_POST["email"]);
+    $error = "";
 
-
-    $reg = new Register($_SESSION["password"], $_SESSION["username"], $email);
+    $reg = new Register($password, $username, $email);
     $result = $reg->registerUser();
 
     if ($result) 
     {
+        $_SESSION["username"] = $username;
         redirectToPage("../pages/products.php");
         exit();
     } else 
