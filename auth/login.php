@@ -14,10 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
     if($login->authenticateUser())
     {
+        $userData = $login->getUserStatus();
+
+        $_SESSION['user_id'] = $userData['user_id']; 
+        $_SESSION["username"] = $username;
+        $_SESSION["user_status"] = $userData['status']; 
 
         if($login->getUserStatus()['status'] == "customer")
         {
-            $_SESSION["username"] = $username;
             redirectToPage("../pages/products.php");
 	        exit();
         }

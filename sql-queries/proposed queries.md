@@ -1,6 +1,5 @@
 ## SQL Queries for address, orders and items
 
-
 ```php
 CREATE TABLE address(
     address_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,14 +20,14 @@ CREATE TABLE orders(
     address_id INT NOT NULL,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_amount DECIMAL(10, 2) NOT NULL CHECK (total_amount >= 0),
-    status VARCHAR(100) DEFAULT 'pending',
+    order_status VARCHAR(100) DEFAULT 'pending',
     payment_method VARCHAR(100) DEFAULT 'cash_on_delivery',
     payment_status VARCHAR(15) DEFAULT 'unpaid',
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (address_id) REFERENCES addresses(address_id),
+    FOREIGN KEY (address_id) REFERENCES address(address_id),
     INDEX idx_user_orders (user_id),
     INDEX idx_order_date (order_date),
-    INDEX idx_status (status),
+    INDEX idx_status (order_status),
 
 );
 
@@ -42,6 +41,18 @@ CREATE TABLE order_items (
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id),
     INDEX idx_order (order_id),
+    INDEX idx_product (product_id)
+);
+
+CREATE TABLE cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL CHECK (quantity > 0),
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    INDEX idx_user_cart (user_id),
     INDEX idx_product (product_id)
 );
 

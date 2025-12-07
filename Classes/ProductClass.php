@@ -8,7 +8,7 @@ class Products extends Database //this is a product, which can be used by both a
     {
         try
         {               
-            $sql = "SELECT * FROM products WHERE category_id = :categoryID"; //default sql query
+            $sql = "SELECT p.*, cl.class_name FROM products p JOIN class cl ON p.class_id = cl.id WHERE p.category_id = :categoryID"; //default sql query
 
             if($sort_by)
             {
