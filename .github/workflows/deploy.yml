@@ -24,7 +24,8 @@ jobs:
             cd /home/kentandrewparejas/DBMS_final
             
             echo "Pulling latest changes..."
-            git pull origin main --rebase
+            git fetch origin main
+            git reset --hard origin/main
             
             echo "Stopping containers..."
             docker compose down
