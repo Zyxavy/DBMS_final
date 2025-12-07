@@ -11,7 +11,6 @@ if(!isset($_SESSION['user_id']))
 }
 
 $userId = $_SESSION['user_id'];
-echo "User ID: " . $userId . "<br>";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {  
