@@ -21,14 +21,14 @@ CREATE TABLE orders(
     address_id INT NOT NULL,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_amount DECIMAL(10, 2) NOT NULL CHECK (total_amount >= 0),
-    status VARCHAR(100) DEFAULT 'pending',
+    order_status VARCHAR(100) DEFAULT 'pending',
     payment_method VARCHAR(100) DEFAULT 'cash_on_delivery',
     payment_status VARCHAR(15) DEFAULT 'unpaid',
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (address_id) REFERENCES addresses(address_id),
+    FOREIGN KEY (address_id) REFERENCES address(address_id),
     INDEX idx_user_orders (user_id),
     INDEX idx_order_date (order_date),
-    INDEX idx_status (status),
+    INDEX idx_status (order_status),
 
 );
 
