@@ -39,6 +39,7 @@
     <br>
     <hr>
     
+    <div style="background-color: gray;"> <!--I cant see the debug cuz text is black-->
     <?php 
         include("./includes/footer.html");
         
@@ -47,6 +48,16 @@
             echo"{$key} = {$value} <br><br>";
         }
     ?>
+    </div>
     <h1>$_SERVER Keys and Values, for debuging</h1>
 </body>
 </html>
+
+<style>
+    body{
+        background-image: url("assets/images/Login Page.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+</style>

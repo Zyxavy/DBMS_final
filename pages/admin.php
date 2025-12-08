@@ -119,7 +119,7 @@
                             echo "<td>" .htmlspecialchars($select['name']). "</td>";
                             echo "<td>" .htmlspecialchars($select['class_name']). "</td>";
                             echo "<td>" .htmlspecialchars($select['category_name']). "</td>";
-                            echo "<td>P " .htmlspecialchars($select['price']). "</td>";
+                            echo "<td>P " .htmlspecialchars(number_format($select['price'],2)). "</td>";
                             echo "<td>" .htmlspecialchars($select['stock']). "</td>";
                             echo "<td>" .htmlspecialchars($select['RAM'])." GB</td>";
                             echo "<td>" .htmlspecialchars($select['ROM'])." GB</td>";
