@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         exit();
     }
 
-    $firstName = htmlspecialchars($_POST["firstname"]);
-    $lastName = htmlspecialchars($_POST["lastname"]);
+    $firstName = htmlspecialchars($_POST["firstName"]);
+    $lastName = htmlspecialchars($_POST["lastName"]);
 
     $address = htmlspecialchars($_POST["address"]);
     $province = htmlspecialchars($_POST["province"]);
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     $email = htmlspecialchars($_POST["email"]);
     $phone = htmlspecialchars($_POST["phone"]);
 
-    $password = htmlspecialchars($_POST["pass"]);
+    $password = htmlspecialchars($_POST["password"]);
     $username = htmlspecialchars($_POST["username"]);
     $error = "";
 
