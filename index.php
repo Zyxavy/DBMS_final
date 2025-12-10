@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MANZANAS Account Portal - Login</title>
-    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="auth/authStyles.css">
 </head>
 <body>
     <div class="white-rectangle">
