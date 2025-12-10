@@ -72,6 +72,51 @@ class Cart extends Database
         }
     }
 
+    public function updateQuantity($cartId, $newQuantity)
+    {
+        if ($newQuantity <= 0)
+        {
+            return false;
+        }
+
+        try
+        {               
+            $sql = "UPDATE cart SET quantity = :newQuantity WHERE cart_id = :cartId";
+
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindParam(':newQuantity', $newQuantity);
+            $stmt->bindParam(':cartId', $cartId);
+            $stmt->execute();
+            
+            return true;
+        }
+        catch(PDOException $e)
+        {
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function removeItem($cartId)
+    {
+        try
+        {               
+            $sql = "DELETE FROM cart WHERE cart_id = :cartId";
+
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindParam(':cartId', $cartId);
+            $stmt->execute();
+            
+            return true;
+        }
+        catch(PDOException $e)
+        {
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+    }
+
+
     //Helper Methods
     private function isInStock($productId, $quantity)
     {

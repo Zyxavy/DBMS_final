@@ -15,27 +15,27 @@ insert into products(category_id, class_id,name,
 
 
 
-INSERT INTO category (id, category_name) VALUES
-(1, 'Mobile phones'),
-(2, 'Laptops'),
-(3, 'System unit'),
-(4, 'Input devices'),
-(5, 'Output devices');
+INSERT INTO category (category_name) VALUES
+('Mobile phones'),
+('Laptops'),
+('System unit'),
+('Input devices'),
+('Output devices');
 
-INSERT INTO class (id, class_name) VALUES
-(1, 'Premium'),
-(2, 'A series'),
-(3, 'E series'),
-(4, 'Day series'),
-(5, 'Sweet Performance'),
-(6, 'I-need'),
-(7, 'Superman 2025 limited edition');
+INSERT INTO class (class_name) VALUES
+('Premium'),
+('A series'),
+('E series'),
+('Day series'),
+('Sweet Performance'),
+('I-need'),
+('Superman 2025 limited edition');
 
-INSERT INTO products (product_id, name, category_id, class_id, price, stock, ROM, RAM) VALUES
-(1, 'Manzanas 16', 1, 1, 80000.00, 5, 512, 12),
-(2, 'Manzanas power', 3, 5, 75000.00, 5, 256, 16),
-(3, 'Manzanas E', 1, 3, 4555.00, 10, 64, 6),
-(4, 'Manzanas power', 3, 6, 79999.00, 5, 512, 16);
+INSERT INTO products (name, category_id, class_id, price, stock, ROM, RAM) VALUES
+('Manzanas 16', 1, 1, 80000.00, 5, 512, 12),
+('Manzanas power', 3, 5, 75000.00, 5, 256, 16),
+('Manzanas E', 1, 3, 4555.00, 10, 64, 6),
+('Manzanas power', 3, 6, 79999.00, 5, 512, 16);
 
 
 ```
