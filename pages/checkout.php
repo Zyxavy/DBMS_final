@@ -74,13 +74,14 @@ $addresses = $userAddresses->getUserAddresses($_SESSION['user_id']);
                 <option value="">-- Select Address --</option>
                 <?php if($addresses && count($addresses) > 0) {
                     foreach($addresses as $address) { ?>
-                        <option value="<?= $address['user_id'] ?>">
-                            <?= htmlspecialchars($address['address_type']) ?>: 
-                            <?= htmlspecialchars($address['street_address']) ?>,
-                            <?= htmlspecialchars($address['city']) ?>,
-                            <?= htmlspecialchars($address['province']) ?>
-                            <?= htmlspecialchars($address['postal_code']) ?>
-                        </option>
+                       <option value="<?= $address['address_id'] ?>">
+                        <?= ucfirst($address['address_type']) ?> -
+                        <?= $address['street_address'] ?>, 
+                        <?= $address['city'] ?>, 
+                        <?= $address['province'] ?> 
+                        <?= $address['postal_code'] ?>
+                        <?= $address['is_default'] ? "(Default)" : "" ?>
+                    </option>
                     <?php }
                 } ?>
             </select>
