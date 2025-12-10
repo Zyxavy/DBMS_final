@@ -12,52 +12,62 @@
     }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANZANAS Account Portal - Login</title>
     <link rel="stylesheet" href="assets/styles.css">
-    <title>Manzanas</title>
 </head>
 <body>
-    <?php include("./includes/header.html"); ?>
-    <div class="login-form">
+    <div class="white-rectangle">
+        <div class="logo-header">
+             <img src="assets/images/MANSANAS LOGO 1.jpg" alt="Manzanas Logo with name">
+         </div>
+    </div>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <img src="assets/images/Masanas Logo standalone 1.png" alt="Manzanas Logo" class="logo-icon">
+            <h1>MANZANAS ACCOUNT PORTAL</h1>
+            <p class="subtitle">Enter your account to log in or create an account</p>
+        </div>
+
         <form action="auth/login.php" method="post">
-            <input type="text" name="username" placeholder="Enter Name:">
-            <input type="password" name="pass" placeholder="Enter Password:">
-            <button>Log in</button>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="stayLoggedIn" name="stayLoggedIn">
+                <label for="stayLoggedIn">Stay logged in</label>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-primary">Log In</button>
+                <button type="button" class="btn-secondary" onclick="redirectToRegister()">Register</button>
+            </div>
         </form>
+
+        <p class="terms">
+            By proceeding, i agree to the <a href="#">MANZANAS Account Terms of Use</a> and <a href="#">Privacy Policy</a>.
+        </p>
+
+        <p class="copyright">Copyright 2025 MANZANAS</p>
     </div>
-    <br>
-    <br>
-        <form action="index.php" method="post">
-            <button type="submit" name="registration">Register</button>
-        </form>
-    <br>
-    <br>
-    <hr>
-    
-    <div style="background-color: gray;"> <!--I cant see the debug cuz text is black-->
-    <?php 
-        include("./includes/footer.html");
-        
-        foreach($_SERVER as $key => $value)
-        {
-            echo"{$key} = {$value} <br><br>";
+
+    <script>
+        function redirectToRegister() {
+            window.location.href = 'auth/register.php';
         }
-    ?>
-    </div>
-    <h1>$_SERVER Keys and Values, for debuging</h1>
+        // we use this for client side, and redirectPage for server side
+    </script>
 </body>
 </html>
-
-<style>
-    body{
-        background-image: url("assets/images/Login Page.jpg");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
-</style>
