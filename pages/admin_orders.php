@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../admin/manage.php";
-require_once __DIR__ . "/../admin/dashboard.php";
 require_once __DIR__ . "/../includes/functions.php";
 
 
@@ -11,9 +10,33 @@ if (isset($_GET["back"]) && $_GET["back"] == 1) {
 
 $manage = new manage();
 $orders = $manage->get_all_orders();
-
+$dashboard = $_SERVER['PHP_SELF'];
 ?>
-
+<?php
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["order_mode"])){
+    $order = $_POST["order_mode"];
+    switch($order){
+        case "searchOrd_orderid":
+            $id = autocheckPOST("order_id");
+            if ($id !== false && $id !== "") {
+                $getsearch = $manage->selective_ordersearch($id, false);
+            }
+            break;
+        case "searchOrd_userid":
+            $user = autocheckPOST("user_id");
+            if ($user !== false && $user !== "") {
+                $getsearch = $manage->selective_ordersearch($user, true);
+            }
+            break;
+        case "searchOrd_status":
+            $status = autocheckPOST("order_status");
+            if ($status !== false) {
+                $getsearch = $manage->selective_statussearch($status);
+            }
+            break;
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -30,17 +53,19 @@ $orders = $manage->get_all_orders();
         <input type="submit" value="Go back to manage page">
     </form>
     <h3>Search order</h3>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
-        <br>Search by order ID <input type="number" name="user_id">
+    <form action="<?= $dashboard?>" method="post">
+        <input type="hidden" name="order_mode" value="searchOrd_orderid">
+        <br>Search by order ID <input type="number" name="order_id">
         <button type="submit">Search Order</button>
         <br>
     </form>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
-        <br>Search by user ID <input type="number" name="order_id">
+    <form action="<?= $dashboard ?>" method="post">
+        <input type="hidden" name="order_mode" value="searchOrd_userid">
+        <br>Search by user ID <input type="number" name="user_id">
         <button type="submit">Search Order</button>
         <br>
     </form>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+    <form action="<?= $dashboard ?>" method="post">
         <br>Search by order status<br>
 
         <input type="radio" id="status_pending" name="order_status" value="pending">
@@ -64,11 +89,22 @@ $orders = $manage->get_all_orders();
     <table>
         <tr>
             <th>Order ID</th>
+            <th>User ID</th>
             <th>Order status</th>
             <th>Payment method</th>
             <th>Payment status</th>
         </tr>
-        
+            <?php
+                if($getsearch){
+                    foreach($getsearch as $column){
+                        echo "<td>{$column['order_id']}</td>";
+                        echo "<td>{$column['user_id']}</td>";
+                        echo "<td>".htmlspecialchars($column['order_status'])."</td>";
+                        echo "<td>".htmlspecialchars($column['payment_method'])."</td>";
+                        echo "<td>".htmlspecialchars($column['payment status'])."</td>";
+                    }
+                }
+            ?>
         <tr>
             
         </tr>
