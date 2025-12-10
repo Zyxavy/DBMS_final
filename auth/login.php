@@ -3,7 +3,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
     //like #include <>
-    require_once __DIR__ . "/../config/database.php"; //small d
+    require_once __DIR__ . "/../config/database.php";
     require_once __DIR__ . "/../Classes/LoginClass.php";
     require_once __DIR__ . "/../includes/functions.php";
 

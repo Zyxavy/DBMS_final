@@ -13,16 +13,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         exit();
     }
 
+    $firstName = htmlspecialchars($_POST["firstname"]);
+    $lastName = htmlspecialchars($_POST["lastname"]);
+
+    $address = htmlspecialchars($_POST["address"]);
+    $province = htmlspecialchars($_POST["province"]);
+    $city = htmlspecialchars($_POST["city"]);
+    $unitNum = htmlspecialchars($_POST["unit_num"]);
+    $postalCode = htmlspecialchars($_POST["postal_code"]);
+    $type = htmlspecialchars($_POST["type"]);
+
+    $email = htmlspecialchars($_POST["email"]);
+    $phone = htmlspecialchars($_POST["phone"]);
+
     $password = htmlspecialchars($_POST["pass"]);
     $username = htmlspecialchars($_POST["username"]);
-    $email = htmlspecialchars($_POST["email"]);
     $error = "";
 
-    $reg = new Register($password, $username, $email);
+    $reg = new Register($firstName, $lastName, $email, $phone, $username, $password);
     $result = $reg->registerUser();
 
     if ($result) 
     {
+        $reg->createAddress($username, $type, $address, $city, $province, $postalCode, $unitNum);
+
         $_SESSION["username"] = $username;
         redirectToPage("../pages/products.php");
         exit();
@@ -43,12 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 <body>
     <div class="register-container">
         <div class="logo-section">
-            <div class="logo-icon">M</div>
+            <img src="assets/images/Manzanas.jpeg" alt="Manzanas Logo" class="logo-icon">
             <h1>MANZANAS Account Creation</h1>
             <p class="subtitle">To create an account fill out the form below.</p>
         </div>
 
-        <form id="registerForm">
+        <form action="register.php" method="post">
             <div class="form-section">
                 <h3>Personal Information</h3>
                 <div class="form-row">
@@ -78,6 +92,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
                         <label for="city">City/Municipality:</label>
                         <input type="text" id="city" name="city" required>
                     </div>
+                    <div class="form-group">
+                        <label for="unit_num">Unit/House/Lot Number:</label>
+                        <input type="text" id="unit_num" name="unit_num" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postal_code">Postal Code:</label>
+                        <input type="number" id="postal_code" name="postal_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Address Type:</label>
+
+                        <select name="type" id="type">
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -96,13 +126,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
             <div class="form-section">
                 <h3>Account Details</h3>
                 <div class="form-group">
-                    <label for="newUsername">Username:</label>
-                    <input type="text" id="newUsername" name="newUsername" required>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="newPassword">Password:</label>
-                        <input type="password" id="newPassword" name="newPassword" required>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm Password:</label>
@@ -136,14 +166,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
                 alert('Password must be at least 6 characters long!');
                 return;
             }
-            
-            // Simulate registration process
-            alert('Account created successfully! Redirecting to login page...');
-            
-            // Redirect to login page after successful registration
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
         });
     </script>
 </body>
