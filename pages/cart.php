@@ -4,6 +4,13 @@
     require_once __DIR__ . "/../Classes/CartClass.php";
     require_once __DIR__ . "/../includes/functions.php";
 
+    if(!isset($_SESSION['user_id']))
+    {
+        redirectToPage("../index.php");
+        session_destroy();
+        exit();
+    }
+
     $_SESSION['success_message'] = "Cart:";
 
     if(isset($_POST['checkout']))
@@ -40,7 +47,6 @@
 
     $cartItems = $cart->getCartItems($_SESSION['user_id']);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -25,8 +25,8 @@ class Cart extends Database
             }
             catch(PDOException $e)
             {
-                echo "ERROR " . $e->getMessage();
-                return null;
+                error_log("Cart Update error: " . $e->getMessage());
+                return [];
             }
         }
         else
@@ -43,8 +43,8 @@ class Cart extends Database
             }
             catch(PDOException $e)
             {
-                echo "ERROR " . $e->getMessage();
-                return null;
+                error_log("Cart Insert error: " . $e->getMessage());
+                return [];
             }
         }
         return false;
@@ -67,8 +67,8 @@ class Cart extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
     }
 
@@ -92,8 +92,8 @@ class Cart extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
     }
 
@@ -111,8 +111,27 @@ class Cart extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function clearCart($userId)
+    {
+        try
+        {               
+            $sql = "DELETE FROM cart WHERE user_id = :userId";
+
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            
+            return true;
+        }
+        catch(PDOException $e)
+        {
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
     }
 
@@ -133,8 +152,8 @@ class Cart extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
     }
 
@@ -159,8 +178,8 @@ class Cart extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
     }
 }

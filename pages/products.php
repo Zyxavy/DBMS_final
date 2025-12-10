@@ -4,6 +4,13 @@
     require_once __DIR__ . "/../Classes/ProductClass.php";
     require_once __DIR__ . "/../includes/functions.php";
 
+    if(!isset($_SESSION['user_id']))
+    {
+        redirectToPage("../index.php");
+        session_destroy();
+        exit();
+    }
+
     if(isset($_POST['log-out']))
     {
         if (!headers_sent()) 
