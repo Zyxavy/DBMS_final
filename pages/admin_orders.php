@@ -42,6 +42,9 @@ $getorder =null;
         if(isset($_POST["order_id"])){
             $getorder = $manage->get_order($_POST['order_id']);
         }
+        if(isset($_POST["DELETE"])){
+            $manage->delete_order($getorder['order_id']);
+        }
     }
 ?>
 
@@ -97,6 +100,10 @@ $getorder =null;
     </div>
     <br><br>
     <?php if($getorder): ?>
+        <form action=<?= $dashboard ?> method="post">
+            <input type="hidden" name="DELETE" value=1>
+            Delete the selected order? <input type="submit" value="Delete"><br>
+        </form>
         <div>
             <form action="../admin/dashboard.php" method="post">
                 <label for="order_id">Order ID</label><br>
@@ -104,11 +111,11 @@ $getorder =null;
                 <br><label for="user_id">User ID</label><br><br>
                 <input type="number" id="user_id" value="<?= $getorder["user_id"]?>" disabled>
                 <br><label for="paymentMeth">Payment Method</label><br>
-                <input type="text" id="paymentMeth"name= "new_payment_method" value="<?= $getorder["payment_method"]?>">
+                <input type="text" id="paymentMeth"name= "new_payment_method" value="<?= htmlspecialchars($getorder["payment_method"])?>">
                 <br><label for="paymentStat">Payment Status</label><br>
-                <input type="number" id="paymentStat"name= "new_payment_status" value="<?= $getorder["payment_status"]?>">
+                <input type="number" id="paymentStat"name= "new_payment_status" value="<?= htmlspecialchars($getorder["payment_status"])?>">
                 <br><label for="orderStat">Order Status</label><br>
-                <input type="number" id="orderStat"name= "new_order_status" value="<?= $getorder["order_status"]?>">
+                <input type="number" id="orderStat"name= "new_order_status" value="<?= htmlspecialchars($getorder["order_status"])?>">
                 
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset">

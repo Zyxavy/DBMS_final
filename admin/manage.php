@@ -137,7 +137,17 @@ class manage extends Database{
             return false;
         }
     }
-    
+    function delete_order($order_id){
+        try{   
+            $sql = "DELETE FROM orders WHERE order_id = :order_id;";
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":order_id",$order_id,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            return false;
+        }
+    }
 
 }
 ?>
