@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manzanas M-phone 17 Series</title>
-    <!-- Using FontAwesome for icons https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     -->
     <link rel="stylesheet" href="../pages/pagesStyles.css">
 </head>
 <body class="landing-page">
@@ -23,21 +21,20 @@
             </ul>
         </div>
         <div class="nav-icons">
-            <i class="fa-solid fa-headset"></i> <!-- Support -->
-            <i class="fa-solid fa-cart-shopping"></i> <!-- Cart -->
-            <i class="fa-solid fa-magnifying-glass"></i> <!-- Search -->
-            <i class="fa-solid fa-circle-user"></i> <!-- User -->
+            <i class="fa-solid fa-headset"></i> 
+            <i class="fa-solid fa-cart-shopping"></i> 
+            <i class="fa-solid fa-magnifying-glass"></i> 
+            <i class="fa-solid fa-circle-user"></i> 
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-title">
             <h1>M-phone 17 series</h1>
         </div>
         
         <div class="hero-content">
-            <!-- Left: Features -->
+
             <div class="hero-features">
                 <h2>Power Redefined</h2>
                 <div class="feature-item">Titanium frame 2.0</div>
@@ -46,14 +43,12 @@
                 <div class="feature-item">M15 Bionic</div>
             </div>
 
-            <!-- Center: Phones Image Stack -->
             <div class="hero-phones">
                 <div class="phone-stack">
-                    <img src="https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=1000&auto=format&fit=crop" alt="M-phone 17 Stack" class="phone-stack-img">
+                    <img src="../assets/images/Iphone_series.jpg" alt="M-phone 17 Stack" class="phone-stack-img">
                 </div>
             </div>
 
-            <!-- Right: Pricing -->
             <div class="hero-pricing">
                 <div class="price-item">
                     <div class="price-tag">$799</div>
@@ -71,7 +66,6 @@
         </div>
     </section>
 
-    <!-- Comparison Section -->
     <section class="comparison-section">
         <div class="comp-header">
             <h2>Which phone is best for you?</h2>
@@ -82,11 +76,10 @@
         </div>
 
         <div class="cards-container">
-            <!-- Card 1 -->
+
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <!-- Silver Phone -->
-                    <i class="fa-solid fa-mobile-screen-button" style="font-size: 5rem; color: #ccc;"></i>
+                    <img src="../assets/images/iphone17.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17</h3>
                 
@@ -104,11 +97,9 @@
                 </div>
             </div>
 
-            <!-- Card 2 -->
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <!-- Orange Phone -->
-                    <i class="fa-solid fa-mobile-screen-button" style="font-size: 5rem; color: #e67e22;"></i>
+                    <img src="../assets/images/iphone17_air.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17 Air</h3>
                 
@@ -126,11 +117,9 @@
                 </div>
             </div>
 
-            <!-- Card 3 -->
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <!-- Blue/Pro Phone -->
-                    <i class="fa-solid fa-mobile-screen-button" style="font-size: 5rem; color: #34495e;"></i>
+                    <img src="../assets/images/iphone17Pro.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17 Pro</h3>
                 
@@ -150,7 +139,6 @@
         </div>
     </section>
 
-    <!-- Disclaimer Section -->
     <section class="disclaimer-section">
         <div class="disclaimer-content">
             <p>*Accessibility of some features may vary across regions. Product pictures, videos and display contents on the foregoing pages are provided for reference only. Actual product features and specifications (including but not limited to appearance, color, and size), as well as actual display contents (including but not limited to backgrounds, UI, and icons) may vary.</p>
@@ -159,7 +147,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-features">
             <div class="footer-feat-item">

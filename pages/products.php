@@ -12,6 +12,13 @@
             redirectToPage('../index.php');
         } 
     }
+    elseif(isset($_POST['phones']))
+    {
+        if (!headers_sent()) 
+        {
+            redirectToPage('phones.php');
+        } 
+    }
     elseif(isset($_POST['cart']))
     {
         if (!headers_sent()) 
@@ -46,6 +53,7 @@
     <div>
         <form action="products.php" method="post">
             <button type="submit" name="log-out">Log Out</button>
+            <button type="submit" name="phones" style="background-color: red; text-align:center;">Phones</button>
         </form>
         <br>
         

@@ -285,7 +285,7 @@ font-size: 1.1rem;
 position: relative;
 height: 100vh;
 width: 100%;
-background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2864&auto=format&fit=crop') no-repeat center center;
+background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../assets/images/Background-streets.jpg') no-repeat center center;
 background-size: cover;
 display: flex;
 flex-direction: column;
@@ -343,8 +343,8 @@ position: relative;
 
 .phone-stack {
 position: relative;
-width: 250px;
-height: 400px;
+width: 700px;
+height: 300px;
 }
 
 .phone-img {
@@ -394,7 +394,7 @@ background: white;
 color: #333;
 padding: 80px 20px;
 text-align: center;
-background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2940&auto=format&fit=crop') no-repeat center bottom;
+background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.9)), url('../assets/images/Suburban_Street.jpg') no-repeat center bottom;
 background-size: cover;
 }
 
