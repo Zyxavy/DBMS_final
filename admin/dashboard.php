@@ -58,7 +58,7 @@
 
         case "RESET":
              try {
-                $manage->query("TRUNCATE TABLE products",false);
+                $manage->query("SET FOREIGN_KEY_CHECKS = 0;TRUNCATE TABLE products;SET FOREIGN_KEY_CHECKS = 1;",false);
                 redirectToPage("/../pages/admin.php?reset=1");
             }catch (PDOException $e) {
                 redirectToPage("/../pages/admin.php?reset=0");
