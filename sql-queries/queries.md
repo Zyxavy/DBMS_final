@@ -26,7 +26,7 @@ CREATE TABLE users (
 
 CREATE TABLE class (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    class_name varchar(255) NOT NULL
+    class_name varchar(255) NOT NULL,
     INDEX idx_class_name (class_name)
 );
 CREATE TABLE category (
@@ -46,15 +46,15 @@ CREATE TABLE products (
     ROM INT,
     RAM int,
 
-    FOREIGN KEY (category_id) REFERENCES category(id),
-    FOREIGN KEY (class_id) REFERENCES class(id),
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
+    FOREIGN KEY (class_id) REFERENCES class(id) ON DELETE CASCADE,
 
     INDEX idx_name (name),
     INDEX idx_category (category_id),
     INDEX idx_class (class_id),
     INDEX idx_price (price),
     INDEX idx_rom (ROM),
-    INDEX idx_rom (RAM)
+    INDEX idx_ram (RAM)
 );
 
 CREATE TABLE address(
@@ -67,7 +67,7 @@ CREATE TABLE address(
     postal_code VARCHAR(10)NOT NULL,
     unit_num VARCHAR(100) NOT NULL,
     is_default BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     INDEX idx_user_address(user_id)
 );
 
@@ -80,8 +80,8 @@ CREATE TABLE orders(
     order_status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',
     payment_method ENUM('credit_card', 'debit_card', 'gcash', 'paymaya', 'cash_on_delivery') DEFAULT 'cash_on_delivery',
     payment_status ENUM('unpaid', 'paid', 'refunded') DEFAULT 'unpaid',
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (address_id) REFERENCES address(address_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (address_id) REFERENCES address(address_id) ON DELETE RESTRICT,
     INDEX idx_user_orders (user_id),
     INDEX idx_order_date (order_date),
     INDEX idx_status (order_status)
@@ -94,8 +94,8 @@ CREATE TABLE order_items (
     quantity INT NOT NULL CHECK (quantity > 0),
     unit_price DECIMAL(10, 2) NOT NULL CHECK (unit_price >= 0),
     subtotal_price DECIMAL(10, 2) NOT NULL CHECK (subtotal_price >= 0),
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
     INDEX idx_order (order_id),
     INDEX idx_product (product_id)
 );
@@ -106,8 +106,8 @@ CREATE TABLE cart (
     product_id INT NOT NULL,
     quantity INT NOT NULL CHECK (quantity > 0),
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE,
     INDEX idx_user_cart (user_id),
     INDEX idx_product (product_id)
 );

@@ -64,10 +64,10 @@
     </div>
 
     <script>
-
         function redirectToRegister() {
             window.location.href = 'auth/register.php';
         }
+        // we use this for client side, and redirectPage for server side
     </script>
 </body>
 </html>
