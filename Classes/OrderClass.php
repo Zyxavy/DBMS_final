@@ -52,4 +52,49 @@ class Order extends Database
             return false;
         }
     }
+
+    public function getUserOrders($userId)
+    {
+        try 
+        {
+            $sql = "SELECT order_id, order_date, total_amount, order_status, payment_method, payment_status
+                    FROM orders WHERE user_id = :userId ORDER BY order_date DESC;";
+
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch(PDOException $e) 
+        {
+            error_log("order fetch error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getOrderItems($orderId)
+    {
+        try 
+        {
+            $sql = "SELECT oi.quantity, oi.unit_price, oi.subtotal_price, p.name AS product_name,p.img_url AS product_image
+                    FROM order_items oi INNER JOIN products p ON oi.product_id = p.product_id WHERE oi.order_id = :orderId";
+
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(':orderId', $orderId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } 
+        catch(PDOException $e) 
+        {
+            error_log("order items fetch error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+
+
+
 }

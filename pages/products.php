@@ -79,12 +79,7 @@ include('../includes/navbar.html');
 
         </div>
     </div>
-
-    <div>
-        <a href="profile.php">TEST HERE</a>
-    </div>
-
-    
+ 
     <?php include('../includes/footer.html') ?>
 
 </body>
