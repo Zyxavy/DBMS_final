@@ -28,8 +28,8 @@ $desktopsByClass = [
 try {
     $productsInstance = new Products();
     
-    $categoryIdLaptops = 6; //change based on ID of laptops and desktop
-    $categoryIdDesktops = 7;
+    $categoryIdLaptops = 2; //change based on ID of laptops and desktop
+    $categoryIdDesktops = 3;
     
 
     $fetchedLaptops = $productsInstance->getProductsbyCategory($categoryIdLaptops, 'price', 'ASC');
