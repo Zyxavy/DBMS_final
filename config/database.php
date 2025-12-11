@@ -21,6 +21,11 @@ class Database
             $this->dbPassword = "";
         }
     }
+
+    public function transactConnect()
+    {
+        return $this->connect();
+    }
     
     protected function connect()
     {

@@ -19,11 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         $_SESSION['user_id'] = $userData['user_id']; 
         $_SESSION["username"] = $username;
         $_SESSION["user_status"] = $userData['status']; 
-        
-        if (empty($_SESSION['csrf_token'])) 
-        {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
 
         if($login->getUserStatus()['status'] == "customer")
         {
