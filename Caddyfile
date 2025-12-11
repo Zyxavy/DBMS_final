@@ -1,0 +1,3 @@
+zyxary.duckdns.org {
+    reverse_proxy dbms_php:80
+}
