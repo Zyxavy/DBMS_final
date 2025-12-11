@@ -158,9 +158,9 @@
             <!-- Checkout Button -->
             <?php if ($cartItems && count($cartItems) > 0) { ?>
                 <form action="cart.php" method="post">
-                    <button type="submit" name="checkout" class="btn-checkout">
+                   <a href="checkout.php"> <button type="submit" name="checkout" class="btn-checkout">
                         Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
-                    </button>
+                    </button> </a>
                 </form>
             <?php } ?>
         </div>
