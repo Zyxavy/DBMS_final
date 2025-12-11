@@ -15,6 +15,9 @@
     // Pagcheck kun may naka-login, kun diri i-redirect ha login page
     checkSession();
 
+    // Paghimo hin bag o na instance nui Cart
+    $cart = new Cart(); 
+
     // Kun nag-click an user han checkout button ngan pagredirect ha checkout page
     if(isset($_POST['checkout']))
     {
@@ -48,7 +51,7 @@
     // Kun nag-remove han item
     elseif(isset($_POST['remove']))
     {
-        $cartIdRm = (int)$_POST['cart_id_rm'];
+        $cartIdRm = $_POST['cart_id_rm'];
         
         if($cart->removeItem($cartIdRm))
         {
@@ -58,9 +61,6 @@
         }
     }
     include('../includes/navbar.html');
-
-    // Paghimo hin bag o na instance nui Cart
-    $cart = new Cart(); 
     
     // Ginkuha an tanan items han cart para han current user
     $cartItems = $cart->getCartItems($_SESSION['user_id']);
