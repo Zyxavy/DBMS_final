@@ -1,3 +1,7 @@
 dbms-manzanas.ddns.net {
     reverse_proxy php-app:80
 }
+
+dbms-manzanas.ddns.net:8080 {
+    reverse_proxy phpmyadmin:80
+}
