@@ -196,7 +196,7 @@
     margin-right: calc(var(--spacing) * 5);
   }
   .mr-\[\%\] {
-    margin-right: %;
+    margin-right: 4%;
   }
   .mr-\[1\%\] {
     margin-right: 1%;
@@ -280,7 +280,7 @@
     margin-left: calc(var(--spacing) * 50);
   }
   .ml-\[\%\] {
-    margin-left: %;
+    margin-left: 4%;
   }
   .ml-\[5\%\] {
     margin-left: 5%;

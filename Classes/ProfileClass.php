@@ -1,10 +1,12 @@
 <?php
+
 class Profile extends Database
 {
     private $userId;
 
     public function __construct($session_user_id)
     {
+        parent::__construct();
         $this->userId = $session_user_id;
     }
 
