@@ -48,14 +48,6 @@
     function getDeleteStatus(){
         return isset($_GET["deleteStat"])&&$_GET["deleteStat"]=="1";
     }
-    if(isset($_POST['log-out']))
-    {
-        if (!headers_sent()) 
-        {
-            session_destroy();
-            redirectToPage('../index.php');
-        } 
-    }
 ?>
 
 
@@ -70,7 +62,7 @@
 </head>
 <body>
     <div>
-        <form method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
+        <form method="post" action="../auth/logout.php">
             <input type="hidden" name="log-out" value="1">
             <button type="submit" value="Log out">Logout</button>
         </form>

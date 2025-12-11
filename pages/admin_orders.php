@@ -58,7 +58,7 @@ $getorder =null;
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-    <div>
+    <div class="panel">
         <form method="get" action="<?= $_SERVER["PHP_SELF"] ?>">
             <input type="hidden" name="back" value="1">
             <input type="submit" value="Go back to manage page">
@@ -107,7 +107,7 @@ $getorder =null;
             Delete the selected order? 
             <input type="submit" value="Delete">
         </form>
-        <div>
+        <div class="panel">
             <form action="../admin/dashboard.php" method="post">
                 <input type="hidden" name="update_order" value="UPDATE">
                 <input type="hidden" name="order_id" value="<?= $getorder["order_id"] ?>">
@@ -174,7 +174,7 @@ $getorder =null;
     <br>
     <br>
     <h2>Display All Orders Table</h2>
-    <div>
+    <div id="tablepannel">
         <table>
             <tr>
                 <th>Order ID</th>
