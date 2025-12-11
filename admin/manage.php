@@ -33,7 +33,7 @@ class manage extends Database{
         $database = parent::connect();
         $stmt = $database->prepare($sql);
         $stmt->execute();
-        if($fetch){return $stmt->fetchAll(PDO::FETCH_ASSOC);}
+        if($fetch){return $stmt->fetchAll(PDO::FETCH_ASSOC);}else{return true;}
         }catch(PDOException $e){
             return 0;
         }
@@ -73,22 +73,32 @@ class manage extends Database{
         }
    }
 
-   function change_status($status){
-
-   }
+   function change_status($order_id, $new_status){
+    try {
+        $sql = "UPDATE orders SET order_status = :status WHERE order_id = :order_id;";
+        $stmt = parent::connect()->prepare($sql);
+        $stmt->bindValue(":status", $new_status, PDO::PARAM_STR);
+        $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    } catch(PDOException $e) {
+        return false;
+    }
+}
 
    function get_all_orders() {
     try {
         $sql = 
-            "SELECT o.order_id, o.user_id, u.username, o.address_id, a.city,
-                a.province,o.order_date,o.total_amount, o.order_status, COUNT(oi.order_item_id) AS total_items
-            FROM orders o
-            INNER JOIN users u ON o.user_id = u.user_id
-            INNER JOIN address a ON o.address_id = a.address_id
-            LEFT JOIN order_items oi ON o.order_id = oi.order_id
-            GROUP BY o.order_id, u.username, a.city, a.province";
+        "SELECT o.order_id, o.user_id, u.username, o.address_id, a.city,
+            a.province, o.order_date, o.total_amount, o.order_status,
+            COUNT(oi.order_item_id) AS total_items
+        FROM orders o
+        INNER JOIN users u ON o.user_id = u.user_id
+        INNER JOIN address a ON o.address_id = a.address_id
+        LEFT JOIN order_items oi ON o.order_id = oi.order_id
+        GROUP BY o.order_id";
+        
         return $this->query($sql, true);
-    }catch (PDOException $e) {
+    } catch (PDOException $e) {
         return [];
     }
     }
@@ -142,8 +152,7 @@ class manage extends Database{
             $sql = "DELETE FROM orders WHERE order_id = :order_id;";
             $stmt = parent::connect()->prepare($sql);
             $stmt->bindValue(":order_id",$order_id,PDO::PARAM_INT);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->execute();
         }catch(PDOException $e){
             return false;
         }

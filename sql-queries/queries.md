@@ -10,7 +10,7 @@
 - Create Database and tables
 ```sql
 CREATE DATABASE ecommerce_db;
-
+USE ecommerce_db;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     password_hash VARCHAR(255) NOT NULL,
