@@ -33,10 +33,9 @@ jobs:
             --command="
               echo 'Starting deployment...'
               cd /home/kentandrewparejas/DBMS_final
-              
+
               echo 'Pulling latest changes...'
-              git fetch origin main
-              git reset --hard origin/main
+              git pull origin main --rebase
               
               echo 'Stopping containers...'
               docker compose down

@@ -30,7 +30,7 @@
     <div class="login-container">
         <div class="logo-section">
             <img src="assets/images/Masanas Logo standalone 1.png" alt="Manzanas Logo" class="logo-icon">
-            <h1>MANZANAS ACCOUNT PORTAL</h1>
+            <h1>MANZANAS ACCOUNT PORTAL Another check to test if </h1>
             <p class="subtitle">Enter your account to log in or create an account</p>
         </div>
 
@@ -55,10 +55,6 @@
                 <button type="button" class="btn-secondary" onclick="redirectToRegister()">Register</button>
             </div>
         </form>
-
-        <h1>
-            FIXXXX
-        </h1>
 
         <p class="terms">
             By proceeding, i agree to the <a href="#">MANZANAS Account Terms of Use</a> and <a href="#">Privacy Policy</a>.
