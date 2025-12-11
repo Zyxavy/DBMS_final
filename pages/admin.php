@@ -26,24 +26,24 @@
     $ROM = 0;
     $category_id = 0;
     $class_id = 0;
+    $product_id = '';
 
-    if($isUpdate && isset($_GET['product_id'])){
+    if ($isUpdate && isset($_GET['product_id']) && $_GET['product_id'] != '') {
         $product_id = (int)$_GET['product_id'];
         $product = $manage->query("SELECT * FROM products WHERE product_id = $product_id", true);
-        if($product && count($product) > 0){
+        if ($product && count($product) > 0) {
             $product = $product[0];
             $product_name = $product['name'];
             $price = $product['price'];
             $stock = $product['stock'];
             $RAM = $product['RAM'];
             $ROM = $product['ROM'];
-            $product_desc = $product['product_description'];
+            $product_desc = $product['product_description'] ?? "";
             $category_id = $product['category_id'];
             $class_id = $product['class_id'];
         }
     }
-
-    
+        
     
     function getDeleteStatus(){
         return isset($_GET["deleteStat"])&&$_GET["deleteStat"]=="1";
@@ -81,11 +81,18 @@
     </div>
     <br>
     <div>
+        <?php
+        if ($isUpdate) {
+            echo '<form method="get" action="' . $_SERVER["PHP_SELF"] . '">';
+            echo '<input type="hidden" name="update" value="1">';
+            echo 'Enter Product ID to update: <input type="number" name="product_id" required>';
+            echo '<input type="submit" value="Load Product">';
+            echo '</form><br>';
+        }
+        ?>
         <form method="post" action="../admin/dashboard.php">
             <input type="hidden" name="is_pressed_insert" value="true">
             <input type="hidden" name="mode" value="<?= $mode_label ?>">
-
-            Product_ID: <input type="number" name="product_id" value="<?= ($isUpdate) ? $product_id : '' ?>" <?= ($isUpdate==1)?"":"disabled" ?>><br>
             Product Name: <input type="text" name="Product_name" value="<?= htmlspecialchars($product_name) ?>"><br>
             Choose categories:<br>
             <?php
@@ -170,7 +177,7 @@
         <br><form method="post" action="../admin/dashboard.php">
             <input type="hidden" name = "mode" value="RESET">
             <p>Warning this is an irreversable attempt. Table reset</p>
-            <input type="submit" value="TRUNICATE OR RESET TABLE">
+            <input type="submit" value="TRUNCATE OR RESET TABLE">
             <?php
              if(isset($_GET["reset"])){
                 echo ($_GET["reset"]==1)? "<p id='updateStatTrue'>Table successfully Reset</p>":"<p id='updateStatFalse'>Reset not successful</p>";
