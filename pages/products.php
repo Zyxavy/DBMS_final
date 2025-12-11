@@ -1,153 +1,88 @@
-<?php
-    session_start();
-    require_once __DIR__ . "/../config/database.php";
-    require_once __DIR__ . "/../Classes/ProductClass.php";
-    require_once __DIR__ . "/../includes/functions.php";
+<?php 
+session_start();
+require_once __DIR__ . "/../includes/functions.php";
 
-    if(!isset($_SESSION['user_id']))
-    {
-        redirectToPage("../index.php");
-        session_destroy();
-        exit();
-    }
+if(!isset($_SESSION['user_id']))
+{
+    session_destroy();
+    redirectToPage("../index.php"); 
+    exit();
+}
 
-    if(isset($_POST['log-out']))
-    {
-        if (!headers_sent()) 
-        {
-            session_destroy();
-            redirectToPage('../index.php');
-        } 
-    }
-    elseif(isset($_POST['phones']))
-    {
-        if (!headers_sent()) 
-        {
-            redirectToPage('phones.php');
-        } 
-    }
-    elseif(isset($_POST['cart']))
-    {
-        if (!headers_sent()) 
-        {
-            redirectToPage('cart.php');
-        } 
-    }
+include('../includes/navbar.html');
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>Manzanas | Products</title>
+    <link rel="stylesheet" href="../pages/productsStyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <h2>This is what u will see when after u login as a customer</h2>
 
-    <?php
-        if(isset($_SESSION['success_message'])) 
-        {
-            echo "<div style='color: green;'>" . $_SESSION['success_message'] . "</div>";
-            unset($_SESSION['success_message']);
-        }
-        if(isset($_SESSION['error_message'])) 
-        {
-            echo "<div style='color: red;'>" . $_SESSION['error_message'] . "</div>";
-            unset($_SESSION['error_message']);
-        }
-    ?>
-    
-    <div>
-        <form action="products.php" method="post">
-            <button type="submit" name="log-out">Log Out</button>
-            <button type="submit" name="phones" style="background-color: red; text-align:center;">Phones</button>
-        </form>
-        <br>
-        
-        <form action="products.php" method="post">
-            <div>
-                <label for="categories">Choose a category:</label>
-                <select id="categories" name="category">
-                    <option value="1">Mobile-phones</option>
-                    <option value="2">Laptops</option>
-                    <option value="3">system-unit</option>
-                    <option value="4">input-devices</option>
-                    <option value="5">output-devices</option>
-                </select> 
-                <button type="submit" name="cat-btn">Search</button>
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p style="font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: #ffcccc;">Featured Product</p>
+                <h1 class="hero-title">M-phone 17 PRO</h1>
+                <p class="hero-description">
+                    The pinnacle of performance, design, and intelligence. Built with an aerospace-grade titanium frame, 
+                    an edge-to-edge MicroLED ProMotion display, and powered by Manzanas' most advanced A18 Pro chip. It delivers unmatched speed, efficiency, and realism.
+                </p>
+                <div class="hero-actions">
+                    <a href="phones.php" class="btn-primary-dark">Learn More</a>
+                    <a href="phones.php" class="btn-secondary-transparent">Buy Now</a>
+                </div>
             </div>
-
-            <div>
-                <select name="sort_by">
-                    <option value="price">Price</option>
-                    <option value="RAM">RAM</option>
-                    <option value="ROM">ROM</option>
-                </select>
-
-                <select name="order">
-                    <option value="ASC">Low to High</option>
-                    <option value="DESC">High to Low</option>
-                </select>
+            
+            <div class="hero-image">
+                <img src="../assets/Phones/Iphone17Pro.png" alt="M-phone 17 PRO">
             </div>
-        </form>
-
-        <div>
-            <table border="5" cellpadding="20">
-                <tr>
-                    <th>Product name</th>
-                    <th>class</th>
-                    <th>price</th>
-                    <th>stock</th>
-                    <th>RAM</th>
-                    <th>ROM</th>
-                    <th>Action</th>
-                </tr>
-
-                <?php 
-                    if(isset($_POST['cat-btn']))
-                    {
-                        $categoryID = $_POST['category'];
-                        $sort_by = $_POST['sort_by'] ?? 'price';
-                        $order = $_POST['order'] ?? 'ASC';
-                        $products = new Products();
-                        $productsList = $products->getProductsbyCategory($categoryID, $sort_by, $order);        
-                        
-                        if($productsList && count($productsList) > 0)
-                        { 
-                            foreach($productsList as $product)
-                            { ?>
-                                <tr>
-                                    <td><?= $product['name'] ?></td>
-                                    <td><?= $product['class_name'] ?></td>
-                                    <td><?= $product['price'] ?></td>
-                                    <td><?= $product['stock'] ?></td>
-                                    <td><?= $product['RAM'] ?></td>
-                                    <td><?= $product['ROM'] ?></td>
-
-                                    <td>
-                                        <form action="addToCart.php" method="post">
-                                            <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                                            <input type="number" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>">
-                                            <button type="submit" name="add_to_cart">Add to Cart</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php } 
-                        }
-                        else
-                        {
-                            echo "<tr><td colspan='7'>No products found :(</td></tr>";
-                        }
-                    }  
-                ?>
-            </table>
         </div>
-
-        <hr>
-        
-        <form action="products.php" method="post">
-            <button type="submit" name="cart">Cart</button>
-        </form>
     </div>
+
+    <div class="products-grid-container">
+        <div class="products-grid-header">
+            Products
+        </div>
+        
+        <div class="product-cards-grid">
+            
+            <a href="phones.php" style="text-decoration: none;">
+                <div class="product-card">
+                    <h2 class="card-title">Smartphones</h2>
+                    <div class="card-image-box">
+
+                        <img src="../assets/Phones/Iphone_series.jpg" alt="Smartphones">
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Show more &gt;</span>
+                    </div>
+                </div>
+            </a>
+
+
+            <a href="pc.php" style="text-decoration: none;">
+                <div class="product-card">
+                    <h2 class="card-title">PC</h2>
+                    <div class="card-image-box">
+                        <img src="../assets/PC/macbook-hero.png" alt="PC">
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Show more &gt;</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    
+    <?php include('../includes/footer.html') ?>
+
 </body>
 </html>
