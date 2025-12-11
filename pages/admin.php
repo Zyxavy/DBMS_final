@@ -18,14 +18,13 @@
     function getDeleteStatus(){
         return isset($_GET["deleteStat"])&&$_GET["deleteStat"]=="1";
     }
-    if(isset($_POST['log-out']))
-    {
-        if (!headers_sent()) 
-        {
-            session_destroy();
-            redirectToPage('../index.php');
-        } 
+
+    if (isset($_POST['log-out'])) {
+        session_destroy();
+        header("Location: ../index.php");
+        exit;
     }
+    
 ?>
 
 
