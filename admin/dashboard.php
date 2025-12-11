@@ -2,9 +2,9 @@
     require_once __DIR__. "/../config/database.php";
     require_once __DIR__. "/manage.php";
     require_once __DIR__. "/../includes/functions.php";
+    $manage = new manage();
     if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["mode"])){
-       
-        $manage = new manage();
+ 
         if(isset($_POST["mode"])){
             $mode = $_POST["mode"];
         }
@@ -68,7 +68,6 @@
     }
     if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["update_order"])){
         $mode = $_POST["update_order"];
-        $manage = new manage();
         switch($mode){
             case "UPDATE":
                 $order_id = $_POST["order_id"];
@@ -82,6 +81,18 @@
                     redirectToPage("../pages/admin_orders.php?updated=0&order_id=$order_id");
                 }
                 
+                break;
+        }
+    }
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["user_mode"])){
+        $mode = $_POST["user_mode"];
+
+        switch($mode){
+            case "UPDATE":
+                $new_status = $_POST["status"];
+                $user_id = $_POST["user_id"];
+                $manage->update_user_status($user_id,$new_status);
+                redirectToPage("../pages/admin_users.php");
                 break;
         }
     }

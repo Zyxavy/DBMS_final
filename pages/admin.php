@@ -82,6 +82,9 @@
     <title>Manager</title>
     
 </head>
+<header>
+    <img src="../assets/images/Admin Img.jpg" loading="lazy">
+</header>
 <body>
 
     <!-- Logout Button -->
@@ -94,6 +97,9 @@
         <!-- Button para makadto ha order management -->
         <form action="admin_orders.php">
             <button type="submit">Go to Manage orders</button>
+        </form>
+        <form action="admin_users.php">
+            <br><button type="submit">Go to Manage users</button>
         </form>
     </div>
     <br>

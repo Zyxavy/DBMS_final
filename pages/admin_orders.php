@@ -86,6 +86,9 @@ $getorder =null;
     <title>Orders</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
+<header>
+    <img src="../assets/images/Admin Img.jpg" loading="lazy">
+</header>
 <body>
     <div class="panel">
         <form method="get" action="<?= $_SERVER["PHP_SELF"] ?>">

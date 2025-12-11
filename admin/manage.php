@@ -165,4 +165,77 @@ class manage extends Database{
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function get_all_users() {
+    try {
+        $sql = "SELECT user_id, username, status, password_hash FROM users";
+        return $this->query($sql, true);
+    } catch (PDOException $e) {
+        return [];
+    }
+}
+
+function get_user($user_id){
+    try{
+        $sql = "SELECT user_id, username, email, is_admin FROM users WHERE user_id = :user_id;";
+        $stmt = parent::connect()->prepare($sql);
+        $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }catch(PDOException $e){
+        return false;
+    }
+}
+function update_user_status($user_id, $status){
+    try {
+        $sql = "UPDATE users SET status = :status WHERE user_id = :user_id";
+        $stmt = parent::connect()->prepare($sql);
+        $stmt->bindValue(":status", $status, PDO::PARAM_STR);
+        $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+function delete_user($user_id){
+    try{
+        $sql = "DELETE FROM users WHERE user_id = :user_id;";
+        $stmt = parent::connect()->prepare($sql);
+        $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }catch(PDOException $e){
+        return false;
+    }
+}
+
+function selective_usersearch($term, $isIdSearch = true) {
+    try {
+        if ($isIdSearch) {
+            $sql = "SELECT user_id, username, email, is_admin FROM users WHERE user_id = :id";
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":id", (int)$term, PDO::PARAM_INT);
+        } else {
+            $sql = "SELECT user_id, username, email, is_admin FROM users WHERE username LIKE :name";
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":name", '%' . $term . '%', PDO::PARAM_STR);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        return false;
+    }
+}
 }
