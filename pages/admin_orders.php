@@ -81,17 +81,17 @@ $getorder =null;
             <input type="radio" id="status_pending" name="order_status" value="pending">
             <label for="status_pending">Pending</label>
 
-            <input type="radio" id="status_delivery" name="order_status" value="delivery">
-            <label for="status_delivery">Delivery</label>
+            <input type="radio" id="status_processing" name="order_status" value="processing">
+            <label for="status_processing">Processing</label>
+
+            <input type="radio" id="status_shipped" name="order_status" value="shipped">
+            <label for="status_shipped">shipped</label>
+
+            <input type="radio" id="status_delivered" name="order_status" value="delivered">
+            <label for="status_delivered">delivered</label>
 
             <input type="radio" id="status_cancelled" name="order_status" value="cancelled">
-            <label for="status_cancelled">Cancelled</label>
-
-            <input type="radio" id="status_returned" name="order_status" value="returned">
-            <label for="status_returned">Returned</label>
-
-            <input type="radio" id="status_success" name="order_status" value="success">
-            <label for="status_success">Success</label>
+            <label for="status_cancelled">cancelled</label>
             <button type="reset">Reset</button>
             <button type="submit">Search Order</button>
             <br>
@@ -117,9 +117,9 @@ $getorder =null;
                 <br><label for="paymentMeth">Payment Method</label><br>
                 <input type="text" id="paymentMeth"name= "new_payment_method" value="<?= htmlspecialchars($getorder["payment_method"])?>">
                 <br><label for="paymentStat">Payment Status</label><br>
-                <input type="number" id="paymentStat"name= "new_payment_status" value="<?= htmlspecialchars($getorder["payment_status"])?>">
+                <input type="text" id="paymentStat"name= "new_payment_status" value="<?= htmlspecialchars($getorder["payment_status"])?>">
                 <br><label for="orderStat">Order Status</label><br>
-                <input type="number" id="orderStat"name= "new_order_status" value="<?= htmlspecialchars($getorder["order_status"])?>">
+                <input type="text" id="orderStat"name= "new_order_status" value="<?= htmlspecialchars($getorder["order_status"])?>">
                 
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset">
