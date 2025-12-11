@@ -1,28 +1,43 @@
-<?php 
+<?php
+
+    // Gin-iistart an session para magamit an session variables
     session_start();
+
+    // Ginkakarga an database config
     require_once __DIR__ . "/../config/database.php";
+
+    // Ginkakarga an Cart class para han cart operations
     require_once __DIR__ . "/../Classes/CartClass.php";
+
+    // Ginkakarga an helper functions
     require_once __DIR__ . "/../includes/functions.php";
 
+    // Pagcheck kun may naka-login, kun diri i-redirect ha login page
     checkSession();
 
+    // Kun nag-click an user han checkout button ngan pagredirect ha checkout page
     if(isset($_POST['checkout']))
     {
         redirectToPage('checkout.php'); 
         exit();
     }
+    // Pag click han back button ma re-direct kan products.php
     elseif(isset($_POST['back']))
     {
         redirectToPage('products.php');
         exit();
     }
+
+    // Default na message
     $message = "Cart:";
 
+    // Kun nag-update han quantity
     if(isset($_POST['update']))
     {
         $cartId = (int)$_POST['cart_id'];
         $newQuantity = (int)$_POST['new_quantity'];
 
+        // Pagcheck kun valid an quantity ngan na-update an cart
         if($newQuantity > 0 && $cart->updateQuantity($cartId, $newQuantity))
         {
             $message = "Quantity updated successfully!";
@@ -30,6 +45,7 @@
             $message = "Error: Failed to update quantity or quantity is invalid.";
         }
     }
+    // Kun nag-remove han item
     elseif(isset($_POST['remove']))
     {
         $cartIdRm = (int)$_POST['cart_id_rm'];
@@ -43,8 +59,10 @@
     }
     include('../includes/navbar.html');
 
-    $cart = new Cart();
+    // Paghimo hin bag o na instance nui Cart
+    $cart = new Cart(); 
     
+    // Ginkuha an tanan items han cart para han current user
     $cartItems = $cart->getCartItems($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
@@ -87,15 +105,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
+
+                        // Ginhihimo an variable para igtamp an total han tanan items
                         $grandtotal = 0;
+
+                        // Gintitsek kun mayda items ha cart
                         if($cartItems && count($cartItems) > 0)
-                        { 
+                        {
+                             // Ginlilibot an kada item ha cart 
                             foreach($cartItems as $item)
-                            { 
+                            {
+                                // Ginkuha an presyo han item 
                                 $price = (float)$item['price'];
+
+                                // Ginkuha an quantity han item
                                 $quantity = (int)$item['quantity'];
+
+                                // Gincacalculate an subtotal para han item (presyo * quantity)
                                 $subtotal = $price * $quantity;
+
+                                // Ginadugang an subtotal ha grand total
                                 $grandtotal += $subtotal;
                     ?>
                                 <tr>

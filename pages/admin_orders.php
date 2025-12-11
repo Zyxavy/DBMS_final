@@ -1,48 +1,76 @@
 <?php
+
+// Gin-iistart an session para gamitin an session variables
 session_start();
+
+// Ginkakarga an database configuration
 require_once __DIR__ . "/../config/database.php";
+
+// Ginkakarga an manage.php para han admin features (pagkuha orders, delete, update, etc.)
 require_once __DIR__ . "/../admin/manage.php";
+
+// Ginkakarga an imo helper functions sugad san redirectToPage(), checkAdmin(), etc.
 require_once __DIR__ . "/../includes/functions.php";
 
+// Ginsusuri kun ADMIN la an pwede makakita hini nga page
 checkAdmin();
 
+// Kun may GET ?back=1, ibalik ngadto ha admin dashboard
 if (isset($_GET["back"]) && $_GET["back"] == 1) {
     redirectToPage("admin.php");
     exit();
 }
 
-$manage = new manage();
+// Ginkuha an tanan nga orders para i-display
+$manage = new manage(); 
+
+// Ginkuha an current page path para gamiton ha forms
 $orders = $manage->get_all_orders();
+
+// Variables para han search results
 $dashboard = $_SERVER['PHP_SELF'];
 $getsearch = [];
 $getorder =null;
+
 ?>
+
+
 <?php
+    // Ginsusuri kun POST an request method (search, select, update, delete actions)
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        // Pag search hit functionality
         if (isset($_POST["order_mode"])) {
             $order = $_POST["order_mode"];
             switch ($order) {
+
+                // Pag search hit Order ID
                 case "searchOrd_orderid":
                     $id = autocheckPOST("order_id");
                     if ($id) $getsearch = $manage->selective_ordersearch($id, false);
                     break;
 
+                // Pag search hit User ID
                 case "searchOrd_userid":
                     $user = autocheckPOST("user_id");
                     if ($user) $getsearch = $manage->selective_ordersearch($user, true);
                     break;
 
+                // Pag search hit Order Status
                 case "searchOrd_status":
                     $status = autocheckPOST("order_status");
                     if ($status !== false) $getsearch = $manage->selective_statussearch($status);
                     break;
             }
         }
+
+        // Pag select han order para pag update ngan pag delete 
         if (isset($_POST["select_order"]) && isset($_POST["order_id"])) {
             $row = $manage->get_order($_POST['order_id']);
             $getorder = $row ? $row[0] : null;
         }
 
+        // Pag delete han order
         if (isset($_POST["DELETE"])) {
             $manage->delete_order($_POST["order_id"]);
             redirectToPage($dashboard);
@@ -188,21 +216,48 @@ $getorder =null;
                 <th>Items</th>
             </tr>
             <?php
+
+                // Pag check kun mayda pa sulod an $orders
                 if (!empty($orders)) {
+
+                    // Gin iikisa an kada order ha lista
                     foreach ($orders as $order) {
-                        echo "<tr>";
+                        echo "<tr>"; // Naghihimo hin bag o na row ha table
+
+                        // Pag pakita han order id
                         echo "<td>{$order['order_id']}</td>";
+
+                         // Ginpapakita an ngaran han user (gin-clean gamit htmlspecialchars)
                         echo "<td>" . htmlspecialchars($order['username']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['street_address']) . ", ". htmlspecialchars($order['city']). 
-                        ", ". htmlspecialchars($order['province']) ."</td>";
+
+                        // Ginpapakita an completo nga address (street + city + province)
+                        echo "<td>"
+                            . htmlspecialchars($order['street_address']) . ", "
+                            . htmlspecialchars($order['city']). ", "
+                            . htmlspecialchars($order['province']) 
+                        ."</td>";
+
+                        // Ginpapakita an petsa han order
                         echo "<td>{$order['order_date']}</td>";
+
+                        // Ginpapakita an total nga bayad, naka-format ha Philippine Peso
                         echo "<td>P" . number_format($order['total_amount'], 2) . "</td>";
+
+                        // Ginpapakita an status han order (ginkukuha an first letter nga kapital)
                         echo "<td>" . ucfirst($order['order_status']) . "</td>";
+
+                        // Ginpapakita an status han bayad
                         echo "<td>" . ucfirst($order['payment_status']) . "</td>";
+
+                        // Ginpapakita kun pira ka items an aada ha order
                         echo "<td>{$order['total_items']}</td>";
+
+                        // Tapos nga row
                         echo "</tr>";
                     }
-                } else {
+                } 
+                // Kun wara gud la orders, igdisplay hin message
+                else {
                     echo "<tr><td id='updateStatFalse' colspan='8'>No orders found.</td></tr>";
                 }
             

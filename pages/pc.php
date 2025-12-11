@@ -1,19 +1,30 @@
 <?php
+
+// Gin-iistart an session para magamit an session variables
 session_start();
 
+// Ginkakarga an database config
 require_once __DIR__ . "/../config/database.php";
+
+// Ginkakarga an Cart class
 require_once __DIR__ . "/../Classes/ProductClass.php";
+
+// Ginkakarga an helper functions
 require_once __DIR__ . "/../includes/functions.php";
 
-checkSession();
+checkSession(); // Gintitiyak nga nakalogin an user
 
 include('../includes/navbar.html');
 
+
+// Ini nga arrays ginpre-define para i-categorize an laptops ngan desktops ha kada class
 $laptopsByClass = [
     'Entry level' => [],
     'Mid tier' => [],
     'Flag ship' => []
 ];
+
+// Ini nga arrays ginpre-define para i-categorize an laptops ngan desktops ha kada class
 $desktopsByClass = [
     'Entry level' => [],
     'Mid tier' => [],
@@ -21,20 +32,23 @@ $desktopsByClass = [
 ];
 
 try {
-    $productsInstance = new Products();
+    $productsInstance = new Products(); // Naghihimo hin bag o na instance hit products class
     
-    $categoryIdLaptops = 2; //change based on ID of laptops and desktop
-    $categoryIdDesktops = 3;
+    $categoryIdLaptops = 2; // ID para han laptops ha database
+    $categoryIdDesktops = 3; // ID para han desktops ha database
     
-
+    // Kuhaon an products tikang ha database base ha category, nasort base ha price
     $fetchedLaptops = $productsInstance->getProductsbyCategory($categoryIdLaptops, 'price', 'ASC');
     $fetchedDesktops = $productsInstance->getProductsbyCategory($categoryIdDesktops, 'price', 'ASC');
- 
+
+    // Kung may laptops
     if ($fetchedLaptops && is_array($fetchedLaptops)) {
         foreach ($fetchedLaptops as $dbProduct) {
+            // Kuhaon an description, kon waray i-set default text
             $description = $dbProduct['product_description'] ?? 'View details for specifications.';
             $specsArray = !empty($description) ? explode('<br>', $description) : [];
             
+            // Ihanda an product data para ipakita
             $productData = [
                 'product_id' => $dbProduct['product_id'],
                 'name' => $dbProduct['name'],
@@ -48,6 +62,7 @@ try {
                 'class_name' => $dbProduct['class_name'] ?? 'Entry level'
             ];
             
+            // I-add an product ha corresponding class
             $className = $dbProduct['class_name'] ?? 'Entry level';
             if (isset($laptopsByClass[$className])) {
                 $laptopsByClass[$className][] = $productData;
@@ -57,11 +72,13 @@ try {
         }
     }
     
+    // Pagcheck kun may ada desktops
     if ($fetchedDesktops && is_array($fetchedDesktops)) {
         foreach ($fetchedDesktops as $dbProduct) {
             $description = $dbProduct['product_description'] ?? 'View details for specifications.';
             $specsArray = !empty($description) ? explode('<br>', $description) : [];
             
+            // Pag handa han product data para ipakita
             $productData = [
                 'product_id' => $dbProduct['product_id'],
                 'name' => $dbProduct['name'],
@@ -75,6 +92,7 @@ try {
                 'class_name' => $dbProduct['class_name'] ?? 'Entry level'
             ];
             
+            // I add an product ha corresponding na class
             $className = $dbProduct['class_name'] ?? 'Entry level';
             if (isset($desktopsByClass[$className])) {
                 $desktopsByClass[$className][] = $productData;
@@ -85,6 +103,7 @@ try {
     }
 
 } catch (Exception $e) {
+    // Logging han error kun may problem ha database
     error_log("DB Error in pc.php: " . $e->getMessage());
     $_SESSION['error_message'] = "Could not connect to the database or fetch product list.";
 }
@@ -221,6 +240,7 @@ try {
 </head>
 <body class="landing-page">
     <?php
+        // Ipakita an success o error messages ha ibabaw han page
         if(isset($_SESSION['success_message'])) 
         {
             echo "<div class='success-message'>" . htmlspecialchars($_SESSION['success_message']) . "</div>";
@@ -312,10 +332,11 @@ try {
             endif;
         endforeach; 
         
+        // Pagcheck kun mayda pa available na laptops
         if (!$hasLaptops): ?>
             <div class="cards-container">
                 <div class="no-products">
-                    <p>No laptops available at the moment. Please check back later!</p>
+                    <p>No laptops available at the moment. Please check back later!</p> <!-- Pagpakita hin message kun waray -->
                 </div>
             </div>
         <?php endif; ?>
@@ -327,7 +348,9 @@ try {
     </div>
 
     <section class="comparison-section section-darker">
-        <?php 
+        <?php
+        
+        // Pagcheck kun mayda pa desktops
         $hasDesktops = false;
         foreach($desktopsByClass as $className => $desktops):
             if (!empty($desktops)): 
@@ -386,10 +409,11 @@ try {
             endif;
         endforeach; 
         
+        // Pagcheck kun waray desktop
         if (!$hasDesktops): ?>
             <div class="cards-container">
                 <div class="no-products">
-                    <p>No desktops available at the moment. Please check back later!</p>
+                    <p>No desktops available at the moment. Please check back later!</p> <!-- Ig show kun waray available na desktop -->
                 </div>
             </div>
         <?php endif; ?>

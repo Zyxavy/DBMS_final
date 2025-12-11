@@ -1,31 +1,43 @@
 <?php
+
+// Gin-iistart an session para magamit an session variables
 session_start();
 
+// Ginkakarga an database config
 require_once __DIR__ . "/../config/database.php";
+
+// Ginkakarga an cart class
 require_once __DIR__ . "/../Classes/ProductClass.php";
+
+// Ginkakarga an helper functions
 require_once __DIR__ . "/../includes/functions.php";
 
+// Pagcheck kun naka-login an user, kun diri i-redirect ha login page
 checkSession();
 
 include('../includes/navbar.html');
 
-$products = []; 
+$products = []; // Array para pag store han products tikang database
 
 try {
-    $categoryId = 1;
+    $categoryId = 1; // Category ID para ha phones
     $productsInstance = new Products();
     
+    // Kuhaon an products tikang ha database base ha category, sorted by name
     $fetchedProducts = $productsInstance->getProductsbyCategory($categoryId, 'name', 'ASC');
 
     if ($fetchedProducts && is_array($fetchedProducts)) {
         foreach ($fetchedProducts as $dbProduct) {
+
+            // Kuhaon an description, kun waray i-set default text
             $description = $dbProduct['product_description'] ?? 'View details for specifications.';
             
             $specsArray = [];
             if (!empty($description)) {
-                $specsArray = explode('<br>', $description);
+                $specsArray = explode('<br>', $description);  // Split han description ha specs array
             }
             
+            // Ihanda an product data para ipakita ha page
             $products[] = [
                 'product_id' => $dbProduct['product_id'],
                 'name' => $dbProduct['name'],
@@ -42,6 +54,8 @@ try {
     }
 
 } catch (Exception $e) {
+
+    // Logging han error kun may problema ha database
     error_log("DB Error in phones.php: " . $e->getMessage());
     $_SESSION['error_message'] = "Could not connect to the database or fetch product list.";
     $products = [];

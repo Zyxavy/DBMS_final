@@ -93,7 +93,8 @@ class Products extends Database //this is a product, which can be used by both a
         $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
         $stmt->execute();
 
-            return true;
+        return true;
+        
         } catch (PDOException $e) {
             error_log("Stock reduction error: " . $e->getMessage());
             return false;

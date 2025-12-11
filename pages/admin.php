@@ -1,23 +1,40 @@
 <?php
+
+    // Gin-iistart an session para magamit an session variables
     session_start();
+
+    // Ginkakarga an database configuration
     require_once __DIR__."/../config/database.php";
+
+    // Ginkakarga an manage class para han CRUD operations
     require_once __DIR__."/../admin/manage.php";
+
+    // Ginkakarga an helper functions (upod checkAdmin)
     require_once __DIR__."/../includes/functions.php";
 
+    // Ginsusuri kun admin ba an naka-login, kun diri i-redirect
     checkAdmin();
 
+    // Pag check kun update mode ba an gamit 
     $isUpdate = isset($_GET["update"]) && $_GET["update"]==1;
     $mode_label = $isUpdate ? "UPDATE" : "INSERT";
     $next_mode = $isUpdate ? 0 : 1;
     $next_label = $isUpdate ? "INSERT" : "UPDATE";
 
+    // Nagbubuhat hin manage object para makapagtawag hin queries
     $manage = new manage();
+
+    // Kuhaon an tanan products upod hira category ngan class
     $products = $manage->query("SELECT p.product_id, p.name, p.price, p.stock, p.RAM, p.ROM, c.category_name, cl.class_name
     FROM products p INNER JOIN category c ON p.category_id = c.id INNER JOIN class cl ON p.class_id = cl.id", true);
 
+    // Kuhaon an categories
     $categories = $manage->query("SELECT category_name, id FROM category",true);
+
+    // Kuhaon an classes
     $class = $manage->query("SELECT class_name, id FROM class",true);
 
+    // Default na mga values para ha form fields
     $product_desc = '';
     $product_name = '';
     $price = 0;
@@ -28,8 +45,13 @@
     $class_id = 0;
     $product_id = '';
 
+    // Kun update mode ngan may product_id, kuhaon an detalye han product
     if ($isUpdate && isset($_GET['product_id']) && $_GET['product_id'] != '') {
+
+        // Kuhaon an product base ha iya ID
         $product_id = (int)$_GET['product_id'];
+
+        // Kun may nakuha nga data, i-set an form fields
         $product = $manage->query("SELECT * FROM products WHERE product_id = $product_id", true);
         if ($product && count($product) > 0) {
             $product = $product[0];
@@ -44,7 +66,7 @@
         }
     }
         
-    
+    // Function para mag-check kun successful an delete
     function getDeleteStatus(){
         return isset($_GET["deleteStat"])&&$_GET["deleteStat"]=="1";
     }
@@ -61,12 +83,15 @@
     
 </head>
 <body>
+
+    <!-- Logout Button -->
     <div>
         <form method="post" action="../auth/logout.php">
             <input type="hidden" name="log-out" value="1">
             <button type="submit" value="Log out">Logout</button>
         </form>
         <br>
+        <!-- Button para makadto ha order management -->
         <form action="admin_orders.php">
             <button type="submit">Go to Manage orders</button>
         </form>
@@ -77,6 +102,8 @@
     <br>
     <div>
         <?php
+
+        // Kun UPDATE mode, magpapakita hin input para mag-load hin product ID
         if ($isUpdate) {
             echo '<form method="get" action="' . $_SERVER["PHP_SELF"] . '">';
             echo '<input type="hidden" name="update" value="1">';
@@ -85,21 +112,42 @@
             echo '</form><br>';
         }
         ?>
+
+        <!-- Main Form para INSERT/UPDATE -->
         <form method="post" action="../admin/dashboard.php">
             <input type="hidden" name="is_pressed_insert" value="true">
             <input type="hidden" name="mode" value="<?= $mode_label ?>">
+
+             <!-- name han product -->
             Product Name: <input type="text" name="Product_name" value="<?= htmlspecialchars($product_name) ?>"><br>
             Choose categories:<br>
+
             <?php
+
+            // Pagcheck kun may sulod an $categories
             if($categories != false){
+
+                // Ginlilibot an kada category nga nakuha tikang ha database
                 foreach($categories as $col){
+
+                    // Ginkuha an category ID (gin-cast ha int para sigurado nga numero)
                     $id = (int)$col["id"];
+
+                    // Ginkuha an category name ngan gin-escape para safe i-display
                     $name = htmlspecialchars($col["category_name"]);
+
+                    // Kun an naka-save nga category_id amo ini kun dire hihimuon checked
                     $checked = ($category_id == $id) ? 'checked' : '';
+
+                    // Radio button para han category
                     echo '<input type="radio" id="cat'.$id.'" name="category" value="'.$id.'" '.$checked.'>';
+
+                    // Gin-display an ngaran han category
                     echo '<label for="cat'.$id.'">'.$name.'</label><br>';
                 }
-            }else{
+            }
+            // Message kun waray nakuha nga category
+            else {
                 echo "No categories found, contact support<br>";
             }
             ?>
