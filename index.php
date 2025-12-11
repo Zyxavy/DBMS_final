@@ -56,6 +56,10 @@
             </div>
         </form>
 
+        <h1>
+            FIXXXX
+        </h1>
+
         <p class="terms">
             By proceeding, i agree to the <a href="#">MANZANAS Account Terms of Use</a> and <a href="#">Privacy Policy</a>.
         </p>
