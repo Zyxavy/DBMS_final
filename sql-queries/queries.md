@@ -9,7 +9,7 @@
 
 - Create Database and tables
 ```sql
-CREATE DATABASE ecommerce_db
+CREATE DATABASE ecommerce_db;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,

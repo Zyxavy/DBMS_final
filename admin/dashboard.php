@@ -5,7 +5,10 @@
         require_once __DIR__. "/manage.php";
         require_once __DIR__. "/../includes/functions.php";
         $manage = new manage();
-        $mode = $_POST["mode"];
+        if(isset($_POST["mode"])){
+            $mode = $_POST["mode"];
+        }
+        
 
         $product_id = (isset($_POST["product_id"]))? $_POST["product_id"]:-1;
         $product_name = (isset($_POST["Product_name"]))?$_POST["Product_name"]:"";
@@ -55,7 +58,7 @@
 
         case "RESET":
              try {
-                $manage->query("TRUNCATE TABLE products",false);
+                $manage->query("SET FOREIGN_KEY_CHECKS = 0;TRUNCATE TABLE products;SET FOREIGN_KEY_CHECKS = 1;",false);
                 redirectToPage("/../pages/admin.php?reset=1");
             }catch (PDOException $e) {
                 redirectToPage("/../pages/admin.php?reset=0");
@@ -63,5 +66,6 @@
             break;
 
     }
-}
+
+    }
 ?>

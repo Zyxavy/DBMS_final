@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../admin/manage.php";
-require_once __DIR__ . "/../admin/dashboard.php";
 require_once __DIR__ . "/../includes/functions.php";
 
 
@@ -11,9 +10,44 @@ if (isset($_GET["back"]) && $_GET["back"] == 1) {
 
 $manage = new manage();
 $orders = $manage->get_all_orders();
-
+$dashboard = $_SERVER['PHP_SELF'];
+$getsearch = [];
+$getorder =null;
 ?>
-
+<?php
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+        if( isset($_POST["order_mode"])){
+            $order = $_POST["order_mode"];
+            switch($order){
+                case "searchOrd_orderid":
+                    $id = autocheckPOST("order_id");
+                    if ($id !== false && $id !== "") {
+                        $getsearch = $manage->selective_ordersearch($id, false);
+                    }
+                    break;
+                case "searchOrd_userid":
+                    $user = autocheckPOST("user_id");
+                    if ($user !== false && $user !== "") {
+                        $getsearch = $manage->selective_ordersearch($user, true);
+                    }
+                    break;
+                case "searchOrd_status":
+                    $status = autocheckPOST("order_status");
+                    if ($status !== false) {
+                        $getsearch = $manage->selective_statussearch($status);
+                    }
+                    break;
+            }
+        }
+        if(isset($_POST["order_id"])){
+            $getorder = $manage->get_order($_POST['order_id']);
+        }
+        if(isset($_POST["DELETE"])){
+            $manage->delete_order($getorder['order_id']);
+            echo "<p id='updateStatTrue'>Selected order deleted</p>";
+        }
+    }
+?>
 
 <!DOCTYPE html>
 <html>
@@ -24,58 +58,109 @@ $orders = $manage->get_all_orders();
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-    
-    <form method="get" action="<?= $_SERVER["PHP_SELF"] ?>">
-        <input type="hidden" name="back" value="1">
-        <input type="submit" value="Go back to manage page">
-    </form>
-    <h3>Search order</h3>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
-        <br>Search by order ID <input type="number" name="user_id">
-        <button type="submit">Search Order</button>
+    <div>
+        <form method="get" action="<?= $_SERVER["PHP_SELF"] ?>">
+            <input type="hidden" name="back" value="1">
+            <input type="submit" value="Go back to manage page">
+        </form>
+        <h3>Search order</h3>
+        <form action="<?= $dashboard?>" method="post">
+            <input type="hidden" name="order_mode" value="searchOrd_orderid">
+            <br>Search by order ID <input type="number" name="order_id">
+            <button type="submit">Search Order</button>
+            <br>
+        </form>
+        <form action="<?= $dashboard ?>" method="post">
+            <input type="hidden" name="order_mode" value="searchOrd_userid">
+            <br>Search by user ID <input type="number" name="user_id">
+            <button type="submit">Search Order</button>
+            <br>
+        </form>
+        <form action="<?= $dashboard ?>" method="post">
+            <input type="hidden" name="order_mode" value="searchOrd_status">
+            <br>Search by order status<br>
+
+            <input type="radio" id="status_pending" name="order_status" value="pending">
+            <label for="status_pending">Pending</label>
+
+            <input type="radio" id="status_delivery" name="order_status" value="delivery">
+            <label for="status_delivery">Delivery</label>
+
+            <input type="radio" id="status_cancelled" name="order_status" value="cancelled">
+            <label for="status_cancelled">Cancelled</label>
+
+            <input type="radio" id="status_returned" name="order_status" value="returned">
+            <label for="status_returned">Returned</label>
+
+            <input type="radio" id="status_success" name="order_status" value="success">
+            <label for="status_success">Success</label>
+            <button type="reset">Reset</button>
+            <button type="submit">Search Order</button>
+            <br>
+        </form>
+    </div>
+    <br><br>
+    <?php if($getorder): ?>
+        <form action=<?= $dashboard ?> method="post">
+            <input type="hidden" name="DELETE" value=1>
+            Delete the selected order? <input type="submit" value="Delete"><br>
+        </form>
+        <div>
+            <form action="../admin/dashboard.php" method="post">
+                <label for="order_id">Order ID</label><br>
+                <input type="number" id="order_id" value="<?= $getorder["order_id"]?>" disabled>
+                <br><label for="user_id">User ID</label><br><br>
+                <input type="number" id="user_id" value="<?= $getorder["user_id"]?>" disabled>
+                <br><label for="paymentMeth">Payment Method</label><br>
+                <input type="text" id="paymentMeth"name= "new_payment_method" value="<?= htmlspecialchars($getorder["payment_method"])?>">
+                <br><label for="paymentStat">Payment Status</label><br>
+                <input type="number" id="paymentStat"name= "new_payment_status" value="<?= htmlspecialchars($getorder["payment_status"])?>">
+                <br><label for="orderStat">Order Status</label><br>
+                <input type="number" id="orderStat"name= "new_order_status" value="<?= htmlspecialchars($getorder["order_status"])?>">
+                
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </form>
+        </div>
+    <?php endif; ?>
+    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         <br>
-    </form>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
-        <br>Search by user ID <input type="number" name="order_id">
-        <button type="submit">Search Order</button>
-        <br>
-    </form>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
-        <br>Search by order status<br>
-
-        <input type="radio" id="status_pending" name="order_status" value="pending">
-        <label for="status_pending">Pending</label>
-
-        <input type="radio" id="status_delivery" name="order_status" value="delivery">
-        <label for="status_delivery">Delivery</label>
-
-        <input type="radio" id="status_cancelled" name="order_status" value="cancelled">
-        <label for="status_cancelled">Cancelled</label>
-
-        <input type="radio" id="status_returned" name="order_status" value="returned">
-        <label for="status_returned">Returned</label>
-
-        <input type="radio" id="status_success" name="order_status" value="success">
-        <label for="status_success">Success</label>
-        <button type="reset">Reset</button>
-        <br><button type="submit">Search Order</button>
-        <br>
-    </form>
-    <table>
-        <tr>
-            <th>Order ID</th>
-            <th>Order status</th>
-            <th>Payment method</th>
-            <th>Payment status</th>
-        </tr>
-        
-        <tr>
+        <table>
             
-        </tr>
-    </table>
+            <tr>
+                <th></th>
+                <th>Order ID</th>
+                <th>User ID</th>
+                <th>Order status</th>
+                <th>Payment method</th>
+                <th>Payment status</th>
+            </tr>
+                <?php
+                    if($getsearch){
+                        foreach($getsearch as $column){
+                            echo "<tr>";
+                            echo "<td><input type='radio' name='order_id' value='".htmlspecialchars($column['order_id'])."'></td>";
+                            echo "<td>{$column['order_id']}</td>";
+                            echo "<td>{$column['user_id']}</td>";
+                            echo "<td>".htmlspecialchars($column['order_status'])."</td>";
+                            echo "<td>".htmlspecialchars($column['payment_method'])."</td>";
+                            echo "<td>".htmlspecialchars($column['payment_status'])."</td>";
+                            echo "</tr>";
+                        }
+                    }else{
+                        echo "<td id='updateStatFalse'>Blank search or not found</td>";
+                    }
+                ?>
+            
+        </table>
+        <br><br>
+        <input type="submit" value="Select">
+    </form>
 
-
-    <h2>Show Orders Table</h2>
+    <br>
+    <br>
+    <br>
+    <h2>Display All Orders Table</h2>
     <div>
         <table>
             <tr>
@@ -104,7 +189,7 @@ $orders = $manage->get_all_orders();
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td>No orders found.</td></tr>";
+                    echo "<tr><td id=updateStatFalse>No orders found.</td></tr>";
                 }
             
             ?>
@@ -113,3 +198,15 @@ $orders = $manage->get_all_orders();
 
 </body>
 </html>
+
+<style>
+    table, th, td {
+    border: 1px solid black;
+    }
+    #updateStatFalse{
+        background-color: rgba(255, 0, 0, 0.3);
+    }
+    #updateStatTrue{
+        background-color: rgba(0, 255, 0, 0.3);
+    }
+</style>

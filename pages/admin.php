@@ -46,10 +46,12 @@
             <input type="hidden" name="log-out" value="1">
             <button type="submit" value="Log out">Logout</button>
         </form>
+        <br>
         <form action="admin_orders.php">
             <button type="submit">Go to Manage orders</button>
         </form>
     </div>
+    <br>
     <div>
         <form method="post" action="../admin/dashboard.php">
             <input type="hidden" name="is_pressed_insert" value="true">
@@ -69,7 +71,7 @@
                     echo "No categories found, contact support<br>";
                 }
             ?>
-            Choose class ID <br>
+            <br>Choose class ID <br>
             <?php
                 if($class != false){
                     foreach($class as $col){
@@ -96,7 +98,7 @@
         </form>
         <?php
            if (isset($_GET["inserted"])) {
-                echo $_GET["inserted"] == 1 ? "<p>Inserted</p>" : "<p>Error there is a problem</p>";
+                echo $_GET["inserted"] == 1 ? "<p id='updateStatTrue'>Inserted</p>" : "<p id='updateStatFalse'>Error there is a problem</p>";
             }
         ?>
     </div>
@@ -105,7 +107,7 @@
             <input type="hidden" name="mode" value="DELETE">
             <br>Product ID<input type="number" name="product_id">
             <input type="submit" value="Delete">
-            <?=  (isset($_GET["deleteStat"])) ?((getDeleteStatus())? "<p>Deletion success</p>":"<p>Unsuccessful deletion</p>"):""?>
+            <?=  (isset($_GET["deleteStat"])) ?((getDeleteStatus())? "<p>Deletion success</p>":"<p id='updateStatFalse'>Unsuccessful deletion</p>"):""?>
             <table>
                 <tr>
                 <th>Product_ID</th><th>Product_name</th><th>class</th><th>category</th>
@@ -126,7 +128,7 @@
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td>No products found</td></tr>";
+                        echo "<tr><td id='updateStatFalse'>No products found</td></tr>";
                     }
                 ?>
             </table>
@@ -137,10 +139,22 @@
             <input type="submit" value="TRUNICATE OR RESET TABLE">
             <?php
              if(isset($_GET["reset"])){
-                echo ($_GET["reset"]==1)? "<p>Table successfully Reset</p>":"<p>Reset not successful</p>";
+                echo ($_GET["reset"]==1)? "<p id='updateStatTrue'>Table successfully Reset</p>":"<p id='updateStatFalse'>Reset not successful</p>";
              }
              ?>
         </form>
     </div>
 </body>
 </html>
+
+<style>
+    table, th, td {
+    border: 1px solid black;
+    }
+    #updateStatFalse{
+        background-color: rgba(255, 0, 0, 0.3);
+    }
+    #updateStatTrue{
+        background-color: rgba(0, 255, 0, 0.3);
+    }
+</style>

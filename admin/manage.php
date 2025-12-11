@@ -1,7 +1,7 @@
 <!-- For the CRUD operations para tat products, orders, etc.-->
 <?php
-   
-   class manage extends Database{
+
+class manage extends Database{
     
     
     function add_product($product_name, $category_id, $class_id,$price,$stock,$ROM,$RAM){
@@ -92,15 +92,56 @@
         return [];
     }
     }
-    
+
     function get_order($order_id){
         try{   
-            $sql = "SELECT order_id, user_id, address_id, order_status,
-            payment_method, payement_status
+            $sql = "SELECT order_id, user_id, order_status,
+            payment_method, payment_status
             FROM orders WHERE order_id = :order_id;";
             
             $stmt = parent::connect()->prepare($sql);
-            $stmt->bindValue(":product_id",$order_id,PDO::PARAM_INT);
+            $stmt->bindValue(":order_id",$order_id,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+    function selective_ordersearch($conditionid,$is_userIDsrch){
+        $conditioncol = $is_userIDsrch ? "user_id" : "order_id";
+         try{   
+            $sql = "SELECT order_id, user_id, order_status,
+            payment_method, payment_status
+            FROM orders WHERE "."$conditioncol"."= :id";
+            
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":id",$conditionid,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+
+    function selective_statussearch($status){
+        try{   
+            $sql = "SELECT order_id, user_id, order_status,
+            payment_method, payment_status
+            FROM orders WHERE order_status= :status";
+            
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":status",$status,PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+    function delete_order($order_id){
+        try{   
+            $sql = "DELETE FROM orders WHERE order_id = :order_id;";
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":order_id",$order_id,PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
