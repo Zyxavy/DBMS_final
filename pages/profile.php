@@ -1,14 +1,15 @@
 <?php
-    session_start();
-    require_once __DIR__ . "/../config/database.php";
-    require_once __DIR__ . "/../Classes/ProfileClass.php";
-    require_once __DIR__ . "/../Classes/AddressClass.php";
-    require_once __DIR__ . "/../includes/functions.php";
+session_start();
+require_once __DIR__ . "/../config/database.php";
+require_once __DIR__ . "/../Classes/ProfileClass.php";
+require_once __DIR__ . "/../Classes/AddressClass.php";
+require_once __DIR__ . "/../includes/functions.php";
+
 checkSession();
 
-    $session_user_id = $_SESSION['user_id'] ?? 'mock_user';
-    $profileManager = new Profile($session_user_id);
-    $userDetails = $profileManager->getUserDetails();
+$session_user_id = $_SESSION['user_id'] ?? 'mock_user';
+$profileManager = new Profile($session_user_id);
+$userDetails = $profileManager->getUserDetails();
 
     // Default values if fetch fails or uses mock data
     // if (!$userDetails) {
