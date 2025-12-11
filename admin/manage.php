@@ -71,17 +71,20 @@ class manage extends Database{
         }
    }
 
-   function change_status($order_id, $new_status){
-    try {
-        $sql = "UPDATE orders SET order_status = :status WHERE order_id = :order_id;";
-        $stmt = parent::connect()->prepare($sql);
-        $stmt->bindValue(":status", $new_status, PDO::PARAM_STR);
-        $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
-        return $stmt->execute();
-    } catch(PDOException $e) {
-        return false;
+   function update_order($order_id, $new_status, $new_payment_method, $new_payment_status) {
+        try {
+            $sql = "UPDATE orders SET order_status = :status, payment_method = :pm, payment_status = :ps 
+                    WHERE order_id = :order_id";
+            $stmt = parent::connect()->prepare($sql);
+            $stmt->bindValue(":status", $new_status, PDO::PARAM_STR);
+            $stmt->bindValue(":pm", $new_payment_method, PDO::PARAM_STR);
+            $stmt->bindValue(":ps", $new_payment_status, PDO::PARAM_STR);
+            $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
     }
-}
 
    function get_all_orders() {
         try {

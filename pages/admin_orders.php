@@ -35,14 +35,14 @@ $getorder =null;
                     break;
             }
         }
-        if (isset($_POST["order_id"]) && !isset($_POST["DELETE"])) {
+        if (isset($_POST["select_order"]) && isset($_POST["order_id"])) {
             $row = $manage->get_order($_POST['order_id']);
             $getorder = $row ? $row[0] : null;
         }
 
         if (isset($_POST["DELETE"])) {
             $manage->delete_order($_POST["order_id"]);
-            redirectToPage("orders.php?deleted=1");
+            redirectToPage($dashboard);
         }
     }
 ?>
@@ -98,9 +98,6 @@ $getorder =null;
         </form>
     </div>
     <br><br>
-    <?php if (isset($_GET["deleted"])): ?>
-        <p id="updateStatTrue">Selected order deleted</p><br>
-    <?php endif; ?>
     <?php if($getorder): ?>
         <form action="<?= $dashboard ?>" method="post">
             <input type="hidden" name="DELETE" value="1">
@@ -110,17 +107,28 @@ $getorder =null;
         </form>
         <div>
             <form action="../admin/dashboard.php" method="post">
+                <input type="hidden" name="update_order" value="UPDATE">
+                <input type="hidden" name="order_id" value="<?= $getorder["order_id"] ?>">
                 <label for="order_id">Order ID</label><br>
-                <input type="number" id="order_id" value="<?= $getorder["order_id"]?>" disabled>
+                <input type="number" id="order_id_static" value="<?= $getorder["order_id"]?>" disabled>
                 <br><label for="user_id">User ID</label><br><br>
-                <input type="number" id="user_id" value="<?= $getorder["user_id"]?>" disabled>
+                <input type="number" id="user_id_static" value="<?= $getorder["user_id"]?>" disabled>
                 <br><label for="paymentMeth">Payment Method</label><br>
                 <input type="text" id="paymentMeth"name= "new_payment_method" value="<?= htmlspecialchars($getorder["payment_method"])?>">
                 <br><label for="paymentStat">Payment Status</label><br>
                 <input type="text" id="paymentStat"name= "new_payment_status" value="<?= htmlspecialchars($getorder["payment_status"])?>">
-                <br><label for="orderStat">Order Status</label><br>
-                <input type="text" id="orderStat"name= "new_order_status" value="<?= htmlspecialchars($getorder["order_status"])?>">
-                
+                <br><label>Order Status</label><br>
+                <?php
+                $statuses = ["pending", "processing", "shipped", "delivered", "cancelled"];
+                $current = $getorder["order_status"];
+
+                foreach ($statuses as $status) {
+                    echo '<input type="radio" id="stat_'.$status.'" name="new_order_status" value="'.$status.'"';
+                    if ($current === $status) echo ' checked';
+                    echo '>';
+                    echo '<label for="stat_'.$status.'">'.ucfirst($status).'</label><br>';
+                }
+                ?>
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset">
             </form>
@@ -157,7 +165,7 @@ $getorder =null;
             
         </table>
         <br><br>
-        <input type="submit" value="Select">
+        <input type="submit" name="select_order" value="Select">
     </form>
 
     <br>
@@ -168,7 +176,7 @@ $getorder =null;
         <table>
             <tr>
                 <th>Order ID</th>
-                <th>User</th>
+                <th>Username</th>
                 <th>Address</th>
                 <th>Order Date</th>
                 <th>Total Amount</th>
