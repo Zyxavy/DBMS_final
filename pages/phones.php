@@ -207,6 +207,7 @@ try {
                             </div>
 
                             <form action="addToCart.php" method="post" class="buy-form">
+                                <input type="hidden" name="redirect" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
                                 <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                                 <input type="number" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>" class="quantity-input" title="Quantity">
                                 <button type="submit" name="add_to_cart" class="btn-primary">Add to Cart</button>

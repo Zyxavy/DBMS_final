@@ -21,16 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     
     $result = $cart->addToCart($userId, $productId, $quantity);
     
-    if($result)
-    {
+    $redirectPage = isset($_POST['redirect']) ? $_POST['redirect'] : 'products.php';
+
+    if ($result) {
         $_SESSION['success_message'] = "Product added to cart!";
-        header('Location: products.php');
+        header("Location: $redirectPage");
         exit();
-    }
-    else
-    {
+    } else {
         $_SESSION['error_message'] = "Failed to add product.";
-        header('Location: products.php');
+        header("Location: $redirectPage");
         exit();
     }
 }

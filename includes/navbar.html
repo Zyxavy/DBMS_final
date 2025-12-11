@@ -1,9 +1,9 @@
 <style>
-    .navbar {
+.navbar {
 display: flex;
 justify-content: space-between;
 align-items: center;
-padding: 15px 40px;
+padding: 15px 30px;
 background-color: rgba(0, 0, 0, 0.8);
 position: fixed;
 top: 0;
@@ -34,7 +34,7 @@ font-size: 1.4rem;
 
 .nav-links {
 display: flex;
-gap: 25px;
+gap: 13px;
 list-style: none;
 }
 
@@ -51,7 +51,7 @@ color: white;
 
 .nav-icons {
 display: flex;
-gap: 20px;
+gap: 5px;
 }
 
 .nav-icons i {
@@ -60,8 +60,6 @@ cursor: pointer;
 font-size: 1.1rem;
 }
 </style>
-
-
 
 <nav class="navbar">
         <div class="nav-left">
@@ -76,15 +74,13 @@ font-size: 1.1rem;
         </div>
         <!-- Change these icons -->
         <div class="nav-icons">
-            <i class="fa-solid fa-headset"></i> 
-            <i class="fa-solid fa-cart-shopping"></i> 
+
             <i class="fa-solid fa-magnifying-glass"></i> 
-            <i class="fa-solid fa-circle-user"></i> 
         </div>
 
         <div class="nav-links">
-            <li><a href="../pages/cart.php">Cart</a></li>
-            <li><a href="../pages/profile.php">Profile</a></li>
+            <li><a href="../pages/cart.php"><i class="fa-solid fa-cart-shopping"></i> </a></li>
+            <li><a href="../pages/profile.php"><i class="fa-solid fa-circle-user"></i></a></li>
             <li><a href="../auth/logout.php">Log-out</a></li>
         </div>
     </nav>

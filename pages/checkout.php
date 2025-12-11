@@ -44,7 +44,7 @@ if($cartItems && count($cartItems) > 0) {
     <div class="checkout-container">
         
         <div class="checkout-header">
-            <h2>Secure Checkout</h2>
+            <h2>Checkout</h2>
         </div>
 
         <?php
