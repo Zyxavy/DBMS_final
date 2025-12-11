@@ -8,7 +8,6 @@ require_once __DIR__ . "/../includes/functions.php";
 
 checkSession();
 
-include('../includes/navbar.html');
 
 $cart = new Cart();
 $cartItems = $cart->getCartItems($_SESSION['user_id']);
@@ -22,7 +21,7 @@ if($cartItems && count($cartItems) > 0) {
         $grandtotal += $item['price'] * $item['quantity'];
     }
 }
-
+include('../includes/navbar.html');
 ?>
 
 <!DOCTYPE html>
