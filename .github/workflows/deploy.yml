@@ -33,7 +33,10 @@ jobs:
             --command="
               echo 'Starting deployment...'
               cd /home/kentandrewparejas/DBMS_final
-              
+
+              echo 'Fixing git permissions...'
+              git config --global --add safe.directory /home/kentandrewparejas/DBMS_final
+    
               echo 'Pulling latest changes...'
               git fetch origin main
               git reset --hard origin/main

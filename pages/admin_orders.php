@@ -3,9 +3,9 @@ require_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../admin/manage.php";
 require_once __DIR__ . "/../includes/functions.php";
 
-
 if (isset($_GET["back"]) && $_GET["back"] == 1) {
     redirectToPage("admin.php");
+    exit();
 }
 
 $manage = new manage();
