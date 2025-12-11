@@ -6,19 +6,20 @@ require_once "../Classes/OrderClass.php";
 require_once "../includes/functions.php";
 
 if(!isset($_SESSION['user_id'])) 
-    {
+{
     redirectToPage("../index.php");
     exit();
 }
 
 $userId = $_SESSION['user_id'];
 
-$addressId = $_POST['address_id'] ?? null;
-$paymentMethod = $_POST['method_id'] ?? null;
+$addressId = filter_input(INPUT_POST, 'address_id', FILTER_VALIDATE_INT);
+$paymentMethod = htmlspecialchars($_POST['method_id']);
 
 if(!$addressId || !$paymentMethod) 
 {
-    die("Missing checkout info");
+    redirectToPage("../pages/cart.php?error=missing_info");
+    exit();
 }
 
 $cart = new Cart();

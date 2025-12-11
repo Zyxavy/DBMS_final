@@ -6,14 +6,14 @@ require_once __DIR__ . "/../Classes/CartClass.php";
 require_once __DIR__ . "/../Classes/AddressClass.php";
 require_once __DIR__ . "/../includes/functions.php";
 
-include('../includes/navbar.html');
-
 if(!isset($_SESSION['user_id']))
 {
     redirectToPage("../index.php");
     session_destroy();
     exit();
 }
+
+include('../includes/navbar.html');
 
 $cart = new Cart();
 $cartItems = $cart->getCartItems($_SESSION['user_id']);
@@ -161,6 +161,14 @@ if($cartItems && count($cartItems) > 0) {
     </div>
 
 <?= include('../includes/footer.html') ?>
+
+<script> 
+    document.getElementById("checkout-form").addEventListener("submit", function(e) {
+    if (!confirm("Place your order?")) {
+        e.preventDefault();
+    }
+});
+</script>
 
 </body>
 </html>

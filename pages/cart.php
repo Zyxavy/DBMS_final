@@ -4,24 +4,25 @@
     require_once __DIR__ . "/../Classes/CartClass.php";
     require_once __DIR__ . "/../includes/functions.php";
 
-    include('../includes/navbar.html');
-
     if(!isset($_SESSION['user_id']))
     {
         redirectToPage("../index.php");
         session_destroy();
         exit();
     }
+    include('../includes/navbar.html');
 
     $message = "Cart:";
 
     if(isset($_POST['checkout']))
     {
         redirectToPage('checkout.php');
+        exit();
     }
     elseif(isset($_POST['back']))
     {
         redirectToPage('products.php');
+        exit();
     }
 
     $cart = new Cart();
