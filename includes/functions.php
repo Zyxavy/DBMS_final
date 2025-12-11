@@ -7,9 +7,9 @@ function redirectToPage($page)
 
 function checkSession()
 {
-    if(!isset($_SESSION['user_id']) || $_SESSION['user_status'] !== 'customer' || $_SESSION['user_status'] !== 'admin')
+    if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_status'], ['customer', 'admin']))
     {
-        redirectToPage("../index.php"); 
+        redirectToPage("../index.php");
         exit();
     }
 }

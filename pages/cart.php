@@ -4,7 +4,7 @@
     require_once __DIR__ . "/../Classes/CartClass.php";
     require_once __DIR__ . "/../includes/functions.php";
 
-   checkSession();
+    checkSession();
 
     include('../includes/navbar.html');
 
