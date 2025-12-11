@@ -34,7 +34,7 @@
             if($_POST["is_pressed_insert"])
             {
                 if($manage->update_product($product_id,$product_name,$_POST["category"],$_POST["class"]
-                    ,$price,$stock,$ROM,$RAM)){
+                    ,$price,$stock,$ROM,$RAM,$descp)){
                     redirectToPage("/../pages/admin.php?inserted=1");
                 }else{
                     redirectToPage("/../pages/admin.php?inserted=0");

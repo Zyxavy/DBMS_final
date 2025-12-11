@@ -38,10 +38,10 @@ class manage extends Database{
         }
     }
 
-    function update_product($product_id,$product_name, $category_id, $class_id,$price,$stock,$ROM,$RAM){
+    function update_product($product_id,$product_name, $category_id, $class_id,$price,$stock,$ROM,$RAM,$new_descp){
         try{
             $sql = "UPDATE products SET name= :name, category_id= :category_id,
-            class_id= :class_id, price= :price, stock= :stock, ROM= :ROM, RAM= :RAM WHERE product_id = :product_id;";
+            class_id= :class_id, price= :price, stock= :stock, ROM= :ROM, RAM= :RAM product_description = :descp WHERE product_id = :product_id;";
             
             $stmt = parent::connect()->prepare($sql);
             $stmt->bindValue(":product_id",$product_id,PDO::PARAM_INT);
@@ -54,7 +54,8 @@ class manage extends Database{
             $stmt->bindParam(":stock", $stock, PDO::PARAM_INT);
             $stmt->bindParam(":ROM", $ROM, PDO::PARAM_INT);
             $stmt->bindParam(":RAM", $RAM, PDO::PARAM_INT);
-
+            $stmt->bindValue(":descp", $new_descp, PDO::PARAM_STR);
+            
             return $stmt->execute();
         }catch(PDOException $e){
             return false;
@@ -74,13 +75,14 @@ class manage extends Database{
 
    function update_order($order_id, $new_status, $new_payment_method, $new_payment_status) {
         try {
-            $sql = "UPDATE orders SET order_status = :status, payment_method = :pm, payment_status = :ps 
+            $sql = "UPDATE orders SET order_status = :status, payment_method = :pm, payment_status = :ps
                     WHERE order_id = :order_id";
             $stmt = parent::connect()->prepare($sql);
             $stmt->bindValue(":status", $new_status, PDO::PARAM_STR);
             $stmt->bindValue(":pm", $new_payment_method, PDO::PARAM_STR);
             $stmt->bindValue(":ps", $new_payment_status, PDO::PARAM_STR);
             $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+            
             return $stmt->execute();
         } catch (PDOException $e) {
             return false;
