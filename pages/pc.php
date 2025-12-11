@@ -1,3 +1,8 @@
+<?php
+session_start();
+include('../includes/navbar.html');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,25 +15,6 @@
 
 <!-- change to <img> it mga <i> tags -->
 
-
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="index.html" class="nav-logo">
-                <i class="fa-brands fa-apple"></i> MANZANAS
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Phones</a></li>
-                <li><a href="#" style="color: white;">Computers</a></li>
-                <li><a href="#">Accessories</a></li>
-                <li><a href="#">Support</a></li>
-            </ul>
-        </div>
-        <div class="nav-icons">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <i class="fa-solid fa-bag-shopping"></i>
-        </div>
-    </nav>
-
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-title">
@@ -40,14 +26,11 @@
             <div class="hero-center-image">
                 <div class="hero-badge">New Release</div>
                 <!-- Laptop Hero Image -->
-                <img src="../assets/images/macbook-hero.png" alt="Manzanas Laptop Hero">
+                <img src="../assets/PC/macbook-hero.png" alt="Manzanas Laptop Hero">
             </div>
         </div>
     </section>
 
-    <!-- =========================================
-         LAPTOPS SECTION (3 Items)
-         ========================================= -->
     <div class="category-header">
         <h2>Laptops</h2>
         <p>Power that moves with you.</p>
@@ -59,7 +42,7 @@
             <div class="product-card">
                 <div>
                     <div class="card-image-placeholder">
-                        <img src="../assets/images/macbook-air.png" alt="Manzanas Laptop air" width="250px" height="250px">
+                        <img src="../assets/PC/macbook-air.png" alt="Manzanas Laptop air" width="250px" height="250px">
                     </div>
                     <h3 class="product-title">M-Book Air</h3>
                     <div class="product-price">From $999</div>
@@ -86,7 +69,7 @@
             <div class="product-card">
                 <div>
                     <div class="card-image-placeholder">
-                        <img src="../assets/images/macbook-pro14.png" alt="Manzanas Laptop pro 14" width="230px" height="220px">
+                        <img src="../assets/PC/macbook-pro14.png" alt="Manzanas Laptop pro 14" width="230px" height="220px">
                     </div>
                     <h3 class="product-title">M-Book Pro 14</h3>
                     <div class="product-price">From $1599</div>
@@ -113,7 +96,7 @@
             <div class="product-card">
                 <div>
                     <div class="card-image-placeholder">
-                        <img src="../assets/images/macbook-pro16.png" alt="Manzanas Laptop pro16" width="250px" height="250px">
+                        <img src="../assets/PC/macbook-pro16.png" alt="Manzanas Laptop pro16" width="250px" height="250px">
                     </div>
                     <h3 class="product-title">M-Book Pro 16</h3>
                     <div class="product-price">From $2499</div>
@@ -138,9 +121,6 @@
         </div>
     </section>
 
-    <!-- =========================================
-         DESKTOPS SECTION (3 Items)
-         ========================================= -->
     <div class="category-header section-darker" style="padding-top:40px;">
         <h2>Desktops</h2>
         <p>Muscle for your biggest ideas.</p>
@@ -152,7 +132,7 @@
             <div class="product-card">
                 <div>
                     <div class="card-image-placeholder">
-                        <i class="fa-solid fa-hard-drive" style="color: #888;"></i>
+                        <img src="../assets/PC/mac-mini.png" alt="Manzanas mac-mini" width="250px" height="180px">
                     </div>
                     <h3 class="product-title">M-Station Mini</h3>
                     <div class="product-price">From $599</div>
@@ -179,7 +159,7 @@
             <div class="product-card">
                 <div>
                     <div class="card-image-placeholder">
-                        <i class="fa-solid fa-server" style="color: #444;"></i>
+                        <img src="../assets/PC/mac-studio.png" alt="Manzanas mac-studio" width="280px" height="230px">
                     </div>
                     <h3 class="product-title">M-Station Studio</h3>
                     <div class="product-price">From $1999</div>
@@ -206,7 +186,7 @@
             <div class="product-card">
                 <div>
                     <div class="card-image-placeholder">
-                        <i class="fa-solid fa-computer" style="color: #111;"></i>
+                        <img src="../assets/PC/mac-pro.png" alt="Manzanas mac-pro" width="240px" height="180px">
                     </div>
                     <h3 class="product-title">M-Station Pro</h3>
                     <div class="product-price">From $6999</div>
@@ -231,7 +211,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-features">
             <div class="footer-feat-item">
