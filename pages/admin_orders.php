@@ -15,36 +15,34 @@ $getsearch = [];
 $getorder =null;
 ?>
 <?php
-    if($_SERVER["REQUEST_METHOD"]=="POST"){
-        if( isset($_POST["order_mode"])){
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["order_mode"])) {
             $order = $_POST["order_mode"];
-            switch($order){
+            switch ($order) {
                 case "searchOrd_orderid":
                     $id = autocheckPOST("order_id");
-                    if ($id !== false && $id !== "") {
-                        $getsearch = $manage->selective_ordersearch($id, false);
-                    }
+                    if ($id) $getsearch = $manage->selective_ordersearch($id, false);
                     break;
+
                 case "searchOrd_userid":
                     $user = autocheckPOST("user_id");
-                    if ($user !== false && $user !== "") {
-                        $getsearch = $manage->selective_ordersearch($user, true);
-                    }
+                    if ($user) $getsearch = $manage->selective_ordersearch($user, true);
                     break;
+
                 case "searchOrd_status":
                     $status = autocheckPOST("order_status");
-                    if ($status !== false) {
-                        $getsearch = $manage->selective_statussearch($status);
-                    }
+                    if ($status !== false) $getsearch = $manage->selective_statussearch($status);
                     break;
             }
         }
-        if(isset($_POST["order_id"])){
-            $getorder = $manage->get_order($_POST['order_id']);
+        if (isset($_POST["order_id"]) && !isset($_POST["DELETE"])) {
+            $row = $manage->get_order($_POST['order_id']);
+            $getorder = $row ? $row[0] : null;
         }
-        if(isset($_POST["DELETE"])){
-            $manage->delete_order($getorder['order_id']);
-            echo "<p id='updateStatTrue'>Selected order deleted</p>";
+
+        if (isset($_POST["DELETE"])) {
+            $manage->delete_order($_POST["order_id"]);
+            redirectToPage("orders.php?deleted=1");
         }
     }
 ?>
@@ -100,10 +98,15 @@ $getorder =null;
         </form>
     </div>
     <br><br>
+    <?php if (isset($_GET["deleted"])): ?>
+        <p id="updateStatTrue">Selected order deleted</p><br>
+    <?php endif; ?>
     <?php if($getorder): ?>
-        <form action=<?= $dashboard ?> method="post">
-            <input type="hidden" name="DELETE" value=1>
-            Delete the selected order? <input type="submit" value="Delete"><br>
+        <form action="<?= $dashboard ?>" method="post">
+            <input type="hidden" name="DELETE" value="1">
+            <input type="hidden" name="order_id" value="<?= $getorder['order_id'] ?>">
+            Delete the selected order? 
+            <input type="submit" value="Delete">
         </form>
         <div>
             <form action="../admin/dashboard.php" method="post">
@@ -148,7 +151,7 @@ $getorder =null;
                             echo "</tr>";
                         }
                     }else{
-                        echo "<td id='updateStatFalse'>Blank search or not found</td>";
+                        echo "<tr><td id='updateStatFalse' colspan='6'>Blank search or not found</td></tr>";
                     }
                 ?>
             
@@ -189,7 +192,7 @@ $getorder =null;
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td id=updateStatFalse>No orders found.</td></tr>";
+                    echo "<tr><td id='updateStatFalse' colspan='8'>No orders found.</td></tr>";
                 }
             
             ?>

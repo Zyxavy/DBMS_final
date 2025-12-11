@@ -86,21 +86,21 @@ class manage extends Database{
 }
 
    function get_all_orders() {
-    try {
-        $sql = 
-        "SELECT o.order_id, o.user_id, u.username, o.address_id, a.city,
-            a.province, o.order_date, o.total_amount, o.order_status,
-            COUNT(oi.order_item_id) AS total_items
-        FROM orders o
-        INNER JOIN users u ON o.user_id = u.user_id
-        INNER JOIN address a ON o.address_id = a.address_id
-        LEFT JOIN order_items oi ON o.order_id = oi.order_id
-        GROUP BY o.order_id";
-        
-        return $this->query($sql, true);
-    } catch (PDOException $e) {
-        return [];
-    }
+        try {
+            $sql = 
+            "SELECT o.order_id, o.user_id, u.username, o.address_id, a.street_address, a.city,
+                a.province, o.order_date, o.total_amount, o.order_status, o.payment_method, o.payment_status,
+                COUNT(oi.order_item_id) AS total_items
+            FROM orders o
+            INNER JOIN users u ON o.user_id = u.user_id
+            INNER JOIN address a ON o.address_id = a.address_id
+            LEFT JOIN order_items oi ON o.order_id = oi.order_id
+            GROUP BY o.order_id";
+            
+            return $this->query($sql, true);
+        } catch (PDOException $e) {
+            return [];
+        }
     }
 
     function get_order($order_id){
