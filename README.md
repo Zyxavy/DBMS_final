@@ -15,6 +15,6 @@
 ### Core features:
 - [x] User authentication (login, register, logout)
 - [x] CRUD for products (admin only)
-- [ ] CRUD for cart
-- [ ] Order creation (checkout)
-- [ ] Search & Filtering (by name, by category)
+- [x] CRUD for cart
+- [x] Order creation (checkout)
+- [x] Search & Filtering (by name, by category)

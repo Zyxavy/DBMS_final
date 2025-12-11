@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manzanas M-phone 17 Series</title>
-    <link rel="stylesheet" href="../pages/pagesStyles.css">
+    <link rel="stylesheet" href="../pages/phoneStyles.css">
 </head>
 <body class="landing-page">
 
@@ -99,7 +99,7 @@
 
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <img src="../assets/images/iphone17_air.png" alt="Manzanas Logo with name">
+                    <img src="../assets/images/Iphone17_air.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17 Air</h3>
                 
@@ -119,7 +119,7 @@
 
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <img src="../assets/images/iphone17Pro.png" alt="Manzanas Logo with name">
+                    <img src="../assets/images/Iphone17Pro.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17 Pro</h3>
                 
