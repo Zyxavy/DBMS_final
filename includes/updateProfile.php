@@ -5,8 +5,6 @@ require_once __DIR__ . "/../Classes/ProfileClass.php";
 require_once __DIR__ . "/../Classes/AddressClass.php";
 require_once __DIR__ . "/../includes/functions.php";
 
-checkSession();
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
 {
     $_SESSION['error_log'] = "Must be accessed through POST";
