@@ -3,22 +3,19 @@ session_start();
 require_once "../config/database.php";
 require_once "../Classes/CartClass.php";
 require_once "../Classes/OrderClass.php";
+require_once "../Classes/ProductClass.php";
 require_once "../includes/functions.php";
 
-if(!isset($_SESSION['user_id'])) 
-    {
-    redirectToPage("../index.php");
-    exit();
-}
+checkSession();
 
 $userId = $_SESSION['user_id'];
-
-$addressId = $_POST['address_id'] ?? null;
-$paymentMethod = $_POST['method_id'] ?? null;
+$addressId = filter_input(INPUT_POST, 'address_id', FILTER_VALIDATE_INT);
+$paymentMethod = htmlspecialchars($_POST['method_id']);
 
 if(!$addressId || !$paymentMethod) 
 {
-    die("Missing checkout info");
+    redirectToPage("../pages/cart.php?error=missing_info");
+    exit();
 }
 
 $cart = new Cart();
@@ -36,15 +33,49 @@ foreach($cartItems as $item)
 }
 
 $order = new Order();
-$orderId = $order->createOrder($userId, $addressId, $total, $paymentMethod);
+$products = new Products();
 
-if(!$orderId)
+$db = new Database();
+$conn = $db->transactConnect();
+$conn->beginTransaction();
+
+try {
+
+    $orderId = $order->createOrder($userId, $addressId, $total, $paymentMethod);
+    if (!$orderId) 
+    {
+        throw new Exception("Order creation failed");
+    }
+
+    if (!$order->addOrderItems($orderId, $cartItems)) 
+    {
+        throw new Exception("Failed to add order items");
+    }
+
+    foreach ($cartItems as $item) 
+    {
+        if (!$products->reduceProductStock($item['product_id'], $item['quantity'])) {
+        
+            throw new Exception("Stock update failed for product " . $item['product_id']);
+        }
+    }
+
+    if (!$cart->clearCart($userId)) 
+    {
+        throw new Exception("Failed to clear cart");
+    }
+
+    $conn->commit();
+
+    redirectToPage("../pages/products.php");
+    exit();
+
+} 
+catch (Exception $e) 
 {
-    die("Error creating order");
+    $conn->rollBack();
+    error_log("Checkout failed: " . $e->getMessage());
+
+    redirectToPage("../pages/cart.php?error=checkout_failed");
+    exit();
 }
-
-$order->addOrderItems($orderId, $cartItems);
-$cart->clearCart($userId);
-
-redirectToPage("../pages/products.php");
-exit();

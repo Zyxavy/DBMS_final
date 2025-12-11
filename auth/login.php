@@ -15,12 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     if($login->authenticateUser())
     {
         $userData = $login->getUserStatus();
+        session_regenerate_id(true);
 
         $_SESSION['user_id'] = $userData['user_id']; 
         $_SESSION["username"] = $username;
         $_SESSION["user_status"] = $userData['status']; 
 
-        if($login->getUserStatus()['status'] == "customer")
+        if($userData['status'] === "customer")
         {
             redirectToPage("../pages/products.php");
 	        exit();
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     }
     else
     {
-        header("Location: ../index.php");
+        header("Location: ../index.php?error=invalid_login");
         exit();
     }
 

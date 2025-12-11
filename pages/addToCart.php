@@ -4,11 +4,7 @@ require_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../Classes/CartClass.php";
 require_once __DIR__ . "/../includes/functions.php";
 
-if(!isset($_SESSION['user_id']))
-{
-    redirectToPage("../index.php");
-    exit();
-}
+checkSession();
 
 $userId = $_SESSION['user_id'];
 

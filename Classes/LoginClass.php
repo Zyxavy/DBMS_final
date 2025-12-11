@@ -44,8 +44,8 @@ class Login extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
         
     }
@@ -66,8 +66,8 @@ class Login extends Database
         }
         catch(PDOException $e)
         {
-            echo "ERROR " . $e->getMessage();
-            return null;
+            error_log("Cart error: " . $e->getMessage());
+            return [];
         }
     }
 

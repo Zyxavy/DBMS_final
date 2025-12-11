@@ -3,6 +3,9 @@
     require_once __DIR__."/../config/database.php";
     require_once __DIR__."/../admin/manage.php";
     require_once __DIR__."/../includes/functions.php";
+
+    checkAdmin();
+
     $isUpdate = (isset($_GET["update"]) && $_GET["update"]==1);
     $mode_label = $isUpdate ? "UPDATE" : "INSERT";
     $next_mode = $isUpdate ? 0 : 1;

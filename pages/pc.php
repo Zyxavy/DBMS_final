@@ -5,12 +5,7 @@ require_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../Classes/ProductClass.php";
 require_once __DIR__ . "/../includes/functions.php";
 
-if(!isset($_SESSION['user_id']))
-{
-    session_destroy();
-    redirectToPage("../index.php"); 
-    exit();
-}
+checkSession();
 
 include('../includes/navbar.html');
 
