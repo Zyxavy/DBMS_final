@@ -1,20 +1,37 @@
 <?php
+
+// Gin-iistart an session para magamit an session variables
 session_start();
 
+// Ginkakarga an database config
 require_once __DIR__ . "/../config/database.php";
+
+// Ginkakarga an Cart class
 require_once __DIR__ . "/../Classes/CartClass.php";
+
+// Ginkakarga an Address class
 require_once __DIR__ . "/../Classes/AddressClass.php";
+
+// Ginkakarga an helper functions
 require_once __DIR__ . "/../includes/functions.php";
 
+// Gintitsek kun naka-login an user, kun diri i-redirect ha login page
 checkSession();
 
 
+// Paghimo hin bag o na instance hit cart
 $cart = new Cart();
+
+// Ginkuha an items han cart para han current user
 $cartItems = $cart->getCartItems($_SESSION['user_id']);
 
+// Ginhihimo an bag o Address instance
 $userAddresses = new Address();
+
+// Ginkuha an tanan addresses han user
 $addresses = $userAddresses->getUserAddresses($_SESSION['user_id']);
 
+// Gincacalculate an grand total han tanan items
 $grandtotal = 0;
 if($cartItems && count($cartItems) > 0) {
     foreach($cartItems as $item) {
@@ -42,19 +59,29 @@ include('../includes/navbar.html');
         </div>
 
         <?php
+
+            // Kun may success message ha session 
             if(isset($_SESSION['success_message'])) 
             {
+                // Ipakita an success message ha user
                 echo "<div style='color: var(--color-success); padding: 10px; border: 1px solid var(--color-success); background-color: #1c2b1d; margin-bottom: 20px; border-radius: 5px; text-align: center;'>" . htmlspecialchars($_SESSION['success_message']) . "</div>";
+                // Burahon an message tikang ha session pagkatapos ipakita
                 unset($_SESSION['success_message']);
             }
+
+            // Kun may error message ha session
             if(isset($_SESSION['error_message'])) 
             {
+                // Ipakita an error message ha use
                 echo "<div style='color: var(--color-error); padding: 10px; border: 1px solid var(--color-error); background-color: #2b1c1c; margin-bottom: 20px; border-radius: 5px; text-align: center;'>" . htmlspecialchars($_SESSION['error_message']) . "</div>";
+                // Burahon an message tikang ha session pagkatapos ipakita
                 unset($_SESSION['error_message']);
             }
         ?>
 
-        <?php if($cartItems && count($cartItems) > 0) { ?>
+        <?php 
+        // Kun mayda items an cart
+        if($cartItems && count($cartItems) > 0) { ?>
 
             <div class="checkout-layout">
                 
@@ -62,7 +89,8 @@ include('../includes/navbar.html');
                     
                     <div class="checkout-section shipping-section">
                         <h3>1. Shipping Information</h3>
-                        
+
+                        <!-- Form para pagpili han delivery address -->
                         <?php if($addresses && count($addresses) > 0) { ?>
                             <form action="../includes/processCheckout.php" method="post" id="checkout-form">
                                 <div class="form-group">
@@ -83,6 +111,8 @@ include('../includes/navbar.html');
                                 </div>
                             </form>
                         <?php } else { ?>
+
+                            <!-- Kun waray pa addresses -->
                             <div style="color: var(--color-error);">
                                 <i class="fa-solid fa-triangle-exclamation"></i> No addresses found. Please add an address to proceed.
                             </div>
