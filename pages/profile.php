@@ -7,7 +7,7 @@ require_once __DIR__ . "/../includes/functions.php";
 
 checkSession();
 
-$session_user_id = $_SESSION['user_id'] ?? 'mock_user';
+$session_user_id = $_SESSION['user_id'];               //?? 'mock_user';
 $profileManager = new Profile($session_user_id);
 $userDetails = $profileManager->getUserDetails();
 
