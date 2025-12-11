@@ -1,32 +1,17 @@
+<?php
+session_start();
+include('../includes/navbar.html');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manzanas M-phone 17 Series</title>
-    <link rel="stylesheet" href="../pages/pagesStyles.css">
+    <link rel="stylesheet" href="../pages/phoneStyles.css">
 </head>
 <body class="landing-page">
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="#" class="nav-logo">
-                <i class="fa-brands fa-apple"></i> MANZANAS
-            </a>
-            <ul class="nav-links">
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">PC</a></li>
-                <li><a href="#">MANZANAS Services</a></li>
-            </ul>
-        </div>
-        <div class="nav-icons">
-            <i class="fa-solid fa-headset"></i> 
-            <i class="fa-solid fa-cart-shopping"></i> 
-            <i class="fa-solid fa-magnifying-glass"></i> 
-            <i class="fa-solid fa-circle-user"></i> 
-        </div>
-    </nav>
 
     <section class="hero-section">
         <div class="hero-title">
@@ -45,7 +30,7 @@
 
             <div class="hero-phones">
                 <div class="phone-stack">
-                    <img src="../assets/images/Iphone_series.jpg" alt="M-phone 17 Stack" class="phone-stack-img">
+                    <img src="../assets/Phones/Iphone_series.jpg" alt="M-phone 17 Stack" class="phone-stack-img">
                 </div>
             </div>
 
@@ -79,7 +64,7 @@
 
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <img src="../assets/images/iphone17.png" alt="Manzanas Logo with name">
+                    <img src="../assets/Phones/iphone17.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17</h3>
                 
@@ -95,11 +80,12 @@
                         20h Video Playback
                     </div>
                 </div>
+                <button class="btn-primary" style="width:100%; margin-top: 20px;">Buy</button>
             </div>
 
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <img src="../assets/images/iphone17_air.png" alt="Manzanas Logo with name">
+                    <img src="../assets/Phones/Iphone17_air.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17 Air</h3>
                 
@@ -115,11 +101,12 @@
                         18h Video Playback
                     </div>
                 </div>
+                <button class="btn-primary" style="width:100%; margin-top: 20px;">Buy</button>
             </div>
 
             <div class="product-card">
                 <div class="card-image-placeholder">
-                    <img src="../assets/images/iphone17Pro.png" alt="Manzanas Logo with name">
+                    <img src="../assets/Phones/Iphone17Pro.png" alt="Manzanas Logo with name">
                 </div>
                 <h3 class="product-title">M-phone 17 Pro</h3>
                 
@@ -135,6 +122,7 @@
                         29h Video Playback
                     </div>
                 </div>
+                <button class="btn-primary" style="width:100%; margin-top: 20px;">Buy</button>
             </div>
         </div>
     </section>

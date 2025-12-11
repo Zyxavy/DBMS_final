@@ -23,7 +23,7 @@
 <body>
     <div class="white-rectangle">
         <div class="logo-header">
-             <img src="assets/images/MANSANAS LOGO 1.jpg" alt="Manzanas Logo with name">
+             <img src="assets/images/MANSANAS LOGO 2.png" alt="Manzanas Logo with name">
          </div>
     </div>
 
