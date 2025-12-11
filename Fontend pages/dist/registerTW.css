@@ -288,6 +288,9 @@
   .ml-\[6\%\] {
     margin-left: 6%;
   }
+  .ml-\[7\%\] {
+    margin-left: 7%;
+  }
   .ml-\[10\%\] {
     margin-left: 10%;
   }
@@ -542,6 +545,9 @@
   .text-left {
     text-align: left;
   }
+  .font-\[verdana\] {
+    font-family: verdana;
+  }
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -632,22 +638,6 @@
       line-height: var(--tw-leading, var(--text-3xl--line-height));
     }
   }
-}
-.center {
-  display: flex;
-  justify-content: center;
-}
-.font {
-  font-family: verdana;
-}
-.buttons {
-  width: calc(var(--spacing) * 70);
-  border-radius: var(--radius-3xl);
-  background-color: #800000;
-  padding: calc(var(--spacing) * 5);
-  --tw-font-weight: var(--font-weight-bold);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-white);
 }
 @property --tw-scale-x {
   syntax: "*";

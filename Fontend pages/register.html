@@ -3,91 +3,112 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="./dist/registerTW.css">
 <title>MANZANAS Account Creation</title>
 </head>
 <body>
-<img src="" alt="">
-<p>To create an account fill out the form below.</p>
+    <header class="bg-white w-full h-30 flex justify-between items-center" >
+        <img  src="/assets/MANSANAS LOGO.png" class="w-[30%] [h-30%] "/>
+    </header>
+    <main class="bg-black">
+        <div>
+            <div class="" >
+                <img src="./assets/MANSANAS LOGO 2.png" alt="">
+                <h3 class="text-white">Account Creation</h3>
+            </div>
+            <p class="text-white">To create an account fill out the form below.</p>
+        </div>
+        <div>
+            <form>
+                <div>
+                    <div>
+                        <label for="Fname">First Name</label><br>
+                        <input type="text" id="Fname">
+                    </div>
 
-<form>
-    <div>
-        <label>First Name</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="Lname">Last Name</label><br>
+                        <input type="text" id="Lname">
+                    </div>
 
-    <div>
-        <label>Last Name</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="email">Email</label><br>
+                        <input type="text" id="email">
+                    </div>
+                </div>
 
-    <div>
-        <label>Email</label><br>
-        <input type="email">
-    </div><br>
+                <div>
+                    <h3>Address</h3>
 
-    <h3>Address</h3>
+                    <div>
+                        <label for="province">Province/State/Region</label><br>
+                        <input type="text" id="province">
+                    </div>
 
-    <div>
-        <label>Province/State/Region</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="city">City/Municipality</label><br>
+                        <input type="text" id="city">
+                    </div><
 
-    <div>
-        <label>City/Municipality</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="house">House/Street Address</label><br>
+                        <input type="text" id="house">
+                    </div>
 
-    <div>
-        <label>House/Street Address</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="unit">Unit/Apartment/Building Number</label><br>
+                        <input type="text" id="unit">
+                    </div>
 
-    <div>
-        <label>Unit/Apartment/Building Number</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="zip">Zip code</label><br>
+                        <input type="text" id="zip">
+                    </div>
 
-    <div>
-        <label>Zip code</label><br>
-        <input type="text">
-    </div><br>
+                    <div>
+                        <label for="type">Address Type</label><br>
+                        <select id="type">
+                            <option>Home</option>
+                            <option>Work</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
 
-    <div>
-        <label>Address Type</label><br>
-        <select>
-            <option>Home</option>
-            <option>Work</option>
-            <option>Other</option>
-        </select>
-    </div><br>
+                <div>
+                    <h3>Contact Information</h3>
 
-    <h3>Contact Information</h3>
+                    <div>
+                        <label>Phone Number</label><br>
+                        <input type="text">
+                    </div>
+                </div>
 
-    <div>
-        <label>Phone Number</label><br>
-        <input type="text">
-    </div><br>
+                <div>
+                    <h3>Account Details</h3>
 
-    <h3>Account Details</h3>
+                    <div>
+                        <label>Username</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input type="password">
+                    </div>
+                    <div>
+                        <label>Confirm Password</label>
+                        <input type="password">
+                    </div>
+                </div>
 
-    <div>
-        <label>Username</label><br>
-        <input type="text">
-    </div><br>
+                <p>By creating an account you agree to the MANZANAS <a href="">Terms of Use</a> and <a href="">Privacy Policy.</a></p>
 
-    <div>
-        <label>Password</label><br>
-        <input type="password">
-    </div><br>
+                <button type="submit">SUBMIT</button>
+            </form>
+        </div>
+    </main>
+    <footer>
 
-    <div>
-        <label>Confirm Password</label><br>
-        <input type="password">
-    </div><br>
-
-    <p>By creating an account you agree to the MANZANAS <a href="">Terms of Use</a> and <a href="">Privacy Policy.</a></p>
-
-    <button type="submit">SUBMIT</button>
-</form>
+    </footer>
 </body>
 </html>

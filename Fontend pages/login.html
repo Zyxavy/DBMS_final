@@ -7,61 +7,83 @@
     <title>MANZANAS Account Portal</title>
     <link rel="stylesheet" href="./dist/loginTW.css">
 </head>
-<body class="bg-black">
-    <header class="bg-white w-full h-30 flex justify-between items-center" >
-        <img  src="/assets/MANSANAS LOGO.png" class="w-[30%] [h-30%] "/>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-white w-full flex justify-between items-center  shadow">
+        <img src="/assets/MANSANAS LOGO.png" class="w-32 md:w-48 scale-300 ml-50" />
     </header>
-    <div class="text-white font font-bold text-2xl ml-18 p-5"  >
-            <h1 >MANZANAS ACCOUNT PORTAL</h1>
-    </div>
-    
-    <main class="flex item-center ml-[20%] p-15" >
-        <div class = "login_container" >
+
+    <main class="bg-black flex flex-col items-center py-5 px-5 grow">
+
+        <h1 class="font text-white font-bold text-2xl text-left mr-[60%] mb-[5%]">
+            MANZANAS ACCOUNT PORTAL
+        </h1>
+
+        <div class="font bg-white w-full max-w-2xl rounded-xl px-20 py-10 shadow">
+
             <div class="center">
-                <img src="./assets/Masanas Logo standalone.png" alt="Account Logo" class="w-[30%] [h-30%] p-5 mt-15" >
+                <img src="./assets/Masanas Logo standalone.png"
+                    alt="Account Logo"
+                    class="w-28 md:w-36 mb-5" />
             </div>
 
-            <h2 class="center text-2xl font-bold font">MANZANAS Account</h2>
+            <h2 class="text-center text-2xl font-bold mb-3">MANZANAS Account</h2>
 
-            <p class="center font mt-5">Enter your account to log in or create an account</p>
+            <p class="text-center mb-6">
+                Enter your account to log in or create an account
+            </p>
+
+            <br>
 
             <form id="login-form">
 
-                <div class="ml-20 mt-5 p-5">
-                    <label class="font font-bold" for="username">Username:</label><br>
-                    <input class="w-150 border-3" text" id="username" name="username">
+                <div class="mb-4">
+                    <label class="font-bold block mb-1" for="username">Username:</label>
+                    <input class="w-full border border-gray-400 px-3 py-2 rounded"
+                        type="text" id="username" name="username">
                 </div>
 
-                <div class="ml-20 p-5" >
-                    <label class="font font-bold" for="password">Password:</label><br>
-                    <input class="w-150 border-3" type="password" id="password" name="password">
+                <div class="mb-4">
+                    <label class="font-bold block mb-1" for="password">Password:</label>
+                    <input class="w-full border border-gray-400 px-3 py-2 rounded"
+                        type="password" id="password" name="password">
                 </div>
 
-                <div class="ml-25">
+                <div class="flex items-center gap-2 mb-6">
                     <input class="accent-[#800000]" type="checkbox" id="stay-logged-in">
                     <label for="stay-logged-in">Stay logged in</label>
                 </div>
 
-                <div class="center mt-5 mb-20" >
-                    <button class="buttons mr-5 font" type="submit" id="login-btn">Log In</button>
-                    <button class="buttons ml-5 font" type="button" id="register-btn">Register</button>
+                <br><br>
+
+                <div class="flex justify-center gap-10 mb-6">
+                    <button class="bg-[#800000] text-white px-6 py-2 rounded font-medium hover:bg-black w-100 max-w-xg"
+                        type="submit" id="login-btn">
+                        Log In
+                    </button>
+
+                    <button class="border border-[#800000] text-[#800000] px-6 py-2 rounded font-medium hover:bg-black w-100 max-w-xg"
+                        type="button" id="register-btn">
+                        Register
+                    </button>
                 </div>
 
-                <div class="ml-25 w-[70%]">
-                    <p class="font">
-                        By proceeding, I agree to the 
-                        <a href="" class="text-[#800000] font-bold">MANZANAS Account Terms of Use</a>
-                        and 
-                        <a href="" class="text-[#800000] font-bold">Privacy Policy</a>
+                <br><br>
+
+                <div class="text-left text-sm">
+                    <p>
+                        By proceeding, I agree to the
+                        <a href="#" class="text-[#800000] font-bold underline">MANZANAS Account Terms of Use</a>
+                        and
+                        <a href="#" class="text-[#800000] font-bold underline">Privacy Policy</a>.
                     </p>
                 </div>
 
             </form>
         </div>
     </main>
-    <footer class="ml-20 p-5">
-            <p class="font text-gray-500 font-bold text-xs">Copyright © 2025 MANZANAS</p>
-    </footer>
 
-</body>
+    <footer class="p-4 bg-black text-gray-500 text-left text-xs font-bold ">
+        Copyright © 2025 MANZANAS
+    </footer>
 </html>

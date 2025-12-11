@@ -4,13 +4,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tailwindcss -i ./src/login.css -o ./dist/loginTW.css --watch"
+    "dev": "tailwindcss -i ./src/register.css -o ./dist/registerTW.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "tailwindcss": "^4.1.17"
-  }
+  },
+  "description": ""
 }

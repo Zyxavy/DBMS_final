@@ -8,9 +8,8 @@
 .font{
     @apply font-[verdana]
 }
-.login_container{
-    @apply bg-white w-200 h-200 rounded-xl
-}
+
+
 .buttons{
     @apply bg-[#800000] p-5  w-70 rounded-3xl text-white font-bold 
 }
