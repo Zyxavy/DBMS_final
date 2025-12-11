@@ -130,9 +130,13 @@
             <input type="submit" value="<?= $next_label?>">
         </form>
         <?php
-           if (isset($_GET["inserted"])) {
-                echo $_GET["inserted"] == 1 ? "<p id='updateStatTrue'>Inserted</p>" : "<p id='updateStatFalse'>Error there is a problem</p>";
-            }
+        if (isset($_GET["inserted"]) && $_GET["inserted"] == 1) {
+            echo "<p id='updateStatTrue'>Inserted</p>";
+        } elseif (isset($_GET["updated"]) && $_GET["updated"] == 1) {
+            echo "<p id='updateStatTrue'>Updated</p>";
+        } elseif (isset($_GET["inserted"]) || isset($_GET["updated"])) {
+            echo "<p id='updateStatFalse'>Error there is a problem</p>";
+        }
         ?>
     </div>
     <div>

@@ -39,6 +39,9 @@ class manage extends Database{
     }
 
     function update_product($product_id,$product_name, $category_id, $class_id,$price,$stock,$ROM,$RAM,$new_descp){
+        if (empty($product_name) || empty($category_id) || empty($class_id) || $price === '' || $stock === '' || $RAM === '' || $ROM === '') {
+            return false;
+        }
         try{
             $sql = "UPDATE products SET name= :name, category_id= :category_id,
             class_id= :class_id, price= :price, stock= :stock, ROM= :ROM, RAM= :RAM, product_description = :descp WHERE product_id = :product_id;";
