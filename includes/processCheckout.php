@@ -4,9 +4,7 @@ require_once "../config/database.php";
 require_once "../Classes/CartClass.php";
 require_once "../Classes/OrderClass.php";
 require_once "../Classes/ProductClass.php";
-require_once "../includes/functions.php";
-
-checkSession();
+require_once "functions.php";
 
 $userId = $_SESSION['user_id'];
 $addressId = filter_input(INPUT_POST, 'address_id', FILTER_VALIDATE_INT);
