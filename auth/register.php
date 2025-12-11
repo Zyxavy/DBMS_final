@@ -56,8 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 </head>
 <body>
     <div class="register-container">
+             <button type="button" class="btn-primary"> <a href="../index.php" class="btn-primary">Back to Log-in</a></button>
+            <!-- temporary back button -->
         <div class="logo-section">
-            <img src="assets/images/Manzanas.jpeg" alt="Manzanas Logo" class="logo-icon">
+            <img src="assets/images/Manzanas logo.jpeg" alt="M" class="logo-icon">
             <h1>MANZANAS Account Creation</h1>
             <p class="subtitle">To create an account fill out the form below.</p>
         </div>

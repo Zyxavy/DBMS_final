@@ -1,6 +1,56 @@
 <?php
 session_start();
+
+require_once __DIR__ . "/../config/database.php";
+require_once __DIR__ . "/../Classes/ProductClass.php";
+require_once __DIR__ . "/../includes/functions.php";
+
+if(!isset($_SESSION['user_id']))
+{
+    session_destroy();
+    redirectToPage("../index.php"); 
+    exit();
+}
+
 include('../includes/navbar.html');
+
+$products = []; 
+
+try {
+    $categoryId = 1;
+    $productsInstance = new Products();
+    
+    $fetchedProducts = $productsInstance->getProductsbyCategory($categoryId, 'name', 'ASC');
+
+    if ($fetchedProducts && is_array($fetchedProducts)) {
+        foreach ($fetchedProducts as $dbProduct) {
+            $description = $dbProduct['product_description'] ?? 'View details for specifications.';
+            
+            $specsArray = [];
+            if (!empty($description)) {
+                $specsArray = explode('<br>', $description);
+            }
+            
+            $products[] = [
+                'product_id' => $dbProduct['product_id'],
+                'name' => $dbProduct['name'],
+                'stock' => $dbProduct['stock'] ?? 1,
+                'price' => $dbProduct['price'] ?? 0,
+                'img_url' => $dbProduct['img_url'] ?? '../assets/images/500x500Mobile-placeholder.png',
+                'product_description' => $description,
+                'specs_array' => $specsArray,
+                'ROM' => $dbProduct['ROM'] ?? 'N/A',
+                'RAM' => $dbProduct['RAM'] ?? 'N/A',
+                'class_name' => $dbProduct['class_name'] ?? ''
+            ];
+        }
+    }
+
+} catch (Exception $e) {
+    error_log("DB Error in phones.php: " . $e->getMessage());
+    $_SESSION['error_message'] = "Could not connect to the database or fetch product list.";
+    $products = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +59,62 @@ include('../includes/navbar.html');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manzanas M-phone 17 Series</title>
     <link rel="stylesheet" href="../pages/phoneStyles.css">
+    
+    <style>
+        .buy-form {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .buy-form button {
+            flex: 1; 
+        }
+        
+        .product-info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .price-tag {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0071e3;
+            margin-bottom: 5px;
+        }
+        
+        .storage-info {
+            color: #666;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body class="landing-page">
-
+    <?php
+        if(isset($_SESSION['success_message'])) 
+        {
+            echo "<div style='color: green; padding: 10px; border: 1px solid green; background-color: #e6ffe6; margin: 10px auto; max-width: 800px; border-radius: 5px;'>" . htmlspecialchars($_SESSION['success_message']) . "</div>";
+            unset($_SESSION['success_message']);
+        }
+        if(isset($_SESSION['error_message'])) 
+        {
+            echo "<div style='color: red; padding: 10px; border: 1px solid red; background-color: #ffe6e6; margin: 10px auto; max-width: 800px; border-radius: 5px;'>" . htmlspecialchars($_SESSION['error_message']) . "</div>";
+            unset($_SESSION['error_message']);
+        }
+    ?>
 
     <section class="hero-section">
         <div class="hero-title">
@@ -19,7 +122,6 @@ include('../includes/navbar.html');
         </div>
         
         <div class="hero-content">
-
             <div class="hero-features">
                 <h2>Power Redefined</h2>
                 <div class="feature-item">Titanium frame 2.0</div>
@@ -35,18 +137,27 @@ include('../includes/navbar.html');
             </div>
 
             <div class="hero-pricing">
-                <div class="price-item">
-                    <div class="price-tag">$799</div>
-                    <div class="price-label">Basic Model</div>
-                </div>
-                <div class="price-item">
-                    <div class="price-tag">$999</div>
-                    <div class="price-label">Mid Level</div>
-                </div>
-                <div class="price-item">
-                    <div class="price-tag">$1499</div>
-                    <div class="price-label">Flagship</div>
-                </div>
+                <?php if (!empty($products)): ?>
+                    <?php foreach(array_slice($products, 0, 3) as $product): ?>
+                        <div class="price-item">
+                            <div class="price-tag">₱<?= number_format($product['price'], 0) ?></div>
+                            <div class="price-label"><?= htmlspecialchars($product['name']) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="price-item">
+                        <div class="price-tag">$799</div>
+                        <div class="price-label">Basic Model</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="price-tag">$999</div>
+                        <div class="price-label">Mid Level</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="price-tag">$1499</div>
+                        <div class="price-label">Flagship</div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -61,69 +172,50 @@ include('../includes/navbar.html');
         </div>
 
         <div class="cards-container">
+            <?php 
+                if (count($products) > 0) {
+                    foreach($products as $product): ?>
+                        <div class="product-card">
+                            <div class="card-image-placeholder">
+                                <img src="<?= htmlspecialchars($product['img_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                            </div>
+                            <h3 class="product-title"><?= htmlspecialchars($product['name']) ?></h3>
+                            
+                            <div class="specs-list">
+                                <?php if (!empty($product['specs_array'])): ?>
+                                    <?php foreach($product['specs_array'] as $spec): ?>
+                                        <div class="spec-item">
+                                            <?= htmlspecialchars(trim($spec)) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="spec-item">
+                                        <?= nl2br(htmlspecialchars($product['product_description'])) ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <div class="product-info">
+                                <div class="price-tag">₱<?= number_format($product['price'], 2) ?></div>
+                                <div class="storage-info">
+                                    <?= $product['ROM'] ?>GB ROM | <?= $product['RAM'] ?>GB RAM
+                                </div>
+                                <div class="stock-info">
+                                    Stock: <?= $product['stock'] ?>
+                                </div>
+                            </div>
 
-            <div class="product-card">
-                <div class="card-image-placeholder">
-                    <img src="../assets/Phones/iphone17.png" alt="Manzanas Logo with name">
-                </div>
-                <h3 class="product-title">M-phone 17</h3>
-                
-                <div class="specs-list">
-                    <div class="spec-item">
-                        48MP Main | Ultra Wide<br>
-                        Super Retina XDR Display
-                    </div>
-                    <div class="spec-item">
-                        A16 Bionic Chip
-                    </div>
-                    <div class="spec-item">
-                        20h Video Playback
-                    </div>
-                </div>
-                <button class="btn-primary" style="width:100%; margin-top: 20px;">Buy</button>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image-placeholder">
-                    <img src="../assets/Phones/Iphone17_air.png" alt="Manzanas Logo with name">
-                </div>
-                <h3 class="product-title">M-phone 17 Air</h3>
-                
-                <div class="specs-list">
-                    <div class="spec-item">
-                        48MP Main | Ultra Wide<br>
-                        Lightweight Design
-                    </div>
-                    <div class="spec-item">
-                        M15 Bionic Chip
-                    </div>
-                    <div class="spec-item">
-                        18h Video Playback
-                    </div>
-                </div>
-                <button class="btn-primary" style="width:100%; margin-top: 20px;">Buy</button>
-            </div>
-
-            <div class="product-card">
-                <div class="card-image-placeholder">
-                    <img src="../assets/Phones/Iphone17Pro.png" alt="Manzanas Logo with name">
-                </div>
-                <h3 class="product-title">M-phone 17 Pro</h3>
-                
-                <div class="specs-list">
-                    <div class="spec-item">
-                        48MP Main | Ultra Wide | Telephoto<br>
-                        ProMotion Technology
-                    </div>
-                    <div class="spec-item">
-                        A17 Pro Chip
-                    </div>
-                    <div class="spec-item">
-                        29h Video Playback
-                    </div>
-                </div>
-                <button class="btn-primary" style="width:100%; margin-top: 20px;">Buy</button>
-            </div>
+                            <form action="addToCart.php" method="post" class="buy-form">
+                                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                                <input type="number" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>" class="quantity-input" title="Quantity">
+                                <button type="submit" name="add_to_cart" class="btn-primary">Add to Cart</button>
+                            </form>
+                        </div>
+                    <?php endforeach; 
+                } else {
+                    echo '<div style="width: 100%; text-align: center; padding: 20px; font-size: 1.2em;">No phones are currently available. Please check back later!</div>';
+                }
+            ?>
         </div>
     </section>
 
@@ -135,69 +227,6 @@ include('../includes/navbar.html');
         </div>
     </section>
 
-    <footer class="site-footer">
-        <div class="footer-features">
-            <div class="footer-feat-item">
-                <i class="fa-solid fa-truck"></i>
-                <span>FREE DELIVERY</span>
-            </div>
-            <div class="footer-feat-item">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>SECURE PAYMENT</span>
-            </div>
-            <div class="footer-feat-item">
-                <i class="fa-solid fa-check"></i>
-                <span>OFFICIAL SERVICE</span>
-            </div>
-            <div class="footer-feat-item">
-                <i class="fa-regular fa-clock"></i>
-                <span>FAST DELIVERY</span>
-            </div>
-        </div>
-
-        <div class="footer-links">
-            <div class="footer-column">
-                <h4>Products and Services</h4>
-                <ul>
-                    <li><a href="#">Smartphones</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">PC</a></li>
-                    <li><a href="#">MANZANAS Services</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Store</h4>
-                <ul>
-                    <li><a href="#">Find a store</a></li>
-                    <li><a href="#">Financing</a></li>
-                    <li><a href="#">Order Status</a></li>
-                    <li><a href="#">Shopping Help</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Warranty</a></li>
-                    <li><a href="#">Manuals</a></li>
-                    <li><a href="#">Software Update</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>About MANZANAS</h4>
-                <ul>
-                    <li><a href="#">Newsroom</a></li>
-                    <li><a href="#">Investors</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Ethics</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright-text">
-            Copyright © 2025 MANZANAS
-        </div>
-    </footer>
-
+    <?php include('../includes/footer.html'); ?>
 </body>
 </html>

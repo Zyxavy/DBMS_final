@@ -38,11 +38,12 @@ CREATE TABLE category (
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
+    product_description TEXT,
     category_id INT NOT NULL,
     class_id INT NOT NULL,
     price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
     stock INT NOT NULL DEFAULT 0 CHECK (stock >= 0),
+    img_url VARCHAR(255),
     ROM INT,
     RAM int,
 
