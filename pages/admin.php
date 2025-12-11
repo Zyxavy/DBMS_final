@@ -6,7 +6,7 @@
 
     checkAdmin();
 
-    $isUpdate = (isset($_GET["update"]) && $_GET["update"]==1);
+    $isUpdate = isset($_GET["update"]) && $_GET["update"]==1;
     $mode_label = $isUpdate ? "UPDATE" : "INSERT";
     $next_mode = $isUpdate ? 0 : 1;
     $next_label = $isUpdate ? "INSERT" : "UPDATE";
@@ -18,6 +18,33 @@
     $categories = $manage->query("SELECT category_name, id FROM category",true);
     $class = $manage->query("SELECT class_name, id FROM class",true);
 
+    $product_desc = '';
+    $product_name = '';
+    $price = 0;
+    $stock = 0;
+    $RAM = 0;
+    $ROM = 0;
+    $category_id = 0;
+    $class_id = 0;
+
+    if($isUpdate && isset($_GET['product_id'])){
+        $product_id = (int)$_GET['product_id'];
+        $product = $manage->query("SELECT * FROM products WHERE product_id = $product_id", true);
+        if($product && count($product) > 0){
+            $product = $product[0];
+            $product_name = $product['name'];
+            $price = $product['price'];
+            $stock = $product['stock'];
+            $RAM = $product['RAM'];
+            $ROM = $product['ROM'];
+            $product_desc = $product['product_description'];
+            $category_id = $product['category_id'];
+            $class_id = $product['class_id'];
+        }
+    }
+
+    
+    
     function getDeleteStatus(){
         return isset($_GET["deleteStat"])&&$_GET["deleteStat"]=="1";
     }
@@ -57,41 +84,46 @@
         <form method="post" action="../admin/dashboard.php">
             <input type="hidden" name="is_pressed_insert" value="true">
             <input type="hidden" name="mode" value="<?= $mode_label ?>">
-            Product_ID <input type="number" name="product_id" <?= ($isUpdate==1)?"":"disabled" ?>><br>
-            Product Name: <input type="text" name="Product_name"><br>
-            Choose categories<br>
+
+            Product_ID: <input type="number" name="product_id" value="<?= ($isUpdate) ? $product_id : '' ?>" <?= ($isUpdate==1)?"":"disabled" ?>><br>
+            Product Name: <input type="text" name="Product_name" value="<?= htmlspecialchars($product_name) ?>"><br>
+            Choose categories:<br>
             <?php
-                if($categories != false){
-                    foreach($categories as $col){
+            if($categories != false){
+                foreach($categories as $col){
                     $id = (int)$col["id"];
-                    $name= htmlspecialchars($col["category_name"]);
-                    echo '<input type="radio" id="cat'.$id.'" name="category" value="'.$id.'">';
+                    $name = htmlspecialchars($col["category_name"]);
+                    $checked = ($category_id == $id) ? 'checked' : '';
+                    echo '<input type="radio" id="cat'.$id.'" name="category" value="'.$id.'" '.$checked.'>';
                     echo '<label for="cat'.$id.'">'.$name.'</label><br>';
                 }
-                }else{
-                    echo "No categories found, contact support<br>";
-                }
+            }else{
+                echo "No categories found, contact support<br>";
+            }
             ?>
-            <br>Choose class ID <br>
+            <br>Choose class ID:<br>
             <?php
-                if($class != false){
-                    foreach($class as $col){
-                        $id= (int)$col["id"];
-                        $name= htmlspecialchars($col["class_name"]);
-                        echo '<input type="radio" id="class'.$id.'" name= "class" value="'.$id.'">';
-                        echo '<label for="class'.$id.'">'.$name.'</label><br>';
-                    }
-                }else{
-                    echo "No classes found, contact support<br>";
+            if($class != false){
+                foreach($class as $col){
+                    $id = (int)$col["id"];
+                    $name = htmlspecialchars($col["class_name"]);
+                    $checked = ($class_id == $id) ? 'checked' : '';
+                    echo '<input type="radio" id="class'.$id.'" name="class" value="'.$id.'" '.$checked.'>';
+                    echo '<label for="class'.$id.'">'.$name.'</label><br>';
                 }
+            }else{
+                echo "No classes found, contact support<br>";
+            }
             ?>
-            Price: <input type="number" name="price"><br>
-            stock: <input type="number" name="stock"><br>
-            RAM: <input type="number" name="RAM"><br>
-            ROM: <input type="number" name="ROM"><br>
-            Product Description: <input type="text" name="descp"><br>
-            <button type="submit"><?php echo $mode_label;?></button>
+            Price: <input type="number" name="price" value="<?= htmlspecialchars($price) ?>"><br>
+            Stock: <input type="number" name="stock" value="<?= htmlspecialchars($stock) ?>"><br>
+            RAM: <input type="number" name="RAM" value="<?= htmlspecialchars($RAM) ?>"><br>
+            ROM: <input type="number" name="ROM" value="<?= htmlspecialchars($ROM) ?>"><br>
+            Product Description:<br>
+            <textarea name="descp" rows="4" cols="50"><?= htmlspecialchars($product_desc) ?></textarea><br>
+            <button type="submit"><?= $mode_label ?></button>
         </form>
+
         <br>
         <form method="get" action=<?php echo $_SERVER["PHP_SELF"]?>>
             <input type="hidden" name="update" value="<?= $next_mode ?>">
