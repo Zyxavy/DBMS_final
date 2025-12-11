@@ -10,27 +10,27 @@
     --color-error: #ff4d4d;
     --color-success: #4CAF50;
     --color-button-remove: #cc0000;
-    --font-family: 'Inter', sans-serif;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 body {
     font-family: var(--font-family);
     background-color: var(--color-dark-bg);
     color: var(--color-light-text);
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
+    margin: -40;
+    padding: -30;
+    line-height: 1.3;
 }
 
 .cart-container {
     max-width: 1300px;
-    margin: 40px auto;
-    padding: 20px;
+    margin: 60px auto;
+    padding: 50px;
 }
 
 .cart-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .cart-header h1 {
@@ -116,7 +116,7 @@ body {
 }
 
 .btn-update:hover {
-    background-color: #0060cc;
+    background-color: #aa0303;
 }
 
 .btn-remove {
@@ -169,8 +169,8 @@ body {
 }
 
 .btn-checkout:hover {
-    background-color: #0060cc;
-    box-shadow: 0 4px 10px rgba(0, 113, 227, 0.4);
+    background-color: #cc0000;
+    box-shadow: 0 4px 10px rgba(227, 0, 0, 0.4);
 }
 
 .btn-back {
