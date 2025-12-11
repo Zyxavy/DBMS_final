@@ -21,7 +21,7 @@ services:
   php-app:
     build: .
     container_name: dbms_php
-    ports:
+    expose:
       - "80"
     volumes:
       - .:/var/www/html
@@ -52,6 +52,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp" 
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
