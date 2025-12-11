@@ -12,112 +12,77 @@ class Profile extends Database
 
     public function getUserDetails()
     {
-        try
+        try 
         {
-            $sql = "SELECT * FROM users WHERE username = :username";
+            $sql = "SELECT * FROM users WHERE user_id = :user_id";
             $stmt = parent::connect()->prepare($sql);
 
-            $stmt->bindParam(':username', $this->userId);
-            $stmt->execute();
-            
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-            if($user == null)
-            {
-                return false;
-            }
-            return $user;
-            
-        }
-        catch(PDOException $e)
-        {
-            error_log("Cart error: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    public function setUserName($newUserName)
-    {
-        try
-        {
-            $sql = "UPDATE users SET  username = :newUserName WHERE user_id = :userID";
-            $stmt = parent::connect()->prepare($sql);
-
-            $stmt->bindParam(':username', $newUserName);
             $stmt->bindParam(':user_id', $this->userId);
             $stmt->execute();
-            
-            return $stmt->execute() ?? false;
-            
+
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
         }
-        catch(PDOException $e)
+        catch (PDOException $e) 
         {
-            error_log("Cart error: " . $e->getMessage());
+            error_log("Profile error: " . $e->getMessage());
             return [];
         }
     }
 
-     public function setFirstName($newFirstName)
+    public function setFirstName($newFirstName)
     {
-        try
+        try 
         {
-            $sql = "UPDATE users SET  first_name = :newFirstName WHERE user_id = :userID";
+            $sql = "UPDATE users SET first_name = :first_name WHERE user_id = :user_id";
             $stmt = parent::connect()->prepare($sql);
 
             $stmt->bindParam(':first_name', $newFirstName);
             $stmt->bindParam(':user_id', $this->userId);
-            $stmt->execute();
-            
-            return $stmt->execute() ?? false;
-            
+
+            return $stmt->execute();
         }
-        catch(PDOException $e)
+        catch (PDOException $e) 
         {
-            error_log("Cart error: " . $e->getMessage());
-            return [];
+            error_log("Profile error: " . $e->getMessage());
+            return false;
         }
     }
 
-     public function setLastName($newLastName)
+    public function setLastName($newLastName)
     {
-        try
+        try 
         {
-            $sql = "UPDATE users SET  last_name = :newLastName WHERE user_id = :userID";
+            $sql = "UPDATE users SET last_name = :last_name WHERE user_id = :user_id";
             $stmt = parent::connect()->prepare($sql);
 
             $stmt->bindParam(':last_name', $newLastName);
             $stmt->bindParam(':user_id', $this->userId);
-            $stmt->execute();
-            
-            return $stmt->execute() ?? false;
-            
+
+            return $stmt->execute();
         }
-        catch(PDOException $e)
+        catch (PDOException $e) 
         {
-            error_log("Cart error: " . $e->getMessage());
-            return [];
+            error_log("Profile error: " . $e->getMessage());
+            return false;
         }
     }
 
     public function setEmail($newEmail)
     {
-        try
+        try 
         {
-            $sql = "UPDATE users SET  email = :newEmail WHERE user_id = :userID";
+            $sql = "UPDATE users SET email = :email WHERE user_id = :user_id";
             $stmt = parent::connect()->prepare($sql);
 
             $stmt->bindParam(':email', $newEmail);
             $stmt->bindParam(':user_id', $this->userId);
-            $stmt->execute();
-            
-            return $stmt->execute() ?? false;
-            
+
+            return $stmt->execute();
         }
-        catch(PDOException $e)
+        catch (PDOException $e) 
         {
-            error_log("Cart error: " . $e->getMessage());
-            return [];
+            error_log("Profile error: " . $e->getMessage());
+            return false;
         }
     }
 
@@ -125,43 +90,39 @@ class Profile extends Database
     {
         try
         {
-            $sql = "UPDATE users SET  phone = :newPhoneNum WHERE user_id = :userID";
+            $sql = "UPDATE users SET phone = :phone WHERE user_id = :user_id";
             $stmt = parent::connect()->prepare($sql);
 
             $stmt->bindParam(':phone', $newPhoneNum);
             $stmt->bindParam(':user_id', $this->userId);
-            $stmt->execute();
-            
-            return $stmt->execute() ?? false;
-            
+
+            return $stmt->execute();
         }
-        catch(PDOException $e)
+        catch (PDOException $e) 
         {
-            error_log("Cart error: " . $e->getMessage());
-            return [];
+            error_log("Profile error: " . $e->getMessage());
+            return false;
         }
     }
 
     public function setPassword($newPassword)
     {
-        $hashpassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $hash = password_hash($newPassword, PASSWORD_BCRYPT);
 
-        try
+        try 
         {
-            $sql = "UPDATE users SET  password_hash = :newPassword WHERE user_id = :userID";
+            $sql = "UPDATE users SET password_hash = :password_hash WHERE user_id = :user_id";
             $stmt = parent::connect()->prepare($sql);
 
-            $stmt->bindParam(':password_hash', $$hashpassword);
+            $stmt->bindParam(':password_hash', $hash);
             $stmt->bindParam(':user_id', $this->userId);
-            $stmt->execute();
-            
-            return $stmt->execute() ?? false;
-            
+
+            return $stmt->execute();
         }
-        catch(PDOException $e)
+        catch (PDOException $e) 
         {
-            error_log("Cart error: " . $e->getMessage());
-            return [];
+            error_log("Profile error: " . $e->getMessage());
+            return false;
         }
     }
 }

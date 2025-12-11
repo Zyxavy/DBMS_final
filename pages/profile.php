@@ -24,161 +24,137 @@ include('../includes/navbar.html');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Profile</title>
-    
-    <link rel="stylesheet" href="../pages/profileStyles.css">
+    <link rel="stylesheet" href="../pages/profileTW.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Your Profile</title>
 </head>
 <body>
 
-    <div id="profile_title">
-        <h1>Your Profile</h1>
-    </div>
+<main class="flex flex-col items-center py-10">
+    <h1 class="text-3xl font-bold mb-10 mt-10">Your Profile</h1>
 
-    <div id="profile_container">
-        <div id="profile_left">
+    <div class="bg-[#800000] text-white w-full max-w-5xl rounded-xl p-10" id="profile_container">
 
-            <div id="profile_pic_container">
-                <div id="profile_pic"></div>
+        <div class="flex flex-col items-center mb-10">
+            <div id="profile_pic_container" class="w-32 h-32 bg-gray-300 rounded-full overflow-hidden mb-3">
+                <div id="profile_pic" class="w-full h-full bg-gray-500"></div>
             </div>
 
-            <form action="../includes/updateProfile.php" method="post">
+            <div id="profile_username_container" class="text-xl font-semibold mb-4">
+                <?= htmlspecialchars($userDetails['username'] ?? "User") ?>
+            </div>
 
+            <form action="../includes/updateProfile.php" method="post" class="w-full">
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+        </div>
 
-                <div id="profile_username_container">
-                    <div id="profile_username">
-                        <?= htmlspecialchars($userDetails['username'] ?? 'User') ?>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
+
+            <div class="flex flex-col">
+                <div class="font-semibold mb-3">PERSONAL DETAILS:</div>
+
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="firstname" class="text-xs font-bold">FIRST NAME</label>
+                    <input type="text" id="firstname" name="first_name"
+                           value="<?= htmlspecialchars($userDetails['first_name'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="personal_details_title">PERSONAL DETAILS:</div>
-
-                <div id="input_firstname" class="input_box">
-                    <label for="firstname">First Name</label>
-                    <input type="text" 
-                           id="firstname" 
-                           name="first_name" 
-                           placeholder="FIRST NAME"
-                           value="<?= htmlspecialchars($userDetails['first_name'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="lastname" class="text-xs font-bold">LAST NAME</label>
+                    <input type="text" id="lastname" name="last_name"
+                           value="<?= htmlspecialchars($userDetails['last_name'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="input_lastname" class="input_box">
-                    <label for="lastname">Last Name</label>
-                    <input type="text" 
-                           id="lastname" 
-                           name="last_name" 
-                           placeholder="LAST NAME"
-                           value="<?= htmlspecialchars($userDetails['last_name'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="password" class="text-xs font-bold">NEW PASSWORD</label>
+                    <input type="password" id="password" name="password"
+                           class="w-full bg-transparent outline-none"
+                           placeholder="Leave blank to keep current password">
                 </div>
 
-                <div class="input_box">
-                    <label for="password">Password</label>
-                    <input type="password" 
-                           id="password" 
-                           name="password" 
-                           placeholder="ENTER NEW PASSWORD">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="email" class="text-xs font-bold">EMAIL</label>
+                    <input type="email" id="email" name="email"
+                           value="<?= htmlspecialchars($userDetails['email'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="input_email" class="input_box">
-                    <label for="email">Email</label>
-                    <input type="email" 
-                           id="email" 
-                           name="email" 
-                           placeholder="EMAIL"
-                           value="<?= htmlspecialchars($userDetails['email'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="phone" class="text-xs font-bold">PHONE</label>
+                    <input type="tel" id="phone" name="phone"
+                           value="<?= htmlspecialchars($userDetails['phone'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="font-semibold mb-3">ADDRESS DETAILS:</div>
+
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="province" class="text-xs font-bold">PROVINCE</label>
+                    <input type="text" id="province" name="province"
+                           value="<?= htmlspecialchars($defaultAddress['province'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="input_phone" class="input_box">
-                    <label for="phone">Phone</label>
-                    <input type="tel" 
-                           id="phone" 
-                           name="phone" 
-                           placeholder="PHONE"
-                           value="<?= htmlspecialchars($userDetails['phone'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="city" class="text-xs font-bold">CITY/MUNICIPALITY</label>
+                    <input type="text" id="city" name="city"
+                           value="<?= htmlspecialchars($defaultAddress['city'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="address_details_title">ADDRESS DETAILS:</div>
-
-                <div id="input_province" class="input_box">
-                    <label for="province">Province</label>
-                    <input type="text" 
-                           id="province" 
-                           name="province" 
-                           placeholder="PROVINCE"
-                           value="<?= htmlspecialchars($defaultAddress['province'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="address" class="text-xs font-bold">STREET ADDRESS</label>
+                    <input type="text" id="address" name="street_address"
+                           value="<?= htmlspecialchars($defaultAddress['street_address'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="input_city" class="input_box">
-                    <label for="city">City/Municipality</label>
-                    <input type="text" 
-                           id="city" 
-                           name="city" 
-                           placeholder="CITY/MUNICIPALITY"
-                           value="<?= htmlspecialchars($defaultAddress['city'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="unit_num" class="text-xs font-bold">UNIT / HOUSE / LOT NO.</label>
+                    <input type="text" id="unit_num" name="unit_num"
+                           value="<?= htmlspecialchars($defaultAddress['unit_num'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="input_street" class="input_box">
-                    <label for="address">Street Address</label>
-                    <input type="text" 
-                           id="address" 
-                           name="street_address" 
-                           placeholder="STREET ADDRESS"
-                           value="<?= htmlspecialchars($defaultAddress['street_address'] ?? '') ?>">
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="postal_code" class="text-xs font-bold">ZIP CODE</label>
+                    <input type="text" id="postal_code" name="postal_code"
+                           value="<?= htmlspecialchars($defaultAddress['postal_code'] ?? '') ?>"
+                           class="w-full bg-transparent outline-none">
                 </div>
 
-                <div id="input_street" class="input_box">
-                    <label for="unit_num">Unit Number</label>
-                    <input type="text" 
-                           id="unit_num" 
-                           name="unit_num" 
-                           placeholder="UNIT/HOUSE/LOT NUMBER"
-                           value="<?= htmlspecialchars($defaultAddress['unit_num'] ?? '') ?>">
-                </div>
-
-                <div id="input_zip" class="input_box">
-                    <label for="zip">ZIP Code</label>
-                    <input type="text" 
-                           id="postal_code" 
-                           name="postal_code" 
-                           placeholder="POSTAL CODE"
-                           value="<?= htmlspecialchars($defaultAddress['postal_code'] ?? '') ?>">
-                </div>
-                <div id="address_type" class="input_box">
-                   <label for="type">Address Type:</label>
-                    <select name="type" id="type">
-                    <option value="Home">Home</option>
-                    <option value="Work">Work</option>
+                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
+                    <label for="address_type" class="text-xs font-bold">ADDRESS TYPE</label>
+                    <select name="address_type" id="address_type" class="w-full bg-transparent outline-none">
+                        <option value="home" <?= ($defaultAddress['address_type'] ?? '') === "home" ? "selected" : "" ?>>Home</option>
+                        <option value="work" <?= ($defaultAddress['address_type'] ?? '') === "work" ? "selected" : "" ?>>Work</option>
                     </select>
                 </div>
 
-                <div id="address_options">
-                    <div id="address_default_check">
-                        <input type="checkbox" 
-                               id="default_address" 
-                               name="default_address" 
-                               <?= ($defaultAddress) ? 'checked' : '' ?>>
-                    </div>
-                    <div id="address_default_label">Default Address</div>
+                <div class="flex items-center gap-4 mt-3">
+                    <input type="checkbox" id="default_address" name="default_address"
+                        <?= ($defaultAddress) ? 'checked' : '' ?>
+                        class="w-5 h-5 rounded accent-black">
+                    <label for="default_address">Default</label>
                 </div>
-
-                <div class="input_box" style="margin-top: 50px;">
-                    <button type="submit"
-                            style="background-color: var(--color-light-text); color: var(--color-maroon); font-weight: 700; 
-                                   border: 2px solid var(--color-light-text);
-                                   cursor: pointer;
-                                   transition: all 0.3s ease;">
-                        SAVE CHANGES
-                    </button>
-                </div>
-
-            </form>
-
+            </div>
         </div>
 
-    
-    </div>
+        <div class="mt-10">
+            <button type="submit"
+                class="bg-white text-[#800000] px-6 py-3 rounded-lg font-bold w-full">
+                SAVE CHANGES
+            </button>
+        </div>
 
+        </form>
+
+    </div>
+</main>
     <?= include('../includes/footer.html') ?>
 
     <script>
