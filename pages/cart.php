@@ -4,15 +4,11 @@
     require_once __DIR__ . "/../Classes/CartClass.php";
     require_once __DIR__ . "/../includes/functions.php";
 
-   checkSession();
-
-    include('../includes/navbar.html');
-
-    $message = "Cart:";
+    checkSession();
 
     if(isset($_POST['checkout']))
     {
-        redirectToPage('checkout.php');
+        redirectToPage('checkout.php'); 
         exit();
     }
     elseif(isset($_POST['back']))
@@ -46,6 +42,9 @@
             $message = "Error: Failed to remove item.";
         }
     }
+    include('../includes/navbar.html');
+
+    $message = "Cart:";
     
     $cartItems = $cart->getCartItems($_SESSION['user_id']);
 ?>
@@ -155,9 +154,9 @@
             <!-- Checkout Button -->
             <?php if ($cartItems && count($cartItems) > 0) { ?>
                 <form action="cart.php" method="post">
-                   <a href="checkout.php"> <button type="submit" name="checkout" class="btn-checkout">
+                  <button type="submit" name="checkout" class="btn-checkout">
                         Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
-                    </button> </a>
+                    </button> 
                 </form>
             <?php } ?>
         </div>

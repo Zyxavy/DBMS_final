@@ -16,12 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     {
         $userData = $login->getUserStatus();
         session_regenerate_id(true);
-
+    
         $_SESSION['user_id'] = $userData['user_id']; 
         $_SESSION["username"] = $username;
         $_SESSION["user_status"] = $userData['status']; 
 
-        if($userData['status'] === "customer")
+        if($_SESSION['user_status'] === "customer")
         {
             redirectToPage("../pages/products.php");
 	        exit();
