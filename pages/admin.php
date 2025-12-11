@@ -22,7 +22,7 @@
     if (isset($_POST['log-out'])) {
         session_destroy();
         header("Location: ../index.php");
-        exit;
+        exit();
     }
     
 ?>
