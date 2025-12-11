@@ -1,7 +1,12 @@
-<?php 
+<?php
+
+// Gin-iistart an session para magamit an session variables
 session_start();
+
+// Ginkakarga an helper functions
 require_once __DIR__ . "/../includes/functions.php";
 
+// Pagcheck kun naka-login an user, kun diri i-redirect ha login page
 checkSession();
 
 include('../includes/navbar.html');

@@ -15,7 +15,7 @@ require_once __DIR__ . "/../Classes/AddressClass.php";
 // Ginkakarga an helper functions
 require_once __DIR__ . "/../includes/functions.php";
 
-// Gintitsek kun naka-login an user, kun diri i-redirect ha login page
+// Pagcheck kun naka-login an user, kun diri i-redirect ha login page
 checkSession();
 
 include('../includes/navbar.html');
