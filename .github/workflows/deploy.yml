@@ -7,7 +7,7 @@ on:
 
 env:
   REGION: asia-southeast1
-  REPO_NAME: dbms-app
+  REPO_NAME: DBMS_final
 
 jobs:
   build-and-deploy:
@@ -24,30 +24,30 @@ jobs:
 
       - name: Configure Docker for Artifact Registry
         run: |
-          gcloud auth configure-docker $REGION-docker.pkg.dev
+          gcloud auth configure-docker ${REGION}-docker.pkg.dev
 
       - name: Build Docker image
         run: |
-          IMAGE_URI="$REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPO_NAME/app:${{ github.sha }}"
+          IMAGE_URI="${REGION}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${REPO_NAME}/app:${{ github.sha }}"
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
-          docker build -t $IMAGE_URI .
+          docker build -t "$IMAGE_URI" .
 
       - name: Push image to Artifact Registry
         run: |
-          docker push $IMAGE_URI
+          docker push "$IMAGE_URI"
 
       - name: SSH into VM and deploy
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
-          ZONE: ${{ secrets.GCP_ZONE }}
+          ZONE: ${{ secrets.GCP_ZONE }} 
         run: |
-          gcloud compute ssh $INSTANCE_NAME \
-            --zone=$ZONE \
-            --project=$PROJECT_ID \
+          gcloud compute ssh "$INSTANCE_NAME" \
+            --zone="$ZONE" \
+            --project="$PROJECT_ID" \
             --command="
               echo 'Updating docker-compose image tag...'
-              sed -i 's|image: .*|image: $IMAGE_URI|' /home/kentandrewparejas/DBMS_final/docker-compose.yml
+              sed -i \"s|image: .*|image: $IMAGE_URI|\" /home/kentandrewparejas/DBMS_final/docker-compose.yml
 
               echo 'Pulling latest image...'
               docker compose pull
@@ -67,9 +67,9 @@ jobs:
           INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
           ZONE: ${{ secrets.GCP_ZONE }}
         run: |
-          gcloud compute ssh $INSTANCE_NAME \
-            --zone=$ZONE \
-            --project=$PROJECT_ID \
+          gcloud compute ssh "$INSTANCE_NAME" \
+            --zone="$ZONE" \
+            --project="$PROJECT_ID" \
             --command="docker compose ps"
 
       - name: Health Check
@@ -78,7 +78,7 @@ jobs:
           INSTANCE_NAME: ${{ secrets.GCP_INSTANCE_NAME }}
           ZONE: ${{ secrets.GCP_ZONE }}
         run: |
-          gcloud compute ssh $INSTANCE_NAME \
-            --zone=$ZONE \
-            --project=$PROJECT_ID \
+          gcloud compute ssh "$INSTANCE_NAME" \
+            --zone="$ZONE" \
+            --project="$PROJECT_ID" \
             --command="curl -I http://localhost"
