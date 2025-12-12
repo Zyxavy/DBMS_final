@@ -257,10 +257,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="number" id="edit_user_id" value="<?= $getorder["user_id"] ?>" disabled>
 
                     <label for="edit_payment_method">Payment Method:</label>
-                    <input type="text" id="edit_payment_method" name="new_payment_method" value="<?= htmlspecialchars($getorder["payment_method"]) ?>" required>
+                        <select name="new_payment_method" id="edit_payment_method" required>
+                            <?php
+                            $methods = [
+                                'cash_on_delivery' => 'Cash On Delivery',
+                                'credit_card' => 'Credit Card',
+                                'debit_card' => 'Debit Card',
+                                'gcash' => 'Gcash',
+                                'paymaya' => 'Paymaya'
+                            ];
+                            foreach ($methods as $value => $label) {
+                                $selected = ($getorder['payment_method'] === $value) ? 'selected' : '';
+                                echo "<option value=\"" . htmlspecialchars($value) . "\" $selected>$label</option>";
+                            }
+                            ?>
+                        </select>
 
                     <label for="edit_payment_status">Payment Status:</label>
-                    <input type="text" id="edit_payment_status" name="new_payment_status" value="<?= htmlspecialchars($getorder["payment_status"]) ?>" required>
+                    <select name="new_payment_status" id="edit_payment_status" required>
+                        <?php
+                        $pay_status = ['unpaid', 'paid', 'refunded'];
+                        foreach ($pay_status as $status_payment) {
+                            $selected = ($getorder['payment_status'] === $status_payment) ? 'selected' : '';
+                            echo "<option value=\"" . htmlspecialchars($status_payment) . "\" $selected>" . ucfirst($status_payment) . "</option>";
+                        }
+                        ?>
+                    </select>
 
                     <label>Order Status:</label>
                     <div class="radio-group">
@@ -283,7 +305,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="<?= $dashboard ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this order? This action cannot be undone.');">
                     <input type="hidden" name="DELETE" value="1">
                     <input type="hidden" name="order_id" value="<?= $getorder['order_id'] ?>">
-                    <label style="color: #dc3545;">⚠️ Delete Order</label>
+                    <label style="color: #dc3545;"> Delete Order</label>
                     <p>This will permanently delete Order #<?= $getorder['order_id'] ?>. This action cannot be undone.</p>
                     <button type="submit" class="btn-danger">Delete Order</button>
                 </form>

@@ -82,7 +82,7 @@ CREATE TABLE orders(
     payment_method ENUM('credit_card', 'debit_card', 'gcash', 'paymaya', 'cash_on_delivery') DEFAULT 'cash_on_delivery',
     payment_status ENUM('unpaid', 'paid', 'refunded') DEFAULT 'unpaid',
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (address_id) REFERENCES address(address_id) ON DELETE RESTRICT,
+    FOREIGN KEY (address_id) REFERENCES address(address_id) ON DELETE CASCADE,
     INDEX idx_user_orders (user_id),
     INDEX idx_order_date (order_date),
     INDEX idx_status (order_status)

@@ -123,7 +123,7 @@ include('../includes/navbar.html');
                 </div>
 
                 <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
-                    <label for="postal_code" class="text-xs font-bold">ZIP CODE</label>
+                    <label for="postal_code" class="text-xs font-bold">POSTAL CODE</label>
                     <input type="text" id="postal_code" name="postal_code"
                            value="<?= htmlspecialchars($defaultAddress['postal_code'] ?? '') ?>"
                            class="w-full bg-transparent outline-none">

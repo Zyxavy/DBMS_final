@@ -52,6 +52,7 @@ $addressFields = [
 ];
 
 $addressData = [];
+
 foreach ($addressFields as $field) 
 {
     if (!empty(trim($_POST[$field] ?? ''))) 
@@ -62,16 +63,24 @@ foreach ($addressFields as $field)
 
 $addressData['is_default'] = isset($_POST['default_address']) ? 1 : 0;
 
-if (!empty($addressData)) 
+$addressFieldsProvided = array_diff_key($addressData, ['is_default' => 0]); 
+
+if (!empty($addressFieldsProvided)) 
 {
     $addressResult = $address->addAddress($userId, $addressData);
 
     if ($addressResult === true) 
     {
         $changesMade = true;
-    } else {
+    } 
+    else 
+    {
         $_SESSION['error_message'] = "Failed to add/update address. Please try again.";
     }
+} 
+else 
+{
+    $_SESSION['error_message'] = "Address fields cannot be blank. No address was updated.";
 }
 
 if ($changesMade) 
