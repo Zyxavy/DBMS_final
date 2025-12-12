@@ -13,6 +13,7 @@
         $product_name = (isset($_POST["Product_name"]))?$_POST["Product_name"]:"";
         $price = (isset($_POST["price"]))?$_POST["price"]:0;
         $stock = (isset($_POST["stock"]))?$_POST["stock"]:0;
+        $img_url =(isset($_POST['img_url'])) ? $_POST['img_url']:null;
         $RAM = (isset($_POST["RAM"]))?$_POST["RAM"]:0;
         $ROM = (isset($_POST["ROM"]))?$_POST["ROM"]:0;
         $descp =(isset($_POST["descp"]))? $_POST["descp"]:"";
@@ -22,7 +23,7 @@
             if($_POST["is_pressed_insert"])
             {
                 if($manage->add_product($product_name,$_POST["category"],$_POST["class"]
-                    ,$price,$stock,$ROM,$RAM,$descp)){
+                    ,$price,$stock, $img_url,$ROM,$RAM,$descp)){
                     redirectToPage("../pages/admin.php?inserted=1");
                 }else{
                     redirectToPage("../pages/admin.php?inserted=0");
@@ -34,7 +35,7 @@
             if($_POST["is_pressed_insert"])
             {
                 if($manage->update_product($product_id,$product_name,$_POST["category"],$_POST["class"]
-                    ,$price,$stock,$ROM,$RAM,$descp)){
+                    ,$price,$stock,$img_url,$ROM,$RAM,$descp)){
                     redirectToPage("../pages/admin.php?updated=1");
                 }else{
                     redirectToPage("../pages/admin.php?updated=0");

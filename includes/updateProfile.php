@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 
 $userId = $_POST['user_id'];
 $profile = new Profile($userId);
-$address = new Address($userId);
+$address = new Address();
 $changesMade = false;
 
 function clean($v) 
@@ -44,12 +44,12 @@ $requiredAddressFields = [
     'street_address',
     'city',
     'province',
+    'unit_num',
     'postal_code'
 ];
 
 $optionalAddressFields = [
-    'address_type',
-    'unit_num'
+    'address_type'
 ];
 
 

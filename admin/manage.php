@@ -2,11 +2,11 @@
 class manage extends Database{
     
     
-    function add_product($product_name, $category_id, $class_id,$price,$stock,$ROM,$RAM,$descp){
+    function add_product($product_name, $category_id, $class_id,$price,$stock, $img_url, $ROM,$RAM,$descp){
         try{
             $sql = "insert into products(name,category_id,
-            class_id,price,stock,ROM,RAM, product_description) values( :name, :category_id, :class_id,
-            :price, :stock, :ROM, :RAM, :descp);";
+            class_id,price,stock, img_url, ROM,RAM, product_description) values( :name, :category_id, :class_id,
+            :price, :stock, :img_url, :ROM, :RAM, :descp);";
             
             $stmt = parent::connect()->prepare($sql);
             $stmt->bindValue( ":name",$product_name,PDO::PARAM_STR);
@@ -16,6 +16,7 @@ class manage extends Database{
             //using param str in price kay auto na gin convert it mysql to decimal
             $stmt->bindValue(":price", $price, PDO::PARAM_STR);
             $stmt->bindParam(":stock", $stock, PDO::PARAM_INT);
+            $stmt->bindValue(":img_url", $img_url, PDO::PARAM_STR);
             $stmt->bindParam(":ROM", $ROM, PDO::PARAM_INT);
             $stmt->bindParam(":RAM", $RAM, PDO::PARAM_INT);
 
@@ -38,13 +39,17 @@ class manage extends Database{
         }
     }
 
-    function update_product($product_id,$product_name, $category_id, $class_id,$price,$stock,$ROM,$RAM,$new_descp){
+    function update_product($product_id,$product_name, $category_id, $class_id,$price,$stock,$img_url,$ROM,$RAM,$new_descp){
         if (empty($product_name) || empty($category_id) || empty($class_id) || $price === '' || $stock === '' || $RAM === '' || $ROM === '') {
             return false;
         }
+        if(empty($img_url))
+            {
+                $img_url = null;
+            }
         try{
             $sql = "UPDATE products SET name= :name, category_id= :category_id,
-            class_id= :class_id, price= :price, stock= :stock, ROM= :ROM, RAM= :RAM, product_description = :descp WHERE product_id = :product_id;";
+            class_id= :class_id, price= :price, stock= :stock, img_url= :img_url,ROM= :ROM, RAM= :RAM, product_description = :descp WHERE product_id = :product_id;";
             
             $stmt = parent::connect()->prepare($sql);
             $stmt->bindValue(":product_id",$product_id,PDO::PARAM_INT);
@@ -55,6 +60,7 @@ class manage extends Database{
             //using param str in price kay auto na gin convert it mysql to decimal
             $stmt->bindValue(":price", $price, PDO::PARAM_STR);
             $stmt->bindParam(":stock", $stock, PDO::PARAM_INT);
+            $stmt->bindValue(":img_url", $img_url, PDO::PARAM_STR);
             $stmt->bindParam(":ROM", $ROM, PDO::PARAM_INT);
             $stmt->bindParam(":RAM", $RAM, PDO::PARAM_INT);
             $stmt->bindValue(":descp", $new_descp, PDO::PARAM_STR);

@@ -171,7 +171,7 @@ $csrfToken = generateCSRFToken();
                     <input type="text" id="city" name="city" required value="<?= htmlspecialchars($city ?? '') ?>">
                 </div>
                 <div class="form-group">
-                    <label for="unit_num">Unit/House/Lot Number:</label>
+                    <label for="unit_num">Unit/House/Lot Number / Land Mark:</label>
                     <input type="text" id="unit_num" name="unit_num" required value="<?= htmlspecialchars($unitNum ?? '') ?>">
                 </div>
                 <div class="form-group">

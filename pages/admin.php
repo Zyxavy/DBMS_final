@@ -15,7 +15,7 @@ $next_label = $isUpdate ? "INSERT" : "UPDATE";
 $manage = new manage();
 
 $products = $manage->query("
-    SELECT p.product_id, p.name, p.price, p.stock, p.RAM, p.ROM, 
+    SELECT p.product_id, p.name, p.price, p.stock, p.img_url, p.RAM, p.ROM, 
            c.category_name, cl.class_name
     FROM products p 
     INNER JOIN category c ON p.category_id = c.id 
@@ -29,6 +29,7 @@ $product_desc = '';
 $product_name = '';
 $price = 0;
 $stock = 0;
+$img_url = '';
 $RAM = 0;
 $ROM = 0;
 $category_id = 0;
@@ -44,6 +45,7 @@ if ($isUpdate && isset($_GET['product_id']) && $_GET['product_id'] != '') {
         $product_name = $product['name'];
         $price = $product['price'];
         $stock = $product['stock'];
+        $img_url = $product['img_url'];
         $RAM = $product['RAM'];
         $ROM = $product['ROM'];
         $product_desc = $product['product_description'] ?? "";
@@ -266,6 +268,10 @@ if ($message):
 
             <label for="product_desc">Product Description:</label>
             <textarea id="product_desc" name="descp" rows="5"><?= htmlspecialchars($product_desc) ?></textarea>
+
+            <label for="img_url">Image path:</label>
+            <textarea id="img_url" name="img_url" rows="5" placeholder="../assets/PC/mac-mini.png"><?= htmlspecialchars($img_url) ?></textarea>
+
 
             <button type="submit"><?= $mode_label ?> Product</button>
             <button type="reset" class="btn-secondary">Reset Form</button>
