@@ -115,12 +115,7 @@ include('../includes/navbar.html');
                            class="w-full bg-transparent outline-none">
                 </div>
 
-                <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
-                    <label for="unit_num" class="text-xs font-bold">UNIT / HOUSE / LOT NO.</label>
-                    <input type="text" id="unit_num" name="unit_num"
-                           value="<?= htmlspecialchars($defaultAddress['unit_num'] ?? '') ?>"
-                           class="w-full bg-transparent outline-none">
-                </div>
+                
 
                 <div class="bg-white text-black px-4 py-2 rounded-lg mb-3">
                     <label for="postal_code" class="text-xs font-bold">POSTAL CODE</label>
