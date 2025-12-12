@@ -1,7 +1,5 @@
 <?php
-
-// Gin-iistart an session para magamit an session variables
-session_start();
+session_start(); // Gin-iistart an session para magamit an session variables
 
 // Ginkakarga an database config
 require_once __DIR__ . "/../config/database.php";
@@ -14,7 +12,6 @@ require_once __DIR__ . "/../includes/functions.php";
 
 checkSession(); // Gintitiyak nga nakalogin an user
 
-include('../includes/navbar.html');
 
 
 // Ini nga arrays ginpre-define para i-categorize an laptops ngan desktops ha kada class
@@ -107,6 +104,7 @@ try {
     error_log("DB Error in pc.php: " . $e->getMessage());
     $_SESSION['error_message'] = "Could not connect to the database or fetch product list.";
 }
+include('../includes/navbar.html');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -191,23 +189,26 @@ try {
         .error-message {
             text-align: center;
             padding: 20px;
-            background: #ffe6e6;
-            border: 1px solid #ff9999;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
             border-radius: 8px;
             margin: 20px auto;
             max-width: 800px;
-            color: #cc0000;
+            color: #721c24;
+            font-weight: bold;
         }
         
         .success-message {
             text-align: center;
             padding: 20px;
-            background: #e6ffe6;
-            border: 1px solid #99ff99;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
             border-radius: 8px;
             margin: 20px auto;
+            margin-top: 100px;
             max-width: 800px;
-            color: #006600;
+            color: #155724;
+            font-weight: bold;
         }
         
         .class-header {
@@ -321,6 +322,7 @@ try {
                         </div>
                         
                         <form action="addToCart.php" method="post" class="buy-form">
+                            <input type="hidden" name="redirect" value="pc.php">
                             <input type="hidden" name="product_id" value="<?= $laptop['product_id'] ?>">
                             <input type="number" name="quantity" value="1" min="1" max="<?= $laptop['stock'] ?>" class="quantity-input" title="Quantity">
                             <button type="submit" name="add_to_cart" class="btn-primary">Add to Cart</button>
@@ -397,7 +399,7 @@ try {
                         </div>
                         
                         <form action="addToCart.php" method="post" class="buy-form">
-                            <input type="hidden" name="redirect" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+                            <input type="hidden" name="redirect" value="pc.php">
                             <input type="hidden" name="product_id" value="<?= $desktop['product_id'] ?>">
                             <input type="number" name="quantity" value="1" min="1" max="<?= $desktop['stock'] ?>" class="quantity-input" title="Quantity">
                             <button type="submit" name="add_to_cart" class="btn-primary">Add to Cart</button>
