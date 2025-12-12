@@ -39,7 +39,7 @@ include('../includes/navbar.html');
             </div>
             
             <div class="hero-image">
-                <img src="../assets/Phones/Iphone17Pro.png" alt="M-phone 17 PRO">
+                <img src="../assets/Phones/Iphone17Pro.png" alt="M-phone 17 PRO" loading="lazy">
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@ include('../includes/navbar.html');
                     <h2 class="card-title">Smartphones</h2>
                     <div class="card-image-box">
 
-                        <img src="../assets/Phones/Iphone_series.jpg" alt="Smartphones">
+                        <img src="../assets/Phones/Iphone_series.jpg" alt="Smartphones" loading="lazy">
                     </div>
                     <div class="card-action">
                         <span class="card-link">Show more &gt;</span>
@@ -69,7 +69,7 @@ include('../includes/navbar.html');
                 <div class="product-card">
                     <h2 class="card-title">PC</h2>
                     <div class="card-image-box">
-                        <img src="../assets/PC/macbook-hero.png" alt="PC">
+                        <img src="../assets/PC/macbook-hero.png" alt="PC" loading="lazy">
                     </div>
                     <div class="card-action">
                         <span class="card-link">Show more &gt;</span>

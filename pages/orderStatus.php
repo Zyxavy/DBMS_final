@@ -60,7 +60,7 @@ include('../includes/navbar.html');
                                 <li class="order-item">
 
                                     <div class="item-image-box">
-                                        <img src="<?= htmlspecialchars($item['product_image']); ?>" alt="">
+                                        <img src="<?= htmlspecialchars($item['product_image']); ?>" alt="" loading="eager">
                                     </div>
 
                                     <div class="item-details">

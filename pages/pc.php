@@ -263,7 +263,7 @@ include('../includes/navbar.html');
         <div class="hero-content">
             <div class="hero-center-image">
                 <div class="hero-badge">New Release</div>
-                <img src="../assets/PC/macbook-hero.png" alt="Manzanas Laptop Hero">
+                <img src="../assets/PC/macbook-hero.png" alt="Manzanas Laptop Hero" loading="lazy">
             </div>
         </div>
     </section>
@@ -289,7 +289,7 @@ include('../includes/navbar.html');
                     <div class="product-card">
                         <div>
                             <div class="card-image-placeholder">
-                                <img src="<?= htmlspecialchars($laptop['img_url']) ?>" alt="<?= htmlspecialchars($laptop['name']) ?>" width="250" height="220">
+                                <img src="<?= htmlspecialchars($laptop['img_url']) ?>" alt="<?= htmlspecialchars($laptop['name']) ?>" width="250" height="220" loading="lazy">
                             </div>
                             <h3 class="product-title"><?= htmlspecialchars($laptop['name']) ?></h3>
                             <div class="product-price">₱<?= number_format($laptop['price'], 0) ?></div>
@@ -366,7 +366,7 @@ include('../includes/navbar.html');
                     <div class="product-card">
                         <div>
                             <div class="card-image-placeholder">
-                                <img src="<?= htmlspecialchars($desktop['img_url']) ?>" alt="<?= htmlspecialchars($desktop['name']) ?>" width="250" height="180">
+                                <img src="<?= htmlspecialchars($desktop['img_url']) ?>" alt="<?= htmlspecialchars($desktop['name']) ?>" width="250" height="180" loading="lazy">
                             </div>
                             <h3 class="product-title"><?= htmlspecialchars($desktop['name']) ?></h3>
                             <div class="product-price">₱<?= number_format($desktop['price'], 0) ?></div>
