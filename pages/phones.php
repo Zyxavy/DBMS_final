@@ -15,8 +15,6 @@ require_once __DIR__ . "/../includes/functions.php";
 // Pagcheck kun naka-login an user, kun diri i-redirect ha login page
 checkSession();
 
-include('../includes/navbar.html');
-
 $products = []; // Array para pag store han products tikang database
 
 try {
@@ -60,6 +58,8 @@ try {
     $_SESSION['error_message'] = "Could not connect to the database or fetch product list.";
     $products = [];
 }
+
+include('../includes/navbar.html');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,18 +110,43 @@ try {
             color: #666;
             margin-bottom: 5px;
         }
+
+        .success-message {
+            text-align: center;
+            padding: 20px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            margin: 20px auto;
+            margin-top: 90px;
+            max-width: 800px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 20px;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 800px;
+            color: #721c24;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="landing-page">
     <?php
         if(isset($_SESSION['success_message'])) 
         {
-            echo "<div style='color: green; padding: 10px; border: 1px solid green; background-color: #e6ffe6; margin: 10px auto; max-width: 800px; border-radius: 5px;'>" . htmlspecialchars($_SESSION['success_message']) . "</div>";
+            echo "<div class='success-message'>" . htmlspecialchars($_SESSION['success_message']) . "</div>";
             unset($_SESSION['success_message']);
         }
         if(isset($_SESSION['error_message'])) 
         {
-            echo "<div style='color: red; padding: 10px; border: 1px solid red; background-color: #ffe6e6; margin: 10px auto; max-width: 800px; border-radius: 5px;'>" . htmlspecialchars($_SESSION['error_message']) . "</div>";
+            echo "<div class='error-message'>" . htmlspecialchars($_SESSION['error_message']) . "</div>";
             unset($_SESSION['error_message']);
         }
     ?>
@@ -216,7 +241,7 @@ try {
                             </div>
 
                             <form action="addToCart.php" method="post" class="buy-form">
-                                <input type="hidden" name="redirect" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+                                <input type="hidden" name="redirect" value="phones.php">
                                 <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                                 <input type="number" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>" class="quantity-input" title="Quantity">
                                 <button type="submit" name="add_to_cart" class="btn-primary">Add to Cart</button>
