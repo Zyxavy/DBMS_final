@@ -48,3 +48,8 @@ This project demonstrates practical implementation of database management concep
  - Michael Andre Pacheco
  - John Raymark Binghoy
  - Ryan Palencia Tablate
+
+ 
+ ```bash
+ This project may still get updates once in a while.
+ ```
