@@ -200,6 +200,8 @@ button {
     color: #999;
 }
 
+
+
 @media (max-width: 480px) {
     .login-container, .register-container {
         padding: 30px 20px;

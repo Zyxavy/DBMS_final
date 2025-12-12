@@ -23,9 +23,9 @@
             {
                 if($manage->add_product($product_name,$_POST["category"],$_POST["class"]
                     ,$price,$stock,$ROM,$RAM,$descp)){
-                    redirectToPage("/../pages/admin.php?inserted=1");
+                    redirectToPage("../pages/admin.php?inserted=1");
                 }else{
-                    redirectToPage("/../pages/admin.php?inserted=0");
+                    redirectToPage("../pages/admin.php?inserted=0");
                 }
             }
             break;
@@ -35,32 +35,32 @@
             {
                 if($manage->update_product($product_id,$product_name,$_POST["category"],$_POST["class"]
                     ,$price,$stock,$ROM,$RAM,$descp)){
-                    redirectToPage("/../pages/admin.php?updated=1");
+                    redirectToPage("../pages/admin.php?updated=1");
                 }else{
-                    redirectToPage("/../pages/admin.php?updated=0");
+                    redirectToPage("../pages/admin.php?updated=0");
                 }
             }
             break;
         
         case "DELETE":
             if (empty($product_id) || $product_id === "") {
-                redirectToPage("/../pages/admin.php?deleteStat=0");
+                redirectToPage("../pages/admin.php?deleteStat=0");
                 break;
             }
             if($manage->delete_product($product_id)){
-                redirectToPage("/../pages/admin.php?deleteStat=1");
+                redirectToPage("../pages/admin.php?deleteStat=1");
             }
             else{
-                redirectToPage("/../pages/admin.php?deleteStat=0");
+                redirectToPage("../pages/admin.php?deleteStat=0");
             }
             break;
 
         case "RESET":
              try {
                 $manage->query("SET FOREIGN_KEY_CHECKS = 0;TRUNCATE TABLE products;SET FOREIGN_KEY_CHECKS = 1;",false);
-                redirectToPage("/../pages/admin.php?reset=1");
+                redirectToPage("../pages/admin.php?reset=1");
             }catch (PDOException $e) {
-                redirectToPage("/../pages/admin.php?reset=0");
+                redirectToPage("../pages/admin.php?reset=0");
             }
             break;
 
